@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AplicatieNotite</string>
+    <string name="adaug_notita">Adaugă notiță</string>
+    <string name="adaug_sectiune">Adaugă secțiune</string>
+    <string name="adauga_lista">Adaugă listă</string>
+    <string name="nume_sectiune">Nume secțiune</string>
+    <string name="nume_lista">Nume listă</string>
+    <string name="scrie_aici">Scrie aici</string>
+    <string name="btn_adauga_notita">Buton de adăugare de notiță</string>
+    <string name="btn_adauga_lista">Buton de adăugare de listă</string>
+    <string name="btn_adauga_sectiune">Buton de adăugare de secțiune</string>
+    <string name="logo_aplicatie">Logo aplicatie</string>
+    <string name="data_reminder">Data reminder</string>
+    <string name="titlu_notita">Titlu notita</string>
 </resources>
