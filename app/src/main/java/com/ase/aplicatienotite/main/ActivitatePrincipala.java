@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
@@ -16,12 +17,11 @@ import com.ase.aplicatienotite.notite.NotitaReminder;
 import com.ase.aplicatienotite.notite.TipNotita;
 import com.ase.aplicatienotite.sectiune.Sectiune;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivitatePrincipala extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     List<Sectiune> listaSectiuni=new ArrayList<>();
 
@@ -48,5 +48,15 @@ public class MainActivity extends AppCompatActivity {
         AdapterSectiune adapter=new AdapterSectiune(getApplicationContext(),
                 R.layout.view_sectiune,listaSectiuni,getLayoutInflater());
         lv.setAdapter(adapter);
+
+        ImageButton btnAdauga=findViewById(R.id.btnAdaugareGenerala);
+
+        btnAdauga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ActivitateAdaugareGenerala.class);
+                startActivity(intent);
+            }
+        });
     }
 }

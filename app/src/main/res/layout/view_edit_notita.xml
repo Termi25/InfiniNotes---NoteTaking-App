@@ -55,7 +55,7 @@
         app:layout_constraintStart_toEndOf="@+id/etdReminderAdaugaNotita"
         app:layout_constraintTop_toBottomOf="@+id/tvNumeAdaugaNotita" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvNumeAdaugaNotita"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.605" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="450dp"
@@ -112,16 +112,30 @@
 
     <ImageButton
         android:id="@+id/btnAdaugaNotitaFinal"
-        android:layout_width="70sp"
-        android:layout_height="70sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.333"
         app:srcCompat="@drawable/addition" />
+
+    <ImageButton
+        android:id="@+id/btnAnulareNotita"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.357"
+        app:srcCompat="@drawable/cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
