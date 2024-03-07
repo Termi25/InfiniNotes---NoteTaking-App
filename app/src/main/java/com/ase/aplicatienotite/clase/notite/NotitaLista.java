@@ -1,15 +1,19 @@
-package com.ase.aplicatienotite.notite;
+package com.ase.aplicatienotite.clase.notite;
+
+import androidx.room.Entity;
+import androidx.room.Ignore;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "liste")
 public class NotitaLista extends Notita{
+    @Ignore
     private List<NotitaElementLista> elemente;
 
-    public NotitaLista(int id_notita, int nrOrdine, String titlu,
-                       String corp,TipNotita tip, List<NotitaElementLista> elemente) {
-        super(id_notita, nrOrdine, titlu, corp,tip);
-        this.elemente=elemente;
+    public NotitaLista(String titlu,
+                       String corp) {
+        super(titlu, corp);
     }
 
     public List<NotitaElementLista> getElemente() {

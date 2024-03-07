@@ -6,16 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
-import com.ase.aplicatienotite.notite.Notita;
-import com.ase.aplicatienotite.notite.NotitaReminder;
-import com.ase.aplicatienotite.notite.TipNotita;
-import com.ase.aplicatienotite.sectiune.Sectiune;
+import com.ase.aplicatienotite.baze_date.local.NotiteDB;
+import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.notite.NotitaReminder;
+import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,20 +30,18 @@ public class ActivitatePrincipala extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView lv=findViewById(R.id.lv);
 
-        Sectiune sectiuneNoua=new Sectiune(1,"MISC",null,1,null);
-        Notita notita=new Notita(1,1,"Titlu","corp text", TipNotita.NOTITA);
-        NotitaReminder reminder=new NotitaReminder(1,2,"TitluReminder","corpReminder",
-                TipNotita.REMINDER,new Date());
-        sectiuneNoua.addElementNotita(notita);
-        sectiuneNoua.addElementNotita(reminder);
+        Sectiune sectiuneNoua=new Sectiune("MISC",null);
+        Notita notita=new Notita("Titlu","corp text");
+        NotitaReminder reminder=new NotitaReminder("TitluReminder","corpReminder", new Date());
         sectiuneNoua.addElementNotita(notita);
         sectiuneNoua.addElementNotita(reminder);
         listaSectiuni.add(sectiuneNoua);
-        listaSectiuni.add(sectiuneNoua);
-        listaSectiuni.add(sectiuneNoua);
-        listaSectiuni.add(sectiuneNoua);
-        listaSectiuni.add(sectiuneNoua);
-        listaSectiuni.add(sectiuneNoua);
+
+        NotiteDB bazaDate=NotiteDB.getInstance(getApplicationContext());
+        bazaDate.getNotiteDao().insertSectiune(sectiuneNoua);
+        bazaDate.getNotiteDao().insertSectiune(sectiuneNoua);
+        listaSectiuni=bazaDate.getNotiteDao().selectToateSectiuni();
+
         AdapterSectiune adapter=new AdapterSectiune(getApplicationContext(),
                 R.layout.view_sectiune,listaSectiuni,getLayoutInflater());
         lv.setAdapter(adapter);
@@ -58,5 +55,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 }

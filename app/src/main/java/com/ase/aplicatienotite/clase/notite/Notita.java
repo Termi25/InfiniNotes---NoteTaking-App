@@ -1,20 +1,20 @@
-package com.ase.aplicatienotite.notite;
+package com.ase.aplicatienotite.clase.notite;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+@Entity(tableName = "notite")
 public class Notita implements Serializable {
+    @PrimaryKey(autoGenerate = true)
     private int id_notita;
-    private int nrOrdine;
     private String titlu;
     private String corp;
-    private TipNotita tip;
 
-    public Notita(int id_notita, int nrOrdine, String titlu, String corp, TipNotita tip) {
-        this.id_notita = id_notita;
-        this.nrOrdine = nrOrdine;
+    public Notita(String titlu, String corp) {
         this.titlu = titlu;
         this.corp = corp;
-        this.tip = tip;
     }
 
     public int getId_notita() {
@@ -23,14 +23,6 @@ public class Notita implements Serializable {
 
     public void setId_notita(int id_notita) {
         this.id_notita = id_notita;
-    }
-
-    public int getNrOrdine() {
-        return nrOrdine;
-    }
-
-    public void setNrOrdine(int nrOrdine) {
-        this.nrOrdine = nrOrdine;
     }
 
     public String getTitlu() {
@@ -47,14 +39,6 @@ public class Notita implements Serializable {
 
     public void setCorp(String corp) {
         this.corp = corp;
-    }
-
-    public TipNotita getTip() {
-        return tip;
-    }
-
-    public void setTip(TipNotita tip) {
-        this.tip = tip;
     }
 
     @Override

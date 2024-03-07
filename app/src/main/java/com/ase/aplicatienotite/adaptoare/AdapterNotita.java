@@ -7,17 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ase.aplicatienotite.R;
-import com.ase.aplicatienotite.notite.Notita;
-import com.ase.aplicatienotite.notite.TipNotita;
-import com.ase.aplicatienotite.sectiune.Sectiune;
+import com.ase.aplicatienotite.clase.notite.Notita;
 
 import java.util.List;
 
@@ -45,7 +41,6 @@ public class AdapterNotita extends ArrayAdapter<Notita> {
         if(notita!=null){
             TextView tvNumeNotita=view.findViewById(R.id.tvNumeNotita);
             TextView tvTip=view.findViewById(R.id.tvTip);
-            tvTip.setText(notita.getTip().toString());
 
             tvNumeNotita.setText(notita.getTitlu());
             tvNumeNotita.setTextColor(Color.parseColor("#653024"));

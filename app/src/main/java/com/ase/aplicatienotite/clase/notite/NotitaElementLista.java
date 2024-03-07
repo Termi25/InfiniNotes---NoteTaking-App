@@ -1,9 +1,12 @@
-package com.ase.aplicatienotite.notite;
+package com.ase.aplicatienotite.clase.notite;
 
+import androidx.room.Entity;
+
+@Entity(tableName = "elemente_liste")
 public class NotitaElementLista extends Notita{
     private boolean checked;
-    public NotitaElementLista(int id_notita, int nrOrdine, String titlu, String corp,TipNotita tip) {
-        super(id_notita, nrOrdine, titlu, corp,tip);
+    public NotitaElementLista( String titlu, String corp) {
+        super(titlu, corp);
         checked=false;
     }
 

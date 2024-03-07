@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ase.aplicatienotite.R;
-import com.ase.aplicatienotite.notite.Notita;
-import com.ase.aplicatienotite.sectiune.Sectiune;
+import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
 import java.util.List;

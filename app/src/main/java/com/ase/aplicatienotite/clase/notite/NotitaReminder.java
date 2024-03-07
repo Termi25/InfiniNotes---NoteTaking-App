@@ -1,14 +1,16 @@
-package com.ase.aplicatienotite.notite;
+package com.ase.aplicatienotite.clase.notite;
+
+import androidx.room.Entity;
 
 import java.util.Date;
 
+@Entity(tableName = "remindere")
 public class NotitaReminder extends Notita{
     private Date dataReminder;
-    public NotitaReminder(int id_notita, int nrOrdine, String titlu, String corp,TipNotita tip,Date dataReminder) {
-        super(id_notita, nrOrdine, titlu, corp,tip);
+    public NotitaReminder(String titlu, String corp,Date dataReminder) {
+        super(titlu, corp);
         this.dataReminder=dataReminder;
     }
-
     public Date getDataReminder() {
         return dataReminder;
     }
