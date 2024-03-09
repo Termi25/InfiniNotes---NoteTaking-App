@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.baze_date.local.database;
+package com.ase.aplicatienotite.baze_date.local.repository;
 
 import android.app.Application;
 
@@ -11,8 +11,8 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import java.util.List;
 
 public class SectiuneRepository {
-    private SectiuneDao sectiuneDao;
-    private LiveData<List<Sectiune>> sectiuni;
+    private final SectiuneDao sectiuneDao;
+    private final LiveData<List<Sectiune>> sectiuni;
 
     public SectiuneRepository(Application application) {
         NotiteDB db=NotiteDB.getInstance(application);
@@ -20,11 +20,11 @@ public class SectiuneRepository {
         sectiuni=sectiuneDao.selectToateSectiuni();
     }
 
-    LiveData<List<Sectiune>>getToateSectiuni(){
+    public LiveData<List<Sectiune>>getToateSectiuni(){
         return sectiuni;
     }
 
-    void insert(Sectiune sectiune){
+    public void insert(Sectiune sectiune){
         NotiteDB.databaseWriteExecutor.execute(()->{
             sectiuneDao.insertSectiune(sectiune);
         });

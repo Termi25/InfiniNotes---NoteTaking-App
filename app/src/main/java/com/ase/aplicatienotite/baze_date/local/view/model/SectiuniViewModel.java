@@ -1,12 +1,12 @@
-package com.ase.aplicatienotite.baze_date.local.database;
+package com.ase.aplicatienotite.baze_date.local.view.model;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.ase.aplicatienotite.baze_date.local.database.SectiuneRepository;
+import com.ase.aplicatienotite.baze_date.local.repository.SectiuneRepository;
+import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.List;

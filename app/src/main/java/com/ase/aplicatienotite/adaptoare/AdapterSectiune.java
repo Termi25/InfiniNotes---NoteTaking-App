@@ -1,28 +1,21 @@
-package com.ase.aplicatienotite.baze_date.local.database;
+package com.ase.aplicatienotite.adaptoare;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 
-import com.ase.aplicatienotite.R;
-import com.ase.aplicatienotite.baze_date.local.database.SectiuneViewHolder;
-import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder;
+import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
+
+    private SectiuniViewModel sectiuneViewModel;
 
     public AdapterSectiune(@NonNull DiffUtil.ItemCallback<Sectiune> diffCallback) {
         super(diffCallback);
@@ -36,7 +29,7 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull SectiuneViewHolder holder, int position) {
         Sectiune curenta=getItem(position);
-        holder.bind(curenta.getDenumireSectiune());
+        holder.bind(curenta);
     }
 
     public static class SectiuneDiff extends DiffUtil.ItemCallback<Sectiune>{

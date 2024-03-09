@@ -29,7 +29,7 @@ public abstract class NotiteDB extends RoomDatabase {
     public static final String notiteDB="notite.db";
     private static NotiteDB instanta;
     private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     public synchronized static NotiteDB getInstance(Context context){
         if(instanta==null){
             instanta= Room.databaseBuilder(context,

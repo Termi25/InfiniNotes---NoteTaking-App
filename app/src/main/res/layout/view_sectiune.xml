@@ -4,26 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
-    android:layout_height="200sp"
+    android:layout_height="150sp"
     android:layout_margin="5sp"
     android:background="@drawable/border_listviewprincipal">
-
-    <!--    <ListView-->
-    <!--        android:id="@+id/lvListe"-->
-    <!--        android:layout_width="365dp"-->
-    <!--        android:layout_height="130dp"-->
-    <!--        android:scrollbarAlwaysDrawVerticalTrack="true"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.478"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tvNumeSectiune"-->
-    <!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <TextView
         android:id="@+id/tvNumeSectiune"
         android:layout_width="0dp"
-        android:layout_height="30sp"
+        android:layout_height="40sp"
         android:layout_margin="20sp"
         android:layout_marginBottom="400sp"
         android:fontFamily="@font/alata"
@@ -35,5 +23,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvNotita1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumeSectiune"
+        app:layout_constraintVertical_bias="0.197" />
+
+    <TextView
+        android:id="@+id/tvNotita2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotita1"
+        app:layout_constraintVertical_bias="0.381" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
