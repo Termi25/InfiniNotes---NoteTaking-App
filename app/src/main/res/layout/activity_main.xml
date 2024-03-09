@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/addition" />
 
     <ImageButton
@@ -30,26 +30,40 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.024"
         app:srcCompat="@drawable/logo_centrat_app" />
 
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_main"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="20sp"
+        android:layout_margin="10sp"
         android:background="@drawable/border_listviewprincipal"
+        android:padding="10sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAdaugareGenerala"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.333" />
 
-    </ListView>
+    <!--    <ListView-->
+<!--        android:id="@+id/lv"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_margin="20sp"-->
+<!--        android:background="@drawable/border_listviewprincipal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnAdaugareGenerala"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.4"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageButton"-->
+<!--        app:layout_constraintVertical_bias="0.0">-->
+
+<!--    </ListView>-->
 
     <TextView
         android:id="@+id/textView8"

@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.baze_date.local;
+package com.ase.aplicatienotite.baze_date.local.convertori;
 
 import androidx.room.TypeConverter;
 

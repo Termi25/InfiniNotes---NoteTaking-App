@@ -11,7 +11,7 @@ import java.util.List;
 @Entity(tableName = "sectiuni")
 public class Sectiune {
     @PrimaryKey(autoGenerate = true)
-    private int id_sectiune;
+    private int sectiuneId;
     private String denumireSectiune;
     private String culoareSectiune;
     @Ignore
@@ -22,12 +22,12 @@ public class Sectiune {
         this.culoareSectiune = culoareSectiune;
     }
 
-    public int getId_sectiune() {
-        return id_sectiune;
+    public int getSectiuneId() {
+        return sectiuneId;
     }
 
-    public void setId_sectiune(int id_sectiune) {
-        this.id_sectiune = id_sectiune;
+    public void setSectiuneId(int sectiuneId) {
+        this.sectiuneId = sectiuneId;
     }
 
     public String getDenumireSectiune() {

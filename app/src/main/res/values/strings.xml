@@ -12,4 +12,5 @@
     <string name="logo_aplicatie">Logo aplicatie</string>
     <string name="data_reminder">Data reminder</string>
     <string name="titlu_notita">Titlu notita</string>
+    <string name="no_save_sectiunea">Nu s-a salvat sectiunea</string>
 </resources>

@@ -5,24 +5,25 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "notite")
+@Entity(tableName = "notite",foreignKeys = {})
 public class Notita implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int id_notita;
+    private int notitaId;
     private String titlu;
     private String corp;
+
 
     public Notita(String titlu, String corp) {
         this.titlu = titlu;
         this.corp = corp;
     }
 
-    public int getId_notita() {
-        return id_notita;
+    public int getNotitaId() {
+        return notitaId;
     }
 
-    public void setId_notita(int id_notita) {
-        this.id_notita = id_notita;
+    public void setNotitaId(int notitaId) {
+        this.notitaId = notitaId;
     }
 
     public String getTitlu() {
