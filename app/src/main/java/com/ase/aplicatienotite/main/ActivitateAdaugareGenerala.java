@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ase.aplicatienotite.R;
+import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
@@ -22,8 +25,6 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
     List<Sectiune> listaSectiuni=new ArrayList<>();
 
     public static final String EXTRA_REPLY = "com.example.android.sectiunelistsql.REPLY";
-
-    private EditText etNumeSectiune;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
             }
         });
 
-        etNumeSectiune = findViewById(R.id.etNumeAdaugaSectiune);
+        EditText etNumeSectiune = findViewById(R.id.etNumeAdaugaSectiune);
 
         final ImageButton button = findViewById(R.id.btnAdaugaSectiune);
         button.setOnClickListener(view -> {
@@ -51,6 +52,32 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
+        });
+
+        launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
+            if(result.getResultCode()==RESULT_OK){
+                Intent data=result.getData();
+                if(data!=null){
+                    Sectiune sectiune=new Sectiune(data.getStringExtra(ActivitateAdaugareGenerala.EXTRA_REPLY),
+                            null);
+                    NotiteDB.databaseWriteExecutor.execute(()->{
+                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                        Sectiune misc=new Sectiune("MISC",null);
+                        db.getSectiuneDao().insertSectiune(misc);
+                    });
+                }
+            }else{
+                Toast.makeText(getApplicationContext(), R.string.no_save_sectiunea,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        ImageButton btnAdaugaNotita=findViewById(R.id.btnAdaugaNotita);
+        btnAdaugaNotita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ActivitateAdaugaNotita.class);
+                launcher.launch(intent);
+            }
         });
     }
 }

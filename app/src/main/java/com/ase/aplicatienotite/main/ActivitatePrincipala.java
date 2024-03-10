@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
+import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
@@ -41,23 +42,22 @@ public class ActivitatePrincipala extends AppCompatActivity {
         rlv.setLayoutManager(new LinearLayoutManager(this));
 
         sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+
         sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
-            Notita a=new Notita("ceva","altceva");
-            List<Notita>lista=new ArrayList<>();
-            lista.add(a);
-            for (final ListIterator<Sectiune> i = sectiuni.listIterator(); i.hasNext();) {
-                final Sectiune element = i.next();
-//                    element.setNotite(notitePerSectiuni.get(element));
-                element.setNotite(lista);
-                i.set(element);
-            }
-            List<Sectiune>listaSectiuni=new ArrayList<>();
+            boolean existaMisc=false;
             for(int i=0;i<sectiuni.size();i++){
-                Sectiune noua=sectiuni.get(i);
-                noua.setNotite(lista);
-                listaSectiuni.add(noua);
+                if(sectiuni.get(i).getDenumireSectiune().equals("MISC")){
+                    existaMisc=true;
+                }
             }
-            adapter.submitList(listaSectiuni);
+            if(!existaMisc){
+                NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                    Sectiune misc=new Sectiune("MISC",null);
+                    db.getSectiuneDao().insertSectiune(misc);
+                });
+            }
+            adapter.submitList(sectiuni);
         });
 
         ImageButton btnAdauga=findViewById(R.id.btnAdaugareGenerala);
@@ -81,5 +81,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
+
     }
 }

@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.ActivitateAdaugareGenerala"
-            android:exported="false"></activity>
+            android:exported="false"/>
+        <activity android:name=".main.ActivitateAdaugaNotita"
+            android:exported="false"/>
     </application>
 
 </manifest>

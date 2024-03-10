@@ -13,4 +13,5 @@
     <string name="data_reminder">Data reminder</string>
     <string name="titlu_notita">Titlu notita</string>
     <string name="no_save_sectiunea">Nu s-a salvat sectiunea</string>
+    <string name="btn_data_reminder">Data reminder</string>
 </resources>

@@ -5,13 +5,12 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "notite",foreignKeys = {})
+@Entity(tableName = "notite")
 public class Notita implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int notitaId;
     private String titlu;
     private String corp;
-
 
     public Notita(String titlu, String corp) {
         this.titlu = titlu;
