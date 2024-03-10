@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -17,10 +18,12 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ActivitatePrincipala extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
@@ -37,32 +40,22 @@ public class ActivitatePrincipala extends AppCompatActivity {
         rlv.setAdapter(adapter);
         rlv.setLayoutManager(new LinearLayoutManager(this));
 
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
-
-        sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
-            boolean existaMisc=false;
-            for(int i=0;i<sectiuni.size();i++){
-                if(sectiuni.get(i).getDenumireSectiune().equals("MISC")){
-                    existaMisc=true;
-                }
-            }
-            if(!existaMisc){
-                NotiteDB.databaseWriteExecutor.execute(()->{
-                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune misc=new Sectiune(getString(R.string.misc),null);
-                    db.getSectiuneDao().insertSectiune(misc);
-                });
-            }
-            adapter.submitList(sectiuni);
-        });
+        incarcareRecyclerView(adapter);
 
         ImageButton btnAdauga=findViewById(R.id.btnAdaugareGenerala);
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
-                Intent data=result.getData();
-                if(data!=null){
-                    Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
+
+                NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                    List<Sectiune>sectiuni = db.getSectiuneDao().selectToateSectiuniNoLive();
+                    for(int i = 0; i< sectiuni.size(); i++){
+                        sectiuni.get(i).setNotite(db.getSectiuneNotiteJoinDao().
+                                getNotitePentruSectiune(sectiuni.get(i).getSectiuneId()));
+                    }
+                    adapter.submitList(sectiuni);
+                });
             }else{
                 Toast.makeText(getApplicationContext(), getString(R.string.modificari_esec) ,Toast.LENGTH_LONG).show();
             }
@@ -76,5 +69,27 @@ public class ActivitatePrincipala extends AppCompatActivity {
             }
         });
 
+    }
+
+    void incarcareRecyclerView(AdapterSectiune adapter){
+        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+
+        sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
+            if(sectiuni.isEmpty()){
+                NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                    Sectiune misc=new Sectiune(getString(R.string.misc),null);
+                    db.getSectiuneDao().insertSectiune(misc);
+                });
+            }
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                for(int i=0;i<sectiuni.size();i++){
+                    sectiuni.get(i).setNotite(db.getSectiuneNotiteJoinDao().
+                            getNotitePentruSectiune(sectiuni.get(i).getSectiuneId()));
+                }
+            });
+            adapter.submitList(sectiuni);
+        });
     }
 }

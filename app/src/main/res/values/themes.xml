@@ -10,4 +10,12 @@
     <style name="Button.Brown" parent="ThemeOverlay.AppCompat">
         <item name="colorAccent">@color/brown</item>
     </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="background">@drawable/border_listviewprincipal</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="background">@color/beige</item>
+    </style>
 </resources>

@@ -20,6 +20,8 @@ public interface SectiuneDao {
 
     @Query("SELECT * FROM sectiuni")
     LiveData<List<Sectiune>> selectToateSectiuni();
+    @Query("SELECT * FROM sectiuni")
+    List<Sectiune> selectToateSectiuniNoLive();
 
     @Query("SELECT * FROM sectiuni WHERE denumireSectiune=:denumire")
     Sectiune getSectiuneCuDenumire(String denumire);

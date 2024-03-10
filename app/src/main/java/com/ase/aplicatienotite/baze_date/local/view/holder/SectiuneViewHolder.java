@@ -32,10 +32,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
         if(sectiune.getNotite()!=null){
-            Log.w("TEST",sectiune.getNotite().get(0).getTitlu());
-            Log.w("TEST", String.valueOf(sectiune.getNotite().size()));
             if(sectiune.getNotite().size()>1){
-                Log.w("TEST", sectiune.getNotite().toString());
                 tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
                 tvNumeNotita2.setText(sectiune.getNotite().get(1).getTitlu());
             }else{

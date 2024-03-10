@@ -1,5 +1,6 @@
 package com.ase.aplicatienotite.baze_date.local.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,14 +16,14 @@ import java.util.Map;
 
 @Dao
 public interface SectiuneNotiteJoinDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     void insert(SectiuneNotiteJoin legatura);
 
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId")
     List<Notita> getNotitePentruSectiune(final int sectiuneId);
 
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId GROUP BY sectiune_notita_join.sectiuneId")
-    Map<Sectiune,List<Notita>> getNotitePentruSectiuni();
+    LiveData<Map<Sectiune,List<Notita>>> getNotitePentruSectiuni();
 
     @Delete
     void deleteLegatura(SectiuneNotiteJoin legatura);

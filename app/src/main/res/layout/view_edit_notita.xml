@@ -18,11 +18,11 @@
         android:layout_marginBottom="10sp"
         android:background="@drawable/border_listviewprincipal"
         android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btnReminderAdaugaNotita"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumeAdaugaNotita" />
+        app:layout_constraintTop_toBottomOf="@+id/etNumeAdaugaNotita" />
 
     <Button
         android:id="@+id/btnReminderAdaugaNotita"
@@ -44,11 +44,11 @@
         android:textColorLink="@color/brown"
         android:textSize="14sp"
         android:theme="@style/Button.Brown"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.809"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumeAdaugaNotita" />
+        app:layout_constraintTop_toBottomOf="@+id/etNumeAdaugaNotita" />
 
     <Spinner
         android:id="@+id/spSectiuneAdaugaNotita"
@@ -60,14 +60,14 @@
         android:layout_marginBottom="10sp"
         android:background="@drawable/border_listviewprincipal"
         android:padding="5sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
         app:layout_constraintEnd_toStartOf="@+id/spListaAdaugaNotita"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toEndOf="@+id/btnReminderAdaugaNotita"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumeAdaugaNotita" />
+        app:layout_constraintTop_toBottomOf="@+id/etNumeAdaugaNotita" />
 
     <EditText
-        android:id="@+id/tvNumeAdaugaNotita"
+        android:id="@+id/etNumeAdaugaNotita"
         android:layout_width="372dp"
         android:layout_height="0dp"
         android:layout_marginStart="20sp"
@@ -82,7 +82,7 @@
         android:paddingEnd="10sp"
         android:textColorHint="@color/grey"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
         app:layout_constraintVertical_bias="0.605" />
 
     <EditText
-        android:id="@+id/textView2"
+        android:id="@+id/etCorpTextNotita"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20sp"
@@ -120,7 +120,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="Logo aplicatie"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/tvNumeAdaugaNotita"
+        app:layout_constraintBottom_toTopOf="@+id/etNumeAdaugaNotita"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
         app:layout_constraintVertical_bias="0.333"
         app:srcCompat="@drawable/addition" />
 
@@ -155,7 +155,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
         app:layout_constraintVertical_bias="0.357"
         app:srcCompat="@drawable/cancel" />
 

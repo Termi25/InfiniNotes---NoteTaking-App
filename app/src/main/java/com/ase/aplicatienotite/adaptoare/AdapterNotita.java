@@ -20,7 +20,6 @@ import java.util.List;
 public class AdapterNotita extends ArrayAdapter<Notita> {
     private Context context;
     private int resource;
-
     private List<Notita> listaNotite;
     private LayoutInflater inflater;
     public AdapterNotita(@NonNull Context context, int resource,
@@ -40,7 +39,6 @@ public class AdapterNotita extends ArrayAdapter<Notita> {
         Log.println(Log.DEBUG,"NOTITA", String.valueOf(listaNotite.size()));
         if(notita!=null){
             TextView tvNumeNotita=view.findViewById(R.id.tvNumeNotita);
-            TextView tvTip=view.findViewById(R.id.tvTip);
 
             tvNumeNotita.setText(notita.getTitlu());
             tvNumeNotita.setTextColor(Color.parseColor("#653024"));

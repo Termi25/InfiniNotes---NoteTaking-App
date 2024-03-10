@@ -70,8 +70,10 @@ public class Sectiune {
     @Override
     public String toString() {
         StringBuilder deReturnat= new StringBuilder(denumireSectiune + "\n\n");
-        for(int i=0;i<notite.size();i++){
-            deReturnat.append(notite.get(i).toString()).append('\n');
+        if(notite!=null){
+            for(int i=0;i<notite.size();i++){
+                deReturnat.append(notite.get(i).toString()).append('\n');
+            }
         }
         return deReturnat.toString();
     }
