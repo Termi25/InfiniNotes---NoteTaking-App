@@ -24,8 +24,6 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     List<Sectiune> listaSectiuni=new ArrayList<>();
 
-    public static final String EXTRA_REPLY = "com.example.android.sectiunelistsql.REPLY";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,27 +43,23 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
         button.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             if (TextUtils.isEmpty(etNumeSectiune.getText())) {
-                setResult(RESULT_CANCELED, replyIntent);
+                setResult(RESULT_CANCELED);
             } else {
                 String word = etNumeSectiune.getText().toString();
-                replyIntent.putExtra(EXTRA_REPLY, word);
-                setResult(RESULT_OK, replyIntent);
+                NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                    Sectiune sectiuneNoua=new Sectiune(word,null);
+                    db.getSectiuneDao().insertSectiune(sectiuneNoua);
+                });
+                setResult(RESULT_OK);
             }
             finish();
         });
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
-                Intent data=result.getData();
-                if(data!=null){
-                    Sectiune sectiune=new Sectiune(data.getStringExtra(ActivitateAdaugareGenerala.EXTRA_REPLY),
-                            null);
-                    NotiteDB.databaseWriteExecutor.execute(()->{
-                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                        Sectiune misc=new Sectiune("MISC",null);
-                        db.getSectiuneDao().insertSectiune(misc);
-                    });
-                }
+                setResult(RESULT_OK);
+                finish();
             }else{
                 setResult(RESULT_CANCELED);
                 finish();

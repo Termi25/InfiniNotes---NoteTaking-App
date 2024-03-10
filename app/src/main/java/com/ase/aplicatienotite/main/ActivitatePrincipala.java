@@ -3,7 +3,6 @@ package com.ase.aplicatienotite.main;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +17,10 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
-import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
 public class ActivitatePrincipala extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
@@ -53,7 +49,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
             if(!existaMisc){
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune misc=new Sectiune("MISC",null);
+                    Sectiune misc=new Sectiune(getString(R.string.misc),null);
                     db.getSectiuneDao().insertSectiune(misc);
                 });
             }
@@ -65,12 +61,10 @@ public class ActivitatePrincipala extends AppCompatActivity {
             if(result.getResultCode()==RESULT_OK){
                 Intent data=result.getData();
                 if(data!=null){
-                    Sectiune sectiune=new Sectiune(data.getStringExtra(ActivitateAdaugareGenerala.EXTRA_REPLY),
-                            null);
-                    sectiuneViewModel.insert(sectiune);
+                    Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
                 }
             }else{
-                Toast.makeText(getApplicationContext(), R.string.no_save_sectiunea,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.modificari_esec) ,Toast.LENGTH_LONG).show();
             }
         });
 

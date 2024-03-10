@@ -14,4 +14,7 @@
     <string name="titlu_notita">Titlu notita</string>
     <string name="no_save_sectiunea">Nu s-a salvat sectiunea</string>
     <string name="btn_data_reminder">Data reminder</string>
+    <string name="misc">MISC</string>
+    <string name="modificari_succes">Modificări efectuate cu succes!</string>
+    <string name="modificari_esec">Nu s-au salvat modificări.</string>
 </resources>
