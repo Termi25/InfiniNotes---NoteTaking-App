@@ -67,7 +67,8 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                     });
                 }
             }else{
-                Toast.makeText(getApplicationContext(), R.string.no_save_sectiunea,Toast.LENGTH_LONG).show();
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
 
