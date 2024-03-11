@@ -7,13 +7,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
@@ -21,6 +29,12 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -68,6 +82,28 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
+
+//        OpenWeather API call for data
+        RequestQueue req= Volley.newRequestQueue(ActivitatePrincipala.this);
+        String url="https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily,minutely,alerts&appid=05987edfedbcbe1197c36442da3058cd";
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,
+                url,
+                null,
+                (Response.Listener<JSONObject>) response->{
+                    String fisier;
+                    try{
+                        fisier=response.getString("current");
+                        System.out.println(fisier);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                },
+                (Response.ErrorListener) error -> {
+                    Toast.makeText(ActivitatePrincipala.this, "Some error occurred! Cannot fetch dog image", Toast.LENGTH_LONG).show();
+                    Log.e("MainActivity", "loadDogImage error: ${error.localizedMessage}");
+                } );
+        req.add(jsonObjectRequest);
+
 
     }
 
