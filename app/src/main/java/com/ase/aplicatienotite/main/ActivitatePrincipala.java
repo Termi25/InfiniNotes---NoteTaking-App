@@ -85,7 +85,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
 //        OpenWeather API call for data
         RequestQueue req= Volley.newRequestQueue(ActivitatePrincipala.this);
-        String url="https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily,minutely,alerts&appid=";
+        String url="https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily,minutely,alerts&appid="+String.valueOf(R.string.cheie);
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,
                 url,
                 null,
