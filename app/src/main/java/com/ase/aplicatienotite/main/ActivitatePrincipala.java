@@ -32,9 +32,14 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -82,28 +87,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
-
-//        OpenWeather API call for data
-        RequestQueue req= Volley.newRequestQueue(ActivitatePrincipala.this);
-        String url="https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily,minutely,alerts&appid="+String.valueOf(R.string.cheie);
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                (Response.Listener<JSONObject>) response->{
-                    String fisier;
-                    try{
-                        fisier=response.getString("current");
-                        System.out.println(fisier);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                },
-                (Response.ErrorListener) error -> {
-                    Toast.makeText(ActivitatePrincipala.this, "Some error occurred! Cannot fetch dog image", Toast.LENGTH_LONG).show();
-                    Log.e("MainActivity", "loadDogImage error: ${error.localizedMessage}");
-                } );
-        req.add(jsonObjectRequest);
-
 
     }
 
