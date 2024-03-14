@@ -28,10 +28,9 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="10sp"
-        android:layout_marginStart="10sp"
         android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
         android:contentDescription="@string/logo_aplicatie"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,6 +40,7 @@
         app:srcCompat="@drawable/logo_centrat_app" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_margin="10sp"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        custom:setDataProvider="cheie.txt"/>
+        custom:setDataProvider="cheie.txt" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rlv_main"
@@ -65,11 +65,10 @@
         android:padding="10sp"
         app:layout_constraintBottom_toTopOf="@+id/btnAdaugareGenerala"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

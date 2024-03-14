@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="@color/beige"
+    android:background="@drawable/border_listviewprincipal_unrounded"
     android:theme="@style/Button.Brown">
 
     <Spinner
@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="125sp"
         android:layout_marginTop="10sp"
-        android:layout_marginEnd="20sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="10sp"
         android:background="@drawable/border_listviewprincipal"
         android:padding="5dp"
@@ -28,11 +28,11 @@
         android:id="@+id/btnReminderAdaugaNotita"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="20sp"
+        android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
-        android:layout_marginEnd="270sp"
+        android:layout_marginEnd="250sp"
         android:layout_marginBottom="10sp"
-        android:background="@drawable/btn_selector_skin"
+        android:background="@drawable/btn_selector_skin_brown"
         android:ems="10"
         android:fontFamily="@font/alata"
         android:gravity="center"
@@ -42,7 +42,7 @@
         android:textColorHighlight="@color/brown"
         android:textColorHint="@color/grey"
         android:textColorLink="@color/brown"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:theme="@style/Button.Brown"
         app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,11 +68,11 @@
 
     <EditText
         android:id="@+id/etNumeAdaugaNotita"
-        android:layout_width="372dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20sp"
+        android:layout_marginStart="10sp"
         android:layout_marginTop="90sp"
-        android:layout_marginEnd="20sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="60sp"
         android:background="@drawable/border_listviewprincipal"
         android:fontFamily="@font/alata"
@@ -93,9 +93,9 @@
         android:id="@+id/etCorpTextNotita"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20sp"
+        android:layout_marginStart="10sp"
         android:layout_marginTop="200sp"
-        android:layout_marginEnd="20sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="100sp"
         android:background="@drawable/border_listviewprincipal"
         android:gravity="start"
@@ -111,20 +111,18 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="20sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginEnd="325sp"
-        android:layout_marginBottom="10sp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="10sp"
         android:background="#00FFFFFF"
         android:contentDescription="Logo aplicatie"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/etNumeAdaugaNotita"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_centrat_app" />
 
     <ImageButton
@@ -158,5 +156,16 @@
         app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
         app:layout_constraintVertical_bias="0.357"
         app:srcCompat="@drawable/cancel" />
+
+    <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="1dp"
+        android:background="@drawable/btn_selector_skin_brown"
+        app:layout_constraintBottom_toTopOf="@+id/etNumeAdaugaNotita"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

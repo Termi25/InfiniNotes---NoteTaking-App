@@ -101,9 +101,9 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                             db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
                         });
                     }
+                    setResult(RESULT_OK);
+                    finish();
                 }
-            setResult(RESULT_OK);
-            finish();
         });
     }
 }

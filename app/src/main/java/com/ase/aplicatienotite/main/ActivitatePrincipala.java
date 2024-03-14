@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,6 +29,7 @@ import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
