@@ -1,9 +1,14 @@
 package com.ase.aplicatienotite.baze_date.local.view.holder;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +20,7 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterNotita;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.main.ActivitateVizualNotiteSectiune;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +29,14 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeSectiune;
     private final TextView tvNumeNotita1;
     private final TextView tvNumeNotita2;
+    private final Button btnVizualizareNotiteDinSectiune;
+    private static Context context;
     public SectiuneViewHolder(@NonNull View itemView) {
         super(itemView);
         tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);
         tvNumeNotita1=itemView.findViewById(R.id.tvNotita1);
         tvNumeNotita2=itemView.findViewById(R.id.tvNotita2);
+        btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
     }
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
@@ -41,11 +50,17 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         }
+        btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
+            Log.d("TEST","S-a apasat butonul pentru sectiunea "+String.valueOf(sectiune.getSectiuneId()));
+            Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);
+            startActivity(context,intent,null);
+        });
     }
 
     public static SectiuneViewHolder create(ViewGroup parent){
         View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_sectiune,parent,false);
+        context=parent.getContext();
         return new SectiuneViewHolder(view);
     }
 }

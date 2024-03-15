@@ -9,7 +9,7 @@ import com.ase.aplicatienotite.clase.notite.Notita;
 import java.util.List;
 
 @Dao
-public interface NotiteDao {
+public interface NotitaDao {
     @Insert
     void insertNotita(Notita notita);
 
@@ -21,4 +21,7 @@ public interface NotiteDao {
 
     @Query("SELECT * FROM notite WHERE titlu=:titlu")
     Notita getNotitaDupaTitlu(String titlu);
+
+    @Query("SELECT * FROM notite")
+    List<Notita> getToateNotitele();
 }

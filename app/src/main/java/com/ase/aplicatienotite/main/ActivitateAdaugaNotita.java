@@ -89,9 +89,9 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                                     String.valueOf(etCorpNotita.getText()));
 
                             NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                            db.getNotiteDao().insertNotita(notitaNoua);
+                            db.getNotitaDao().insertNotita(notitaNoua);
 
-                            notitaNoua.setNotitaId(db.getNotiteDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
+                            notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
                             System.out.println(notitaNoua.getNotitaId());
                             Sectiune sectiuneDeLegat=db.getSectiuneDao().
                                     getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());

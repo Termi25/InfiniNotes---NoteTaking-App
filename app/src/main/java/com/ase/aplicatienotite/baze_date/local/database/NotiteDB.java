@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
-import com.ase.aplicatienotite.baze_date.local.dao.NotiteDao;
+import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteJoinDao;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
@@ -40,7 +40,7 @@ public abstract class NotiteDB extends RoomDatabase {
         return instanta;
     }
 
-    public abstract NotiteDao getNotiteDao();
+    public abstract NotitaDao getNotitaDao();
     public abstract SectiuneDao getSectiuneDao();
     public abstract SectiuneNotiteJoinDao getSectiuneNotiteJoinDao();
 }

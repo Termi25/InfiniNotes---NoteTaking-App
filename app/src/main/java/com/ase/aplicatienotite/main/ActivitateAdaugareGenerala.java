@@ -45,6 +45,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
             if (TextUtils.isEmpty(etNumeSectiune.getText())) {
                 setResult(RESULT_CANCELED);
             } else {
+                // TO-DO: DAT REINFORCE LA UNIQUE PENTRU CAMPUL DENUMIRE SECTIUNE
                 String word = etNumeSectiune.getText().toString();
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());

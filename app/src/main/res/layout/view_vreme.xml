@@ -24,7 +24,7 @@
 
     <ImageView
         android:id="@+id/imgVVremeIcon"
-        android:background="@drawable/button_skin_white"
+        android:background="@drawable/button_skin_blue"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"

@@ -4,34 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
-    android:layout_height="120sp"
+    android:layout_height="wrap_content"
     android:layout_margin="2sp"
-    android:background="@drawable/border_listviewprincipal">
+    android:background="@drawable/border_listviewprincipal"
+    android:padding="5sp"
+    android:paddingStart="10sp"
+    android:paddingEnd="10sp"
+    android:paddingBottom="10sp">
 
     <TextView
         android:id="@+id/tvNumeSectiune"
         android:layout_width="0dp"
-        android:layout_height="40sp"
-        android:layout_margin="10sp"
-        android:layout_marginBottom="400sp"
+        android:layout_height="30sp"
         android:fontFamily="@font/alata"
-        android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <TextView
         android:id="@+id/tvNotita1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_marginTop="5sp"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNumeSectiune"
         app:layout_constraintVertical_bias="0.0" />
@@ -40,12 +40,29 @@
         android:id="@+id/tvNotita2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_marginBottom="5sp"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNotita1"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnVizualNotiteSectiune"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#00FFFFFF"
+        android:shadowColor="#00FFFFFF"
+        android:singleLine="true"
+        android:stateListAnimator="@null"
+        android:textColor="#00FFFFFF"
+        android:textColorHighlight="#00FFFFFF"
+        android:textColorHint="#00FFFFFF"
+        android:textColorLink="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNotita2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNumeSectiune" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

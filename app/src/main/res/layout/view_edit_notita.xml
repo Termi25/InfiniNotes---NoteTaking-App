@@ -80,6 +80,7 @@
         android:padding="5sp"
         android:paddingStart="10sp"
         android:paddingEnd="10sp"
+        android:singleLine="true"
         android:textColorHint="@color/grey"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/etCorpTextNotita"
