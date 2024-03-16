@@ -2,13 +2,15 @@ package com.ase.aplicatienotite.clase.sectiune;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.ase.aplicatienotite.clase.notite.Notita;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "sectiuni")
+@Entity(tableName = "sectiuni",indices = {@Index(value = {"denumireSectiune"},
+        unique = true)})
 public class Sectiune {
     @PrimaryKey(autoGenerate = true)
     private int sectiuneId;

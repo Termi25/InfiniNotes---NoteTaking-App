@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Notita.class, NotitaElementLista.class,
-        NotitaLista.class, NotitaReminder.class, Sectiune.class,SectiuneNotiteJoin.class},version=4,
+        NotitaLista.class, NotitaReminder.class, Sectiune.class,SectiuneNotiteJoin.class},version=5,
         exportSchema = false)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {

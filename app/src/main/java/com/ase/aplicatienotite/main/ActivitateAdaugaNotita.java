@@ -83,26 +83,30 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                     etTitluNotita.setError("Titlu este necesar pentru salvare.");
                 }else{
                     if(btnReminderNotita.getText().equals("Data reminder")){
-                        NotiteDB.databaseWriteExecutor.execute(()->{
-                            EditText etCorpNotita=findViewById(R.id.etCorpTextNotita);
-                            Notita notitaNoua=new Notita(String.valueOf(etTitluNotita.getText()),
-                                    String.valueOf(etCorpNotita.getText()));
+                                NotiteDB.databaseWriteExecutor.execute(()->{
+                                    EditText etCorpNotita=findViewById(R.id.etCorpTextNotita);
+                                    Notita notitaNoua=new Notita(String.valueOf(etTitluNotita.getText()),
+                                            String.valueOf(etCorpNotita.getText()));
 
-                            NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                            db.getNotitaDao().insertNotita(notitaNoua);
+                                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                                    try{
+                                        db.getNotitaDao().insertNotita(notitaNoua);
 
-                            notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
-                            System.out.println(notitaNoua.getNotitaId());
-                            Sectiune sectiuneDeLegat=db.getSectiuneDao().
-                                    getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+                                        notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
+                                        System.out.println(notitaNoua.getNotitaId());
+                                        Sectiune sectiuneDeLegat=db.getSectiuneDao().
+                                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
 
-                            SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
-                                    sectiuneDeLegat.getSectiuneId());
-                            db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
-                        });
+                                        SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
+                                                sectiuneDeLegat.getSectiuneId());
+                                        db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
+                                        setResult(RESULT_OK);
+                                        finish();
+                                    }catch (Exception e){
+                                        runOnUiThread(() -> etTitluNotita.setError("Titlu este deja utilizat, incercati alta denumire."));
+                                    }
+                                });
                     }
-                    setResult(RESULT_OK);
-                    finish();
                 }
         });
     }

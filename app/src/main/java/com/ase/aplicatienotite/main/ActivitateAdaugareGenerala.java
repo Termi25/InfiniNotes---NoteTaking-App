@@ -45,16 +45,21 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
             if (TextUtils.isEmpty(etNumeSectiune.getText())) {
                 setResult(RESULT_CANCELED);
             } else {
-                // TO-DO: DAT REINFORCE LA UNIQUE PENTRU CAMPUL DENUMIRE SECTIUNE
-                String word = etNumeSectiune.getText().toString();
+                String numeSectiune = etNumeSectiune.getText().toString();
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune sectiuneNoua=new Sectiune(word,null);
-                    db.getSectiuneDao().insertSectiune(sectiuneNoua);
+                    Sectiune sectiuneNoua=new Sectiune(numeSectiune,null);
+                    try{
+                        db.getSectiuneDao().insertSectiune(sectiuneNoua);
+
+                        setResult(RESULT_OK);
+                        finish();
+                    }catch (Exception e){
+                        runOnUiThread(()->etNumeSectiune.setError("Sectiunea deja exista, alegeti alta denumire"));
+                    }
                 });
-                setResult(RESULT_OK);
             }
-            finish();
+
         });
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{

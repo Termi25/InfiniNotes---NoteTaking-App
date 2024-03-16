@@ -1,11 +1,13 @@
 package com.ase.aplicatienotite.clase.notite;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "notite")
+@Entity(tableName = "notite",indices = {@Index(value = {"titlu"},
+        unique = true)})
 public class Notita implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int notitaId;
