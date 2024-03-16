@@ -4,26 +4,19 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
-import com.ase.aplicatienotite.adaptoare.AdapterNotita;
-import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.main.ActivitateVizualNotiteSectiune;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeSectiune;
@@ -51,8 +44,8 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
             }
         }
         btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
-            Log.d("TEST","S-a apasat butonul pentru sectiunea "+String.valueOf(sectiune.getSectiuneId()));
             Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);
+            intent.putExtra("codSectiune",sectiune.getSectiuneId());
             startActivity(context,intent,null);
         });
     }

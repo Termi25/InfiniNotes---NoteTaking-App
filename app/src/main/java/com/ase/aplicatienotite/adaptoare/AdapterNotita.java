@@ -1,48 +1,48 @@
 package com.ase.aplicatienotite.adaptoare;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 
-import com.ase.aplicatienotite.R;
+import com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneNotiteJoinViewHolder;
+import com.ase.aplicatienotite.baze_date.local.view.model.SectiuneNotiteJoinViewModel;
 import com.ase.aplicatienotite.clase.notite.Notita;
 
-import java.util.List;
+import java.util.Objects;
 
-public class AdapterNotita extends ArrayAdapter<Notita> {
-    private Context context;
-    private int resource;
-    private List<Notita> listaNotite;
-    private LayoutInflater inflater;
-    public AdapterNotita(@NonNull Context context, int resource,
-                           List<Notita> objects, LayoutInflater inflater) {
-        super(context,resource,objects);
-        this.context=context;
-        this.listaNotite=objects;
-        this.resource=resource;
-        this.inflater=inflater;
+public class AdapterNotita extends ListAdapter<Notita, SectiuneNotiteJoinViewHolder> {
+
+    private SectiuneNotiteJoinViewModel sectiuneNotiteJoinViewModel;
+
+    public AdapterNotita(@NonNull DiffUtil.ItemCallback<Notita> diffCallback) {
+        super(diffCallback);
     }
+
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view=inflater.inflate(resource,parent,false);
-        Notita notita=listaNotite.get(position);
-        Log.println(Log.DEBUG,"NOTITA", String.valueOf(listaNotite.size()));
-        if(notita!=null){
-            TextView tvNumeNotita=view.findViewById(R.id.tvNumeNotita);
+    public SectiuneNotiteJoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return SectiuneNotiteJoinViewHolder.create(parent);
+    }
 
-            tvNumeNotita.setText(notita.getTitlu());
-            tvNumeNotita.setTextColor(Color.parseColor("#653024"));
+    @Override
+    public void onBindViewHolder(@NonNull SectiuneNotiteJoinViewHolder holder, int position) {
+        Notita curenta=getItem(position);
+        holder.bind(curenta);
+    }
+
+    public static class NotiteDiff extends DiffUtil.ItemCallback<Notita>{
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Notita oldItem, @NonNull Notita newItem) {
+            return Objects.equals(oldItem.getTitlu(), newItem.getTitlu());
         }
-        return view;
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Notita oldItem, @NonNull Notita newItem) {
+            return oldItem.getCorp().equals(newItem.getCorp());
+        }
     }
 }

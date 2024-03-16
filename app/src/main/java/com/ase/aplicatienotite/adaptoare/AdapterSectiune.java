@@ -36,7 +36,7 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
-            return oldItem == newItem;
+            return oldItem.getNotite().size() == newItem.getNotite().size();
         }
 
         @Override

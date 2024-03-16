@@ -9,11 +9,12 @@
 
     <TextView
         android:id="@+id/tvNumeNotita"
-        android:layout_width="251dp"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
         android:fontFamily="@font/alata"
-        android:singleLine="false"
-        android:text="@string/titlu_notita"
+        android:hint="@string/titlu_notita"
+        android:singleLine="true"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,10 +24,11 @@
         app:layout_constraintVertical_bias="0.037" />
 
     <TextView
-        android:id="@+id/tvTip"
-        android:layout_width="91dp"
-        android:layout_height="23dp"
-        android:text="TextView"
+        android:id="@+id/tvCorpPreviewNotita"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.076"
