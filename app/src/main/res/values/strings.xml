@@ -17,4 +17,7 @@
     <string name="misc">MISC</string>
     <string name="modificari_succes">Modificări efectuate cu succes!</string>
     <string name="modificari_esec">Nu s-au salvat modificări.</string>
+    <string name="buton_pentru_anulare_proces_de_adaugare">Buton pentru anulare proces de adaugare.</string>
+    <string name="buton_pentru_vizualizare_si_editare_notita">Buton pentru vizualizare si editare notita</string>
+    <string name="buton_pentru_stergere_notita">buton pentru stergere notita</string>
 </resources>

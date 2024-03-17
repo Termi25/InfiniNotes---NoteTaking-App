@@ -1,17 +1,15 @@
 package com.ase.aplicatienotite.main;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,19 +27,26 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class ActivitateAdaugaNotita extends AppCompatActivity {
+public class ActivitateEditeazaNotita extends AppCompatActivity {
+
     private SectiuniViewModel sectiuneViewModel;
     private Spinner spinnerSectiuni;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_edit_notita);
+        Intent intent=getIntent();
 
-        ImageButton btnAnulare=findViewById(R.id.btnAnulareNotita);
-        btnAnulare.setOnClickListener(v -> {
-            setResult(RESULT_CANCELED);
-            finish();
-        });
+        EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
+        EditText etCorpNotita =findViewById(R.id.etCorpTextNotita);
+        if(intent.getExtras()!=null){
+            Notita notita=(Notita)intent.getSerializableExtra("Notita");
+            if(notita!=null){
+                etTitluNotita.setText(notita.getTitlu());
+                etCorpNotita.setText(notita.getCorp());
+            }
+        }
 
         sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
 
@@ -69,43 +74,11 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    ActivitateAdaugaNotita.this,
+                    ActivitateEditeazaNotita.this,
                     (view, year1, monthOfYear, dayOfMonth) -> btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1),
                     year, month, day);
             datePickerDialog.show();
         });
 
-        ImageButton btnAdaugareNotita=findViewById(R.id.btnAdaugaNotitaFinal);
-        btnAdaugareNotita.setOnClickListener(v->{
-                EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
-                if(TextUtils.isEmpty(etTitluNotita.getText())){
-                    etTitluNotita.setError("Titlu este necesar pentru salvare.");
-                }else{
-                    if(btnReminderNotita.getText().equals("Data reminder")){
-                                NotiteDB.databaseWriteExecutor.execute(()->{
-                                    EditText etCorpNotita=findViewById(R.id.etCorpTextNotita);
-                                    Notita notitaNoua=new Notita(String.valueOf(etTitluNotita.getText()),
-                                            String.valueOf(etCorpNotita.getText()));
-
-                                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                                    try{
-                                        db.getNotitaDao().insertNotita(notitaNoua);
-
-                                        notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
-                                        Sectiune sectiuneDeLegat=db.getSectiuneDao().
-                                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
-
-                                        SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
-                                                sectiuneDeLegat.getSectiuneId());
-                                        db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
-                                        setResult(RESULT_OK);
-                                        finish();
-                                    }catch (Exception e){
-                                        runOnUiThread(() -> etTitluNotita.setError("Titlu este deja utilizat, incercati alta denumire."));
-                                    }
-                                });
-                    }
-                }
-        });
     }
 }

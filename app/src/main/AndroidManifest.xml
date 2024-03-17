@@ -31,6 +31,8 @@
             android:exported="false"/>
         <activity android:name=".main.ActivitateVizualNotiteSectiune"
             android:exported="false"/>
+        <activity android:name=".main.ActivitateEditeazaNotita"
+            android:exported="false"/>
     </application>
 
 </manifest>

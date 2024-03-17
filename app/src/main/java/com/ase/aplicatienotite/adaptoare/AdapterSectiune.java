@@ -1,5 +1,6 @@
 package com.ase.aplicatienotite.adaptoare;
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -36,12 +37,17 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
-            return oldItem.getNotite().size() == newItem.getNotite().size();
+            return oldItem.getSectiuneId()== newItem.getSectiuneId();
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
-            return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
+            Log.d("TEST",oldItem.toString()+" cu newitem: "+newItem.toString());
+            if(oldItem.getNotite()!=null && newItem.getNotite()!=null){
+                return oldItem.getNotite().size() == newItem.getNotite().size();
+            }else{
+                return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
+            }
         }
     }
 }

@@ -28,6 +28,8 @@ public interface SectiuneNotiteJoinDao {
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId GROUP BY sectiune_notita_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotitePentruSectiuni();
 
+    @Query("SELECT * FROM sectiune_notita_join WHERE sectiune_notita_join.notitaId=:idNotita")
+    List<SectiuneNotiteJoin> getLegaturiCuNotita(int idNotita);
     @Delete
     void deleteLegatura(SectiuneNotiteJoin legatura);
 }
