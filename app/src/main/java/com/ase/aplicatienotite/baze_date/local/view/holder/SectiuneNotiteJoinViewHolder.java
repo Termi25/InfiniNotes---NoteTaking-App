@@ -29,6 +29,7 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
     private final Button btnStergereNotita;
     private final Button btnEditareNotita;
     private static Context context;
+
     public SectiuneNotiteJoinViewHolder(@NonNull View itemView) {
         super(itemView);
         tvTitluNotita=itemView.findViewById(R.id.tvNumeNotita);

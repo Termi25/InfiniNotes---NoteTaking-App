@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.ase.aplicatienotite.clase.notite.Notita;
 
@@ -13,6 +14,12 @@ import java.util.List;
 public interface NotitaDao {
     @Insert
     void insertNotita(Notita notita);
+
+    @Update
+    void updateNotita(Notita notita);
+
+    @Delete
+    void deleteNotita(Notita notita);
 
     @Query("SELECT * FROM notite WHERE notitaId=:identificator")
     Notita getNotitaDupaId(int identificator);
@@ -26,6 +33,5 @@ public interface NotitaDao {
     @Query("SELECT * FROM notite")
     List<Notita> getToateNotitele();
 
-    @Delete
-    void deleteNotita(Notita notita);
+
 }

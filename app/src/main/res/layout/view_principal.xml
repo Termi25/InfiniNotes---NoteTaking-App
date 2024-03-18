@@ -13,7 +13,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="20sp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_white"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

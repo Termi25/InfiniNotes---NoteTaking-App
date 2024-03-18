@@ -5,33 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border_listviewprincipal_unrounded"
+    android:elevation="0dp"
     android:paddingStart="10sp"
     android:paddingTop="10sp"
     android:paddingEnd="10sp"
     android:paddingBottom="10sp">
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5sp"
+        android:background="#00FFFFFF"
+        android:contentDescription="Logo aplicatie"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/rlvNotite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_centrat_app" />
+
+    <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="5sp"
+        android:background="@drawable/btn_selector_skin_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rlvNotite"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:verticalScrollbarPosition="right"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewWeather2"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fActBtnInchidereVizual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"
         android:clickable="true"
+        android:elevation="0dp"
+        android:foregroundGravity="center"
+        android:scaleType="centerInside"
+        app:backgroundTint="@color/white"
+        app:elevation="0dp"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/rlvNotite"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/cancel" />
+        app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
 </androidx.constraintlayout.widget.ConstraintLayout>

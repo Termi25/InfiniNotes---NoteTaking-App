@@ -95,7 +95,7 @@
         android:id="@+id/btnAdaugaSectiune"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_white"
         android:contentDescription="@string/btn_adauga_sectiune"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +111,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="10sp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_white"
         android:contentDescription="@string/btn_adauga_notita"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +126,7 @@
         android:id="@+id/btnAdaugaLista"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_white"
         android:contentDescription="@string/btn_adauga_lista"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/etContinutAdaugaLista"
@@ -252,7 +252,7 @@
         android:id="@+id/btnAnulareAdaugare"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_round_white"
         android:contentDescription="@string/buton_pentru_anulare_proces_de_adaugare"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -261,7 +261,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etContinutAdaugaLista"
         app:layout_constraintVertical_bias="0.222"
-        app:srcCompat="@drawable/cancel" />
+        app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
         android:layout_width="0dp"

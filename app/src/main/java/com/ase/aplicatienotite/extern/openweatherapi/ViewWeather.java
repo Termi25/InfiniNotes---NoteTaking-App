@@ -2,11 +2,9 @@ package com.ase.aplicatienotite.extern.openweatherapi;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,7 +56,7 @@ public class ViewWeather extends ConstraintLayout {
                             JSONArray weather=current.getJSONArray("weather");
                             String temp=current.getString("temp");
                             String icon=weather.getJSONObject(0).getString("icon");
-                            incarcaImagine("https://openweathermap.org/img/wn/"+icon+"@2x.png",context);
+                            incarcaImagine("https://openweathermap.org/img/wn/"+icon+"@2x.png",context,icon);
                             TextView oras=findViewById(R.id.tvOrasTemperatura);
                             TextView temperatura=findViewById(R.id.tvTemperatura);
                             oras.setText("București");
@@ -81,13 +79,23 @@ public class ViewWeather extends ConstraintLayout {
         btnRefresh.setOnClickListener(v -> postInvalidate());
     }
 
-    private void incarcaImagine(String URL,Context context){
+    private void incarcaImagine(String URL,Context context,String momentZi){
         ImageView imgV=findViewById(R.id.imgVVremeIcon);
-        Picasso.get().load(URL)
-                .fit()
-                .placeholder(R.drawable.warning)
-                .error(R.drawable.warning)
-                .into(imgV);
+        if(momentZi.charAt(2)=='n'){
+            imgV.setBackgroundResource(R.drawable.button_skin_blue);
+            Picasso.get().load(URL)
+                    .fit()
+                    .placeholder(R.drawable.warning_white)
+                    .error(R.drawable.no_wifi_white)
+                    .into(imgV);
+        }else{
+            imgV.setBackgroundResource(R.drawable.button_skin_light_blue);
+            Picasso.get().load(URL)
+                    .fit()
+                    .placeholder(R.drawable.warning)
+                    .error(R.drawable.no_wifi)
+                    .into(imgV);
+        }
     }
 
 }

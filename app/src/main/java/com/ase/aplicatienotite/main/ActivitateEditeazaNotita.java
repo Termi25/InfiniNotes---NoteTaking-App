@@ -4,12 +4,12 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.LocaleList;
-import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
@@ -35,7 +34,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_edit_notita);
+        setContentView(R.layout.view_editeaza_notita);
         Intent intent=getIntent();
 
         EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
@@ -45,6 +44,23 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
             if(notita!=null){
                 etTitluNotita.setText(notita.getTitlu());
                 etCorpNotita.setText(notita.getCorp());
+
+                ImageButton imgBtnBack=findViewById(R.id.btnAnulareEditareNotita);
+                imgBtnBack.setOnClickListener(v->{
+
+                    NotiteDB.databaseWriteExecutor.execute(()->{
+                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                        try{
+                            notita.setTitlu(String.valueOf(etTitluNotita.getText()));
+                            notita.setCorp(String.valueOf(etCorpNotita.getText()));
+                            db.getNotitaDao().updateNotita(notita);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    });
+                    setResult(RESULT_OK);
+                    finish();
+                });
             }
         }
 
@@ -79,6 +95,5 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                     year, month, day);
             datePickerDialog.show();
         });
-
     }
 }

@@ -131,7 +131,7 @@
         android:layout_width="80sp"
         android:layout_height="80sp"
         android:layout_margin="10sp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_white"
         android:contentDescription="buton adaugare notita"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -143,11 +143,11 @@
         app:srcCompat="@drawable/addition" />
 
     <ImageButton
-        android:id="@+id/btnAnulareNotita"
+        android:id="@+id/btnAnulareEditareNotita"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="10sp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/button_skin_round_white"
         android:contentDescription="buton anulare Adaugare button"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -156,7 +156,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
         app:layout_constraintVertical_bias="0.357"
-        app:srcCompat="@drawable/cancel" />
+        app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
         android:layout_width="0dp"

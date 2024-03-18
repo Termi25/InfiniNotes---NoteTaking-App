@@ -6,4 +6,7 @@
     <color name="beige">#E7CEB5</color>
     <color name="grey">#616161</color>
     <color name="blue">#058ED9</color>
+    <color name="light_blue">#06BCC1</color>
+    <color name="dark_grey">#191919</color>
+    <color name="dark_blue">#12263A</color>
 </resources>

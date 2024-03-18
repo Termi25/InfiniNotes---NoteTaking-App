@@ -4,14 +4,11 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +32,9 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_edit_notita);
+        setContentView(R.layout.view_adauga_notita);
 
-        ImageButton btnAnulare=findViewById(R.id.btnAnulareNotita);
+        ImageButton btnAnulare=findViewById(R.id.btnAnulareEditareNotita);
         btnAnulare.setOnClickListener(v -> {
             setResult(RESULT_CANCELED);
             finish();
