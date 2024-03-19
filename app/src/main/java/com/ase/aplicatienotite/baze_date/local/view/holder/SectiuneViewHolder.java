@@ -4,16 +4,19 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
+import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.main.ActivitateVizualNotiteSectiune;
 
@@ -33,16 +36,22 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     }
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
-        if(sectiune.getNotite()!=null){
-            if(sectiune.getNotite().size()>1){
-                tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
-                tvNumeNotita2.setText(sectiune.getNotite().get(1).getTitlu());
-            }else{
-                if(sectiune.getNotite().size()>0){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db=NotiteDB.getInstance(context);
+            sectiune.setNotite(db.getSectiuneNotiteJoinDao().
+                        getNotitePentruSectiune(sectiune.getSectiuneId()));
+            if(sectiune.getNotite()!=null){
+                if(sectiune.getNotite().size()>1){
                     tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
+                    tvNumeNotita2.setText(sectiune.getNotite().get(1).getTitlu());
+                }else{
+                    if(sectiune.getNotite().size()>0){
+                        tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
+                    }
                 }
             }
-        }
+        });
+
         btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
             Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);
             intent.putExtra("codSectiune",sectiune.getSectiuneId());

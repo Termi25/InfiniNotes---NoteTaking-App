@@ -43,15 +43,11 @@ public class ActivitatePrincipala extends AppCompatActivity {
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
                 Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
-                NotiteDB.databaseWriteExecutor.execute(()->{
-                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    List<Sectiune>sectiuni = db.getSectiuneDao().selectToateSectiuniNoLive();
-                    for(int i = 0; i < sectiuni.size(); i++){
-                        sectiuni.get(i).setNotite(db.getSectiuneNotiteJoinDao().
-                                getNotitePentruSectiune(sectiuni.get(i).getSectiuneId()));
-                    }
-                    adapter.submitList(sectiuni);
-                });
+                try{
+                    rlv.getAdapter().notifyDataSetChanged();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }else{
                 Toast.makeText(getApplicationContext(), getString(R.string.modificari_esec) ,Toast.LENGTH_LONG).show();
             }
@@ -78,13 +74,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
                     db.getSectiuneDao().insertSectiune(misc);
                 });
             }
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                for(int i=0;i<sectiuni.size();i++){
-                    sectiuni.get(i).setNotite(db.getSectiuneNotiteJoinDao().
-                            getNotitePentruSectiune(sectiuni.get(i).getSectiuneId()));
-                }
-            });
             adapter.submitList(sectiuni);
         });
     }
