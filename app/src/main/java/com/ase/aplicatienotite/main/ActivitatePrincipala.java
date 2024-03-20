@@ -77,4 +77,5 @@ public class ActivitatePrincipala extends AppCompatActivity {
             adapter.submitList(sectiuni);
         });
     }
+
 }

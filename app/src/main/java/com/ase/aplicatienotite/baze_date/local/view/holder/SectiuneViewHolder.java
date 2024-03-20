@@ -26,7 +26,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeNotita1;
     private final TextView tvNumeNotita2;
     private final Button btnVizualizareNotiteDinSectiune;
-    private static Context context;
+    public static Context context;
     public SectiuneViewHolder(@NonNull View itemView) {
         super(itemView);
         tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);

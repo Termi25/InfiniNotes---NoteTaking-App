@@ -1,5 +1,7 @@
 package com.ase.aplicatienotite.adaptoare;
 
+import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
+
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -10,13 +12,19 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
+import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
     private SectiuniViewModel sectiuneViewModel;
+    private static List<Notita> listaNotiteNoua=new ArrayList<>();
 
     public AdapterSectiune(@NonNull DiffUtil.ItemCallback<Sectiune> diffCallback) {
         super(diffCallback);
@@ -42,8 +50,13 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
-            if(oldItem.getNotite()!=null && newItem.getNotite()!=null){
-                return oldItem.getNotite().size()==newItem.getNotite().size();
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB db=NotiteDB.getInstance(context);
+                listaNotiteNoua=db.getSectiuneNotiteJoinDao().
+                        getNotitePentruSectiune(newItem.getSectiuneId());
+            });
+            if(oldItem.getNotite()!=null && listaNotiteNoua!=null){
+                return oldItem.getNotite().size()==listaNotiteNoua.size();
             }else{
                 return oldItem.toString().equals(newItem.toString());
             }
