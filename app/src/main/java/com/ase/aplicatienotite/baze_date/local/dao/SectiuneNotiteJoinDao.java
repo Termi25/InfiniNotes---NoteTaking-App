@@ -30,6 +30,9 @@ public interface SectiuneNotiteJoinDao {
 
     @Query("SELECT * FROM sectiune_notita_join WHERE sectiune_notita_join.notitaId=:idNotita")
     List<SectiuneNotiteJoin> getLegaturiCuNotita(int idNotita);
+
+    @Query("SELECT sectiuneId FROM sectiune_notita_join WHERE notitaId=:idNotita")
+    int getIdSectiune(int idNotita);
     @Delete
     void deleteLegatura(SectiuneNotiteJoin legatura);
 }

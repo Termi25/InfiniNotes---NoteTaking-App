@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools" package="com.ase.aplicatienotite">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-sdk android:minSdkVersion="24"/>
+    <meta-data
+        android:name="com.google.android.gms.car.application"
+        android:resource="@xml/automotive_app_desc"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,6 +35,16 @@
             android:exported="false"/>
         <activity android:name=".main.ActivitateEditeazaNotita"
             android:exported="false"/>
+
+        <service
+            android:name=".extern.androidcar.ActivitateAutoService"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="com.google.android.gms.car.category.POI" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

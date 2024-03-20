@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
@@ -61,24 +64,60 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                     setResult(RESULT_OK);
                     finish();
                 });
+
+                sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+
+                sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
+                    List<String> listaSpinnerSectiuni =  new ArrayList<>();
+                    for(int i=0;i<sectiuni.size();i++){
+                        listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            this, android.R.layout.simple_spinner_item, listaSpinnerSectiuni);
+
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerSectiuni = (Spinner) findViewById(R.id.spSectiuneAdaugaNotita);
+                    spinnerSectiuni.setAdapter(adapter);
+                    NotiteDB.databaseWriteExecutor.execute(()->{
+                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                        try{
+                            spinnerSectiuni.setSelection(db.getSectiuneNotiteJoinDao().getIdSectiune(notita.getNotitaId())-1);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    });
+
+                    spinnerSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            NotiteDB.databaseWriteExecutor.execute(()->{
+                                NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                                try{
+                                    int idSectiuneVeche=db.getSectiuneNotiteJoinDao().getIdSectiune(notita.getNotitaId());
+                                    SectiuneNotiteJoin legaturaVeche=new SectiuneNotiteJoin(notita.getNotitaId(),
+                                            idSectiuneVeche);
+                                    db.getSectiuneNotiteJoinDao().deleteLegatura(legaturaVeche);
+
+                                    Sectiune sectiuneDeLegat=db.getSectiuneDao().
+                                            getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+                                    SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(notita.getNotitaId(),
+                                            sectiuneDeLegat.getSectiuneId());
+                                    db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                });
             }
         }
-
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
-
-        sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
-            List<String> listaSpinnerSectiuni =  new ArrayList<>();
-            for(int i=0;i<sectiuni.size();i++){
-                listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this, android.R.layout.simple_spinner_item, listaSpinnerSectiuni);
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerSectiuni = (Spinner) findViewById(R.id.spSectiuneAdaugaNotita);
-            spinnerSectiuni.setAdapter(adapter);
-        });
 
         Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
         LocaleList locale = getResources().getConfiguration().getLocales();
