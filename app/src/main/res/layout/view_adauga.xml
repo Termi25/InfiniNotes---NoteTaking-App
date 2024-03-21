@@ -88,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumeAdaugaLista"
+        app:layout_constraintTop_toBottomOf="@+id/etNumeAdaugaLista"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
@@ -173,7 +173,7 @@
         app:layout_constraintVertical_bias="0.894" />
 
     <EditText
-        android:id="@+id/tvNumeAdaugaLista"
+        android:id="@+id/etNumeAdaugaLista"
         android:layout_width="0dp"
         android:layout_height="50sp"
         android:layout_marginStart="10sp"
@@ -196,7 +196,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
-        android:id="@+id/spSectiuneAdaugaSectiune"
+        android:id="@+id/spSectiuneListaNoua"
         android:layout_width="0dp"
         android:layout_height="50sp"
         android:layout_margin="5sp"
@@ -208,7 +208,7 @@
         app:layout_constraintBottom_toTopOf="@+id/etContinutAdaugaLista"
         app:layout_constraintEnd_toStartOf="@+id/btnAdaugaLista"
         app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toEndOf="@+id/tvNumeAdaugaLista"
+        app:layout_constraintStart_toEndOf="@+id/etNumeAdaugaLista"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 

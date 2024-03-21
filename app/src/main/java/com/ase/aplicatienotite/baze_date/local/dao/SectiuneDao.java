@@ -13,7 +13,7 @@ import java.util.List;
 
 @Dao
 public interface SectiuneDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     void insertSectiune(Sectiune sectiune);
     @Delete
     void deleteSectiune(Sectiune sectiune);
