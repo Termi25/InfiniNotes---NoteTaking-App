@@ -14,7 +14,7 @@ public class Notita implements Serializable {
     private String titlu;
     private String corp;
 
-    protected Notita(String titlu, String corp) {
+    public Notita(String titlu, String corp) {
         this.titlu = titlu;
         this.corp = corp;
     }

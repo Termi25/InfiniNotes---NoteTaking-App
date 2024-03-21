@@ -7,7 +7,7 @@ import java.util.Date;
 @Entity(tableName = "remindere")
 public class NotitaReminder extends Notita{
     private Date dataReminder;
-    protected NotitaReminder(String titlu, String corp,Date dataReminder) {
+    public NotitaReminder(String titlu, String corp,Date dataReminder) {
         super(titlu, corp);
         this.dataReminder=dataReminder;
     }
