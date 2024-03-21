@@ -18,7 +18,9 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
+import com.ase.aplicatienotite.clase.notite.FactoryNotite;
 import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.notite.TipuriNotite;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
@@ -81,8 +83,11 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                     if(btnReminderNotita.getText().equals("Data reminder")){
                                 NotiteDB.databaseWriteExecutor.execute(()->{
                                     EditText etCorpNotita=findViewById(R.id.etCorpTextNotita);
-                                    Notita notitaNoua=new Notita(String.valueOf(etTitluNotita.getText()),
-                                            String.valueOf(etCorpNotita.getText()));
+                                    FactoryNotite factoryNotite=new FactoryNotite();
+                                    Notita notitaNoua=factoryNotite.creareNotite(TipuriNotite.NotitaSimpla,
+                                            String.valueOf(etTitluNotita.getText()),
+                                            String.valueOf(etCorpNotita.getText()),
+                                            null);
 
                                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
                                     try{

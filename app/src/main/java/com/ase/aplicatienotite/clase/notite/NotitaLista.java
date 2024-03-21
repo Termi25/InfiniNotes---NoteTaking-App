@@ -11,7 +11,7 @@ public class NotitaLista extends Notita{
     @Ignore
     private List<NotitaElementLista> elemente;
 
-    public NotitaLista(String titlu,
+    protected NotitaLista(String titlu,
                        String corp) {
         super(titlu, corp);
     }
