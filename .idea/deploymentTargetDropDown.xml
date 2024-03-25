@@ -13,12 +13,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Marius Rusu\.android\avd\Pixel_2_API_25_2.avd" />
+                  <value value="C:\Users\Marius Rusu\.android\avd\Pixel_8_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-20T16:20:00.626709300Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-03-25T17:28:27.645107100Z" />
         </State>
       </entry>
       <entry key="appautomotive">
@@ -29,12 +29,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Marius Rusu\.android\avd\Pixel_2_API_32.avd" />
+                  <value value="C:\Users\Marius Rusu\.android\avd\Automotive_1024p_landscape_API_29.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-24T16:01:46.887253100Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-03-25T17:07:36.214012700Z" />
         </State>
       </entry>
       <entry key="appmobile">

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" package="com.ase.aplicatienotite">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-sdk android:minSdkVersion="24"/>
     <meta-data
         android:name="com.google.android.gms.car.application"
         android:resource="@xml/automotive_app_desc"/>
@@ -18,7 +17,7 @@
         android:roundIcon="@mipmap/ic_notite_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicatieNotite"
-        tools:targetApi="25">
+        tools:targetApi="29">
         <activity
             android:name=".main.ActivitatePrincipala"
             android:exported="true">

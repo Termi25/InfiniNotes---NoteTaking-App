@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-feature
+        android:name="android.hardware.type.automotive"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:appCategory="audio"
+        android:icon="@mipmap/ic_notite"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_notite_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AplicatieNotite"
+        tools:targetApi="29">
+
+
+        <service
+        android:name=".NotiteAppService"
+        android:exported="true"
+            android:label="@string/app_name"
+            android:icon="@drawable/ic_notite">
+        <intent-filter>
+            <action android:name="androidx.car.app.CarAppService"/>
+            <category android:name="androidx.car.app.category.POI"/>
+        </intent-filter>
+    </service>
+
+    </application>
+
+</manifest>
