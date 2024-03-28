@@ -58,7 +58,7 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
             if(oldItem.getNotite()!=null && listaNotiteNoua!=null){
                 return oldItem.getNotite().size()==listaNotiteNoua.size();
             }else{
-                return oldItem.toString().equals(newItem.toString());
+                return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
             }
         }
     }

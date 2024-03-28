@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/tvNumeSectiune"
         android:layout_width="0dp"
-        android:layout_height="30sp"
+        android:layout_height="40sp"
         android:fontFamily="@font/alata"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
