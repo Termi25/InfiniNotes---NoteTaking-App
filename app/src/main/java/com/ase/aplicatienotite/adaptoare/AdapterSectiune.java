@@ -56,6 +56,7 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
                         getNotitePentruSectiune(newItem.getSectiuneId());
             });
             if(oldItem.getNotite()!=null && listaNotiteNoua!=null){
+                Log.d("TEST","Comparatie dimensiuni lista notite sectiune");
                 return oldItem.getNotite().size()==listaNotiteNoua.size();
             }else{
                 return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());

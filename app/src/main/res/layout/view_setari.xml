@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_listviewprincipal">
+
+    <ImageButton
+        android:id="@+id/imgBtnSetari"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="10sp"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/logo_aplicatie"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_centrat_app"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.002"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="10sp"
+        android:background="@drawable/button_skin"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.789"
+        custom:layout_constraintStart_toEndOf="@+id/imgBtnSetari"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.0"
+        custom:setDataProvider="cheie.txt" />
+
+    <ImageButton
+        android:id="@+id/imgBtnSalvareSetari"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="20sp"
+        android:background="@drawable/cancel"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cancel"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.498"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/viewWeather"
+        custom:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:fontFamily="@font/alata"
+        android:text="Setări"
+        android:textAllCaps="true"
+        android:textColor="@color/brown"
+        android:textSize="34sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.035"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/imgBtnSetari"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="5sp"
+        android:background="@drawable/underline"
+        custom:layout_constraintBottom_toBottomOf="@+id/textView2"
+        custom:layout_constraintEnd_toEndOf="@+id/textView2"
+        custom:layout_constraintHorizontal_bias="0.0"
+        custom:layout_constraintStart_toStartOf="@+id/textView2"
+        custom:layout_constraintTop_toTopOf="@+id/textView2"
+        custom:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/alata"
+        android:text="Conexiune la Internet"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.067"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="12sp"
+        android:text="Această opțiune dezactivează ilustrarea temperaturii, precum și opțiunea de partajare sau backup în Google Drive."
+        android:textAlignment="viewStart"
+        android:textColor="@color/brown"
+        android:textSize="14sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="1.0"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView8"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:fontFamily="@font/alata"
+        android:text="Ștergere periodică"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.052"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView9"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:fontFamily="@font/alata"
+        android:text="Partajare notițe"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.046"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView10"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40sp"
+        android:fontFamily="@font/alata"
+        android:text="Încărcare notițe"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.046"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/textView11"
+        custom:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imgBtnShareDB"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.898"
+        custom:layout_constraintStart_toEndOf="@+id/textView11"
+        custom:layout_constraintTop_toBottomOf="@+id/textView10"
+        custom:layout_constraintVertical_bias="0.058"
+        custom:srcCompat="@drawable/share" />
+
+    <ImageButton
+        android:id="@+id/imgBtnUploadFile"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.898"
+        custom:layout_constraintStart_toEndOf="@+id/textView12"
+        custom:layout_constraintTop_toBottomOf="@+id/textView11"
+        custom:layout_constraintVertical_bias="0.091"
+        custom:srcCompat="@drawable/upload" />
+
+    <Switch
+        android:id="@+id/switchInternet"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/border_listviewprincipal"
+        android:paddingStart="2dp"
+        android:paddingEnd="1dp"
+        custom:layout_constraintBottom_toBottomOf="@+id/textView8"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.784"
+        custom:layout_constraintStart_toEndOf="@+id/textView8"
+        custom:layout_constraintTop_toTopOf="@+id/textView8"
+        custom:layout_constraintVertical_bias="0.666" />
+
+    <Switch
+        android:id="@+id/switchStergerePeriodica"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/border_listviewprincipal"
+        android:paddingStart="2dp"
+        android:paddingEnd="1dp"
+        custom:layout_constraintBottom_toBottomOf="@+id/textView10"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.832"
+        custom:layout_constraintStart_toEndOf="@+id/textView10"
+        custom:layout_constraintTop_toTopOf="@+id/textView10"
+        custom:layout_constraintVertical_bias="0.333" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

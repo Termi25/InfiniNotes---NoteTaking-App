@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivitatePrincipala extends AppCompatActivity {
-    ActivityResultLauncher<Intent> launcher;
+    private static ActivityResultLauncher<Intent> launcher;
     private SectiuniViewModel sectiuneViewModel;
     private List<Sectiune>listaSectiuni=new ArrayList<>();
 
@@ -39,7 +39,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
         incarcareRecyclerView(adapter);
 
-        ImageButton btnAdauga=findViewById(R.id.btnAdaugareGenerala);
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
                 Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
@@ -53,6 +52,16 @@ public class ActivitatePrincipala extends AppCompatActivity {
             }
         });
 
+        ImageButton btnSetari=findViewById(R.id.imgBtnSetari);
+        btnSetari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ActivitateSetari.class);
+                launcher.launch(intent);
+            }
+        });
+
+        ImageButton btnAdauga=findViewById(R.id.imgBtnAdaugareGenerala);
         btnAdauga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,5 +86,4 @@ public class ActivitatePrincipala extends AppCompatActivity {
             adapter.submitList(sectiuni);
         });
     }
-
 }

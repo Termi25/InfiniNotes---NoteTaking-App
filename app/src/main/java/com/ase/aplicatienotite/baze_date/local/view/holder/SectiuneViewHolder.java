@@ -1,5 +1,6 @@
 package com.ase.aplicatienotite.baze_date.local.view.holder;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
@@ -22,6 +23,7 @@ import com.ase.aplicatienotite.main.ActivitateVizualNotiteSectiune;
 
 
 public class SectiuneViewHolder extends RecyclerView.ViewHolder {
+    static ActivityResultLauncher<Intent> launcher;
     private final TextView tvNumeSectiune;
     private final TextView tvNumeNotita1;
     private final TextView tvNumeNotita2;
@@ -36,6 +38,8 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     }
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
+        tvNumeNotita1.setText("");
+        tvNumeNotita2.setText("");
         NotiteDB.databaseWriteExecutor.execute(()->{
             NotiteDB db=NotiteDB.getInstance(context);
             sectiune.setNotite(db.getSectiuneNotiteJoinDao().
