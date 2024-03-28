@@ -20,4 +20,5 @@
     <string name="buton_pentru_anulare_proces_de_adaugare">Buton pentru anulare proces de adaugare.</string>
     <string name="buton_pentru_vizualizare_si_editare_notita">Buton pentru vizualizare si editare notita</string>
     <string name="buton_pentru_stergere_notita">buton pentru stergere notita</string>
+    <string name="titlu_este_necesar_pentru_salvare">Titlu este necesar pentru salvare.</string>
 </resources>

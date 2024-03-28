@@ -3,13 +3,10 @@ package com.ase.aplicatienotite.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -19,11 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
-import com.ase.aplicatienotite.clase.notite.FactoryNotite;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
-import com.ase.aplicatienotite.clase.notite.TipuriNotite;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
@@ -92,21 +86,11 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
             } else {
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    FactoryNotite factoryNotite=new FactoryNotite();
                     EditText etCorpListaNotite=findViewById(R.id.etContinutAdaugaLista);
-                    Notita listaNotite=factoryNotite.creareNotite(TipuriNotite.NotitaLista,
-                            etNumeLista.getText().toString(),
-                            etCorpListaNotite.getText().toString(),
-                            null);
+                    NotitaLista listaNotite=new NotitaLista(etNumeLista.getText().toString(),
+                            etCorpListaNotite.getText().toString());
                     try{
                         db.getNotitaListaDao().insertNotita((NotitaLista) listaNotite);
-//                        listaNotite.setNotitaId(db.getNotitaListaDao().getNotitaDupaTitlu(String.valueOf(listaNotite.getTitlu())).getNotitaId());
-//                        Sectiune sectiuneDeLegat=db.getSectiuneDao().
-//                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
-//
-//                        SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(listaNotite.getNotitaId(),
-//                                sectiuneDeLegat.getSectiuneId());
-//                        db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
                         setResult(RESULT_OK);
                         finish();
                     }catch (Exception e){

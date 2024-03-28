@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +24,11 @@ import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,6 +36,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
     private SectiuniViewModel sectiuneViewModel;
     private Spinner spinnerSectiuni;
+    private Date dataReminder=null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,11 +46,21 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
         EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
         EditText etCorpNotita =findViewById(R.id.etCorpTextNotita);
+
+        Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd / MM / yyyy",
+                Locale.ENGLISH);
+        seteazaBtnReminder(btnReminderNotita,simpleDateFormat);
+
         if(intent.getExtras()!=null){
             Notita notita=(Notita)intent.getSerializableExtra("Notita");
             if(notita!=null){
                 etTitluNotita.setText(notita.getTitlu());
                 etCorpNotita.setText(notita.getCorp());
+                if(notita.getDataReminder()!=null){
+                    btnReminderNotita.setText(simpleDateFormat.format(notita.getDataReminder()));
+                    dataReminder=notita.getDataReminder();
+                }
 
                 ImageButton imgBtnBack=findViewById(R.id.btnAnulareEditareNotita);
                 imgBtnBack.setOnClickListener(v->{
@@ -56,6 +70,10 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                         try{
                             notita.setTitlu(String.valueOf(etTitluNotita.getText()));
                             notita.setCorp(String.valueOf(etCorpNotita.getText()));
+                            if(dataReminder!=null){
+                                notita.setDataReminder(dataReminder);
+                                Log.d("TEST",simpleDateFormat.format(dataReminder));
+                            }
                             db.getNotitaDao().updateNotita(notita);
                         }catch (Exception e){
                             e.printStackTrace();
@@ -119,18 +137,43 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
             }
         }
 
-        Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
+    }
+
+    private void seteazaBtnReminder(Button btnReminderNotita,SimpleDateFormat simpleDateFormat) {
         LocaleList locale = getResources().getConfiguration().getLocales();
         Locale.setDefault(locale.get(0));
         btnReminderNotita.setOnClickListener(v -> {
-            final Calendar c = Calendar.getInstance();
+            final Calendar calendar = Calendar.getInstance();
+            if(dataReminder!=null){
+                calendar.setTime(dataReminder);
+            }
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     ActivitateEditeazaNotita.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1),
+                    (view, year1, monthOfYear, dayOfMonth) ->{
+                        if(monthOfYear+1<10){
+                            btnReminderNotita.setText(dayOfMonth + " / 0" + (monthOfYear + 1) + " / " + year1);
+                        }else{
+                            btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1);
+                        }
+
+                        StringBuilder dateBuilder=new StringBuilder();
+                        dateBuilder.append(dayOfMonth);
+                        dateBuilder.append(" / ");
+                        dateBuilder.append(monthOfYear+1);
+                        dateBuilder.append(" / ");
+                        dateBuilder.append(year1);
+                        String dataString=dateBuilder.toString();
+                        try{
+                            dataReminder=simpleDateFormat.parse(dataString);
+                        }catch (ParseException e){
+                            e.printStackTrace();
+                        }
+                    },
                     year, month, day);
             datePickerDialog.show();
         });

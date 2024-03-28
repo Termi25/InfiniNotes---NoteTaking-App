@@ -16,14 +16,13 @@ import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaElementLista;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
-import com.ase.aplicatienotite.clase.notite.NotitaReminder;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Notita.class, NotitaElementLista.class,
-        NotitaLista.class, NotitaReminder.class, Sectiune.class,SectiuneNotiteJoin.class},version=5,
+        NotitaLista.class, Sectiune.class,SectiuneNotiteJoin.class},version=7,
         exportSchema = false)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {

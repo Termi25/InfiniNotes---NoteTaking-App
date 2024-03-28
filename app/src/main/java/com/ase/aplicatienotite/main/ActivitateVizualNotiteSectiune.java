@@ -29,7 +29,7 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
             rlv.setAdapter(adapter);
             rlv.setLayoutManager(new LinearLayoutManager(this));
 
-            incarcareRecyclerView(adapter,idSectiune);
+            loadRecyclerView(adapter,idSectiune);
         }
 
         FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizual);
@@ -39,11 +39,9 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         });
     }
 
-    void incarcareRecyclerView(AdapterNotita adapter,int idSectiune){
+    void loadRecyclerView(AdapterNotita adapter,int idSectiune){
         sectiuneNotiteJoinViewModel=new ViewModelProvider(this).get(SectiuneNotiteJoinViewModel.class);
 
-        sectiuneNotiteJoinViewModel.getToateNotiteleSectiunii(idSectiune).observe(this,notite->{
-            adapter.submitList(notite);
-        });
+        sectiuneNotiteJoinViewModel.getToateNotiteleSectiunii(idSectiune).observe(this, adapter::submitList);
     }
 }

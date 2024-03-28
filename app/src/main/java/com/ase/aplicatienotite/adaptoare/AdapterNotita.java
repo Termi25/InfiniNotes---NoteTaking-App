@@ -42,7 +42,10 @@ public class AdapterNotita extends ListAdapter<Notita, SectiuneNotiteJoinViewHol
 
         @Override
         public boolean areContentsTheSame(@NonNull Notita oldItem, @NonNull Notita newItem) {
-            return oldItem.getCorp().equals(newItem.getCorp());
+            if(!oldItem.getCorp().equals(newItem.getCorp())){
+                return false;
+            }
+            return Objects.equals(oldItem.getDataReminder(), newItem.getDataReminder());
         }
     }
 }
