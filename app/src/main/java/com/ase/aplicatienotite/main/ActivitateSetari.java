@@ -1,6 +1,6 @@
 package com.ase.aplicatienotite.main;
 
-import android.os.Bundle;Creat
+import android.os.Bundle;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
