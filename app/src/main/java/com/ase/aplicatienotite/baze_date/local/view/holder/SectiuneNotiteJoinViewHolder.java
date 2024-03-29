@@ -18,8 +18,7 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
-import com.ase.aplicatienotite.clase.sectiune.Sectiune;
-import com.ase.aplicatienotite.main.ActivitateEditeazaNotita;
+import com.ase.aplicatienotite.main.activitati.ActivitateEditeazaNotita;
 
 import java.util.ArrayList;
 import java.util.List;

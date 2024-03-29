@@ -81,69 +81,19 @@
         custom:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/alata"
-        android:text="Conexiune la Internet"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        custom:layout_constraintBottom_toBottomOf="parent"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.067"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/textView"
-        custom:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12sp"
-        android:layout_marginEnd="12sp"
-        android:text="Această opțiune dezactivează ilustrarea temperaturii, precum și opțiunea de partajare sau backup în Google Drive."
-        android:textAlignment="viewStart"
-        android:textColor="@color/brown"
-        android:textSize="14sp"
-        custom:layout_constraintBottom_toBottomOf="parent"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="1.0"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/textView8"
-        custom:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:fontFamily="@font/alata"
-        android:text="Ștergere periodică"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        custom:layout_constraintBottom_toBottomOf="parent"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.052"
-        custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/textView9"
-        custom:layout_constraintVertical_bias="0.0" />
-
-    <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
         android:fontFamily="@font/alata"
         android:text="Partajare notițe"
         android:textColor="@color/black"
         android:textSize="24sp"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.046"
+        custom:layout_constraintHorizontal_bias="0.112"
         custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/textView10"
-        custom:layout_constraintVertical_bias="0.0" />
+        custom:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
+        custom:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/textView12"
@@ -156,7 +106,7 @@
         android:textSize="24sp"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.046"
+        custom:layout_constraintHorizontal_bias="0.109"
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toBottomOf="@+id/textView11"
         custom:layout_constraintVertical_bias="0.0" />
@@ -169,10 +119,10 @@
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.898"
+        custom:layout_constraintHorizontal_bias="0.177"
         custom:layout_constraintStart_toEndOf="@+id/textView11"
-        custom:layout_constraintTop_toBottomOf="@+id/textView10"
-        custom:layout_constraintVertical_bias="0.058"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.531"
         custom:srcCompat="@drawable/share" />
 
     <ImageButton
@@ -183,42 +133,22 @@
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.898"
+        custom:layout_constraintHorizontal_bias="0.176"
         custom:layout_constraintStart_toEndOf="@+id/textView12"
         custom:layout_constraintTop_toBottomOf="@+id/textView11"
-        custom:layout_constraintVertical_bias="0.091"
+        custom:layout_constraintVertical_bias="0.104"
         custom:srcCompat="@drawable/upload" />
 
-    <Switch
-        android:id="@+id/switchInternet"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/border_listviewprincipal"
-        android:paddingStart="2dp"
-        android:paddingEnd="1dp"
-        custom:layout_constraintBottom_toBottomOf="@+id/textView8"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.784"
-        custom:layout_constraintStart_toEndOf="@+id/textView8"
-        custom:layout_constraintTop_toTopOf="@+id/textView8"
-        custom:layout_constraintVertical_bias="0.666" />
-
-    <Switch
-        android:id="@+id/switchStergerePeriodica"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/border_listviewprincipal"
-        android:paddingStart="2dp"
-        android:paddingEnd="1dp"
-        custom:layout_constraintBottom_toBottomOf="@+id/textView10"
-        custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.832"
-        custom:layout_constraintStart_toEndOf="@+id/textView10"
-        custom:layout_constraintTop_toTopOf="@+id/textView10"
-        custom:layout_constraintVertical_bias="0.333" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.ase.aplicatienotite.main.fragmente.FragmentSetari"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        custom:layout_constraintBottom_toTopOf="@+id/imgBtnShareDB"
+        custom:layout_constraintEnd_toEndOf="@+id/viewWeather"
+        custom:layout_constraintHorizontal_bias="1.0"
+        custom:layout_constraintStart_toStartOf="@+id/textView2"
+        custom:layout_constraintTop_toBottomOf="@+id/textView"
+        custom:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

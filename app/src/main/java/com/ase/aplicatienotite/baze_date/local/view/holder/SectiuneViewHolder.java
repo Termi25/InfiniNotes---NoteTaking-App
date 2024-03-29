@@ -1,11 +1,9 @@
 package com.ase.aplicatienotite.baze_date.local.view.holder;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
-import com.ase.aplicatienotite.main.ActivitateVizualNotiteSectiune;
+import com.ase.aplicatienotite.main.activitati.ActivitateVizualNotiteSectiune;
 
 
 public class SectiuneViewHolder extends RecyclerView.ViewHolder {

@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="General">
-
-        <SwitchPreferenceCompat
-            android:title="@string/pref_internet_name"
-            android:defaultValue="true"
-            android:key="@string/pref_internet_name"
-            />
-
-        <SwitchPreferenceCompat
-            android:title="@string/pref_periodic_delete"
-            android:defaultValue="false"
-            android:key="@string/pref_periodic_delete_key"
-            />
-
-        <ListPreference
-            android:title="@string/pref_periodic_delete"
-            android:defaultValue="2"
-            android:dialogTitle="@string/pref_periodic_delete"
-            android:entries="@array/pref_periodic_delete_time"
-            android:entryValues="@array/pref_periodic_delete_duration"
-            android:summary="@string/pref_periodic_delete"
-            />
-
-
-    </PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/pref_internet_name"
+        android:title="@string/pref_internet_name"
+        app:iconSpaceReserved="false"
+        app:summary="@string/descriere_setari_internet" />
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/pref_periodic_delete_key"
+        android:title="@string/pref_periodic_delete"
+        app:iconSpaceReserved="false" />
+    <ListPreference
+        android:defaultValue="3"
+        android:dialogTitle="@string/pref_periodic_delete_duration"
+        android:entries="@array/pref_periodic_delete_time"
+        android:entryValues="@array/pref_periodic_delete_duration"
+        android:key="@string/pref_periodic_delete_duration"
+        android:summary="@string/pref_periodic_delete_duration"
+        android:title="@string/pref_periodic_delete_duration"
+        app:iconSpaceReserved="false" />
 </PreferenceScreen>

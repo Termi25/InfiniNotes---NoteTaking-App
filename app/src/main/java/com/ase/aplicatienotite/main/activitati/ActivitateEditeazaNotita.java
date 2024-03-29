@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.main;
+package com.ase.aplicatienotite.main.activitati;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

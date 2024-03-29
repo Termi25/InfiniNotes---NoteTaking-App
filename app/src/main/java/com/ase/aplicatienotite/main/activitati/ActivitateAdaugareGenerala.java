@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.main;
+package com.ase.aplicatienotite.main.activitati;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
-import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 

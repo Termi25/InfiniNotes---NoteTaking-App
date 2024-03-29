@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="pref_internet_name">Internet</string>
+    <string name="pref_internet_name">Conexiune la Internet</string>
 
     <string name="pref_periodic_delete">Stergere periodica</string>
     <string name="pref_periodic_delete_key">Stergere Periodica</string>
+    <string name="pref_periodic_delete_duration">Durata stergere</string>
 
     <string-array name="pref_periodic_delete_time">
         <item>1 zi</item>
@@ -51,4 +52,5 @@
     <string name="error_view_weather_key_file_no_read">Eroare citire fisier cheie API OpenWeather.</string>
     <string name="error_view_weather_json_read_fail">Eroare citire fisier JSON OpenWeather API.</string>
     <string name="error_view_weather_general_fail">Incarcare view weather esuata</string>
+    <string name="descriere_setari_internet">Această opțiune dezactivează ilustrarea temperaturii, precum și opțiunea de partajare sau backup în Google Drive.</string>
 </resources>

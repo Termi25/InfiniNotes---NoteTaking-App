@@ -19,22 +19,22 @@
         android:theme="@style/Theme.AplicatieNotite"
         tools:targetApi="29">
         <activity
-            android:name=".main.ActivitatePrincipala"
+            android:name=".main.activitati.ActivitatePrincipala"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.ActivitateSetari"
+        <activity android:name=".main.activitati.ActivitateSetari"
             android:exported="false"/>
-        <activity android:name=".main.ActivitateAdaugareGenerala"
+        <activity android:name=".main.activitati.ActivitateAdaugareGenerala"
             android:exported="false"/>
-        <activity android:name=".main.ActivitateAdaugaNotita"
+        <activity android:name=".main.activitati.ActivitateAdaugaNotita"
             android:exported="false"/>
-        <activity android:name=".main.ActivitateVizualNotiteSectiune"
+        <activity android:name=".main.activitati.ActivitateVizualNotiteSectiune"
             android:exported="false"/>
-        <activity android:name=".main.ActivitateEditeazaNotita"
+        <activity android:name=".main.activitati.ActivitateEditeazaNotita"
             android:exported="false"/>
 
     </application>

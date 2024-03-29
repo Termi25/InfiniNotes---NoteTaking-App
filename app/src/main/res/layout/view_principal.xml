@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border_listviewprincipal_unrounded"
-    tools:context=".main.ActivitatePrincipala">
+    tools:context=".main.activitati.ActivitatePrincipala">
 
     <ImageButton
         android:id="@+id/imgBtnAdaugareGenerala"

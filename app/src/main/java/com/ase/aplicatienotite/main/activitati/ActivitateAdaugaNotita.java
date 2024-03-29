@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.main;
+package com.ase.aplicatienotite.main.activitati;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -22,7 +22,6 @@ import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
