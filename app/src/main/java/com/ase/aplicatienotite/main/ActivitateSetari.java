@@ -1,6 +1,6 @@
 package com.ase.aplicatienotite.main;
 
-import android.os.Bundle;
+import android.os.Bundle;Creat
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -13,10 +13,14 @@ public class ActivitateSetari extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_setari);
+
+
         ImageButton imgBtnSalavareSetari=findViewById(R.id.imgBtnSalvareSetari);
         imgBtnSalavareSetari.setOnClickListener(v->{
             setResult(RESULT_OK);
             finish();
         });
     }
+
+
 }

@@ -28,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class ViewWeather extends ConstraintLayout {
     private String fileName;
@@ -45,7 +47,7 @@ public class ViewWeather extends ConstraintLayout {
                         new InputStreamReader(context.getAssets().open("chei.txt")));
                 url=reader.readLine();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("Error",getContext().getString(R.string.error_view_weather_key_file_no_read));
             }
             JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,
                     url,
@@ -63,17 +65,17 @@ public class ViewWeather extends ConstraintLayout {
                             temperatura.setText(String.valueOf((int)Double.parseDouble(temp)));
 
                         }catch (Exception e){
-                            e.printStackTrace();
+                            Log.e("Error",getContext().getString(R.string.error_view_weather_json_read_fail));
                         }
                     },
                     (Response.ErrorListener) error -> {
-                        Toast.makeText(context, "Eroare! Nu se poate accesa prognoza meteo.", Toast.LENGTH_LONG).show();
-                        Log.e("MainActivity", "incarcarePrognoza error: ${error.localizedMessage}");
+                        Toasty.error(context, "Eroare! Nu se poate accesa prognoza meteo.", Toast.LENGTH_LONG).show();
+                        Log.e("Error", getContext().getString(R.string.error_view_weather_no_access));
                     } );
             req.add(jsonObjectRequest);
             ta.recycle();
         }catch (Exception e){
-            e.printStackTrace();
+            Log.e("Error",getContext().getString(R.string.error_view_weather_general_fail));
         }
         Button btnRefresh=findViewById(R.id.btnReincarcareVreme);
         btnRefresh.setOnClickListener(v -> postInvalidate());

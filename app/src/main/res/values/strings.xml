@@ -1,4 +1,21 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="pref_internet_name">Internet</string>
+
+    <string name="pref_periodic_delete">Stergere periodica</string>
+    <string name="pref_periodic_delete_key">Stergere Periodica</string>
+
+    <string-array name="pref_periodic_delete_time">
+        <item>1 zi</item>
+        <item>7 zile</item>
+        <item>30 zile</item>
+    </string-array>
+
+    <string-array name="pref_periodic_delete_duration">
+        <item>1</item>
+        <item>7</item>
+        <item>30</item>
+    </string-array>
+
     <string name="app_name">AplicatieNotite</string>
     <string name="adaug_notita">Adaugă notiță</string>
     <string name="adaug_sectiune">Adaugă secțiune</string>
@@ -12,13 +29,26 @@
     <string name="logo_aplicatie">Logo aplicatie</string>
     <string name="data_reminder">Data reminder</string>
     <string name="titlu_notita">Titlu notita</string>
-    <string name="no_save_sectiunea">Nu s-a salvat sectiunea</string>
+    <string name="no_save_sectiunea">Nu s-a salvat sectiunea.</string>
     <string name="btn_data_reminder">Data reminder</string>
     <string name="misc">MISC</string>
     <string name="modificari_succes">Modificări efectuate cu succes!</string>
     <string name="modificari_esec">Nu s-au salvat modificări.</string>
-    <string name="buton_pentru_anulare_proces_de_adaugare">Buton pentru anulare proces de adaugare.</string>
+    <string name="buton_pentru_anulare_proces_de_adaugare" tools:ignore="Typos">Buton pentru anulare proces de adaugare.</string>
     <string name="buton_pentru_vizualizare_si_editare_notita">Buton pentru vizualizare si editare notita</string>
     <string name="buton_pentru_stergere_notita">buton pentru stergere notita</string>
     <string name="titlu_este_necesar_pentru_salvare">Titlu este necesar pentru salvare.</string>
+    <string name="pattern_data">dd / MM / yyyy</string>
+    <string name="error_editeaza_notita_update_notita1">Eroare in salvarea modificarilor unei notite in ActivitateEditeazNotita</string>
+    <string name="error_editeaza_notita_update_notita2">Eroare la incarcarea spinner-ului de sectiuni in ActivitateaEditeazaNotita.</string>
+    <string name="error_editeaza_notita_update_notita3">Eroare schimbare sectiune in ActivitateEditeazaNotita - schimbare legatura baza de date esuat</string>
+    <string name="error_editeaza_notita_update_notita4">Eroare parsare dataReminder in ActivitateEditeazaNotita</string>
+    <string name="error_adaugare_generala_lista_notite_existenta">Sectiunea deja exista, alegeti alta denumire</string>
+    <string name="warning_no_name_listanotite">Nu s-a introdus o denumire pentru lista</string>
+    <string name="error_adaugare_generala_sectiune_existenta">Sectiunea deja exista, alegeti alta denumire</string>
+    <string name="warning_no_name_sectiune">Nu s-a introdus o denumire pentru sectiune</string>
+    <string name="error_view_weather_no_access">incarcarePrognoza error: ${error.localizedMessage}</string>
+    <string name="error_view_weather_key_file_no_read">Eroare citire fisier cheie API OpenWeather.</string>
+    <string name="error_view_weather_json_read_fail">Eroare citire fisier JSON OpenWeather API.</string>
+    <string name="error_view_weather_general_fail">Incarcare view weather esuata</string>
 </resources>

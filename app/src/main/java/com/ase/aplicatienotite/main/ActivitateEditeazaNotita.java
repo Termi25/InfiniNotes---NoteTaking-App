@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
+
 public class ActivitateEditeazaNotita extends AppCompatActivity {
 
     private SectiuniViewModel sectiuneViewModel;
@@ -48,7 +51,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
         EditText etCorpNotita =findViewById(R.id.etCorpTextNotita);
 
         Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd / MM / yyyy",
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(getString(R.string.pattern_data),
                 Locale.ENGLISH);
         seteazaBtnReminder(btnReminderNotita,simpleDateFormat);
 
@@ -76,9 +79,10 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                             }
                             db.getNotitaDao().updateNotita(notita);
                         }catch (Exception e){
-                            e.printStackTrace();
+                            Log.e("Error",getString(R.string.error_editeaza_notita_update_notita1));
                         }
                     });
+                    Toasty.success(getApplicationContext(),R.string.modificari_succes, Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK);
                     finish();
                 });
@@ -102,7 +106,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                         try{
                             spinnerSectiuni.setSelection(db.getSectiuneNotiteJoinDao().getIdSectiune(notita.getNotitaId())-1);
                         }catch (Exception e){
-                            e.printStackTrace();
+                            Log.e("Error",getString(R.string.error_editeaza_notita_update_notita2));
                         }
                     });
 
@@ -123,7 +127,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                                             sectiuneDeLegat.getSectiuneId());
                                     db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
                                 }catch (Exception e){
-                                    e.printStackTrace();
+                                    Log.e("Error",getString(R.string.error_editeaza_notita_update_notita3));
                                 }
                             });
                         }
@@ -161,17 +165,11 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                             btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1);
                         }
 
-                        StringBuilder dateBuilder=new StringBuilder();
-                        dateBuilder.append(dayOfMonth);
-                        dateBuilder.append(" / ");
-                        dateBuilder.append(monthOfYear+1);
-                        dateBuilder.append(" / ");
-                        dateBuilder.append(year1);
-                        String dataString=dateBuilder.toString();
+                        String dataString= dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1;
                         try{
                             dataReminder=simpleDateFormat.parse(dataString);
                         }catch (ParseException e){
-                            e.printStackTrace();
+                            Log.e("Error",getString(R.string.error_editeaza_notita_update_notita4));
                         }
                     },
                     year, month, day);

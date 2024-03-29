@@ -1,14 +1,22 @@
 package com.ase.aplicatienotite.main;
 
+import static android.view.Gravity.apply;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -21,6 +29,9 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
@@ -32,6 +43,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_principal);
 
+        initializareToasty();
+
         RecyclerView rlv=findViewById(R.id.rlv_main);
         final AdapterSectiune adapter = new AdapterSectiune(new AdapterSectiune.SectiuneDiff());
         rlv.setAdapter(adapter);
@@ -41,14 +54,14 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
-                Toast.makeText(getApplicationContext(), getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
+                Toasty.success(getApplicationContext(),getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
                 try{
                     rlv.getAdapter().notifyDataSetChanged();
                 }catch (Exception e){
-                    e.printStackTrace();
+                    Log.e("Error","Eroare notifyDataSetChanged pentru RecyclerView in Activitate principala");
                 }
             }else{
-                Toast.makeText(getApplicationContext(), getString(R.string.modificari_esec) ,Toast.LENGTH_LONG).show();
+                Toasty.error(getApplicationContext(), getString(R.string.modificari_esec),Toasty.LENGTH_LONG).show();
             }
         });
 
@@ -85,5 +98,11 @@ public class ActivitatePrincipala extends AppCompatActivity {
             }
             adapter.submitList(sectiuni);
         });
+    }
+
+    void initializareToasty(){
+        Toasty.Config.getInstance()
+                .setToastTypeface(Objects.requireNonNull(ResourcesCompat.getFont(this, R.font.alata)))
+                .apply();
     }
 }

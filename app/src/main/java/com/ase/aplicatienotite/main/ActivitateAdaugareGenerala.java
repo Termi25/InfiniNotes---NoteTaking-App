@@ -45,7 +45,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
         btnSectiune.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             if (TextUtils.isEmpty(etNumeSectiune.getText())) {
-                etNumeSectiune.setError("Nu s-a introdus o denumire pentru sectiune");
+                etNumeSectiune.setError(getString(R.string.warning_no_name_sectiune));
             } else {
                 String numeSectiune = etNumeSectiune.getText().toString();
                 NotiteDB.databaseWriteExecutor.execute(()->{
@@ -56,7 +56,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                         setResult(RESULT_OK);
                         finish();
                     }catch (Exception e){
-                        runOnUiThread(()->etNumeSectiune.setError("Sectiunea deja exista, alegeti alta denumire"));
+                        runOnUiThread(()->etNumeSectiune.setError(getString(R.string.error_adaugare_generala_sectiune_existenta)));
                     }
                 });
             }
@@ -82,7 +82,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
         btnLista.setOnClickListener(view->{
             Intent replyIntent = new Intent();
             if (TextUtils.isEmpty(etNumeLista.getText())) {
-                etNumeLista.setError("Nu s-a introdus o denumire pentru lista");
+                etNumeLista.setError(getString(R.string.warning_no_name_listanotite));
             } else {
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
@@ -94,7 +94,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                         setResult(RESULT_OK);
                         finish();
                     }catch (Exception e){
-                        runOnUiThread(()->etNumeLista.setError("Sectiunea deja exista, alegeti alta denumire"));
+                        runOnUiThread(()->etNumeLista.setError(getString(R.string.error_adaugare_generala_lista_notite_existenta)));
                     }
                 });
             }
