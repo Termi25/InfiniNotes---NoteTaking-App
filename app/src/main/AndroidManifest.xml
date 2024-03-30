@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools" package="com.ase.aplicatienotite">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <meta-data
         android:name="com.google.android.gms.car.application"
         android:resource="@xml/automotive_app_desc"/>
@@ -16,8 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_notite_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AplicatieNotite"
-        tools:targetApi="29">
+        android:theme="@style/Theme.AplicatieNotite">
         <activity
             android:name=".main.activitati.ActivitatePrincipala"
             android:exported="true">
@@ -37,6 +42,15 @@
         <activity android:name=".main.activitati.ActivitateEditeazaNotita"
             android:exported="false"/>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ase.aplicatienotite.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 
 </manifest>
