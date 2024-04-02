@@ -6,23 +6,24 @@ import androidx.room.Ignore;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "liste")
+@Entity(tableName = "liste",inheritSuperIndices = true)
 public class NotitaLista extends Notita{
     @Ignore
-    private List<NotitaElementLista> elemente;
+    private List<Notita> elemente;
 
     public NotitaLista(String titlu,
                        String corp) {
         super(titlu, corp);
+        elemente=new ArrayList<>();
     }
 
-    public List<NotitaElementLista> getElemente() {
+    public List<Notita> getElemente() {
         return elemente;
     }
-    public void setElemente(List<NotitaElementLista> elemente) {
-        this.elemente = elemente;
+    public void setElemente(List<Notita> elemente) {
+        this.elemente.addAll(elemente);
     }
-    public void addElement(NotitaElementLista element){
+    public void addElement(Notita element){
         if(this.elemente==null){
             this.elemente=new ArrayList<>();
         }
@@ -31,7 +32,7 @@ public class NotitaLista extends Notita{
         }
     }
 
-    public void remove(NotitaElementLista element){
+    public void remove(Notita element){
         this.elemente.remove(element);
     }
 }

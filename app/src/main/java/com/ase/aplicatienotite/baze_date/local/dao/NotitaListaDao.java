@@ -14,23 +14,23 @@ import java.util.List;
 @Dao
 public interface NotitaListaDao {
     @Insert
-    void insertNotita(NotitaLista notita);
+    void insertNotitaLista(NotitaLista notita);
 
     @Update
-    void updateNotita(NotitaLista notita);
+    void updateNotitaLista(NotitaLista notita);
 
     @Delete
-    void deleteNotita(NotitaLista notita);
+    void deleteNotitaLista(NotitaLista notita);
 
     @Query("SELECT * FROM liste WHERE notitaId=:identificator")
-    Notita getNotitaDupaId(int identificator);
+    NotitaLista getNotitaListaDupaId(int identificator);
 
     @Query("SELECT * FROM liste WHERE corp=:corp")
-    Notita getNotitaDupaCorp(String corp);
+    NotitaLista getNotitaListaDupaCorp(String corp);
 
     @Query("SELECT * FROM liste WHERE titlu=:titlu")
-    Notita getNotitaDupaTitlu(String titlu);
+    NotitaLista getNotitaListaDupaTitlu(String titlu);
 
     @Query("SELECT * FROM liste")
-    List<Notita> getToateNotitele();
+    List<NotitaLista> getToateNotiteleLista();
 }

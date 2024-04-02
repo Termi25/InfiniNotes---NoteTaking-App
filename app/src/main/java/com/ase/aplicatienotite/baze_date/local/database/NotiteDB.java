@@ -12,17 +12,18 @@ import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaListaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
-import com.ase.aplicatienotite.clase.notite.NotitaElementLista;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Notita.class, NotitaElementLista.class,
-        NotitaLista.class, Sectiune.class,SectiuneNotiteJoin.class},version=7,
+@Database(entities = {Notita.class, NotitaLista.class,
+        Sectiune.class,SectiuneNotiteJoin.class,SectiuneNotiteListaJoin.class},version=8,
         exportSchema = false)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {
@@ -44,4 +45,5 @@ public abstract class NotiteDB extends RoomDatabase {
     public abstract NotitaListaDao getNotitaListaDao();
     public abstract SectiuneDao getSectiuneDao();
     public abstract SectiuneNotiteJoinDao getSectiuneNotiteJoinDao();
+    public abstract SectiuneNotiteListaJoinDao getSectiuneNotiteListaJoinDao();
 }

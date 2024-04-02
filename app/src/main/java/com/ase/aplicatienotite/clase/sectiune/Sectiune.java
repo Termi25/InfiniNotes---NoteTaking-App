@@ -6,6 +6,8 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.notite.NotitaLista;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class Sectiune {
     private String culoareSectiune;
     @Ignore
     private List<Notita>notite;
+    @Ignore
+    private List<NotitaLista> notiteListe;
 
     public Sectiune( String denumireSectiune, String culoareSectiune) {
         this.denumireSectiune = denumireSectiune;
@@ -53,7 +57,17 @@ public class Sectiune {
     }
 
     public void setNotite(List<Notita> notite) {
-        this.notite = notite;
+        this.notite = new ArrayList<>();
+        this.notite.addAll(notite);
+    }
+
+    public List<NotitaLista> getNotiteLista() {
+        return notiteListe;
+    }
+
+    public void setNotiteLista(List<NotitaLista> notiteListe) {
+        this.notiteListe = new ArrayList<>();
+        this.notiteListe.addAll(notiteListe);
     }
 
     public void addElementNotita(Notita notita){

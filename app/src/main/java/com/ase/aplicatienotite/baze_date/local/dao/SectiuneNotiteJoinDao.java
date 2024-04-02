@@ -18,19 +18,14 @@ import java.util.Map;
 public interface SectiuneNotiteJoinDao {
     @Insert
     void insert(SectiuneNotiteJoin legatura);
-
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId")
     List<Notita> getNotitePentruSectiune(final int sectiuneId);
-
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId")
     LiveData<List<Notita>> getNotitePentruSectiuneLive(final int sectiuneId);
-
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId GROUP BY sectiune_notita_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotitePentruSectiuni();
-
     @Query("SELECT * FROM sectiune_notita_join WHERE sectiune_notita_join.notitaId=:idNotita")
     List<SectiuneNotiteJoin> getLegaturiCuNotita(int idNotita);
-
     @Query("SELECT sectiuneId FROM sectiune_notita_join WHERE notitaId=:idNotita")
     int getIdSectiune(int idNotita);
     @Delete

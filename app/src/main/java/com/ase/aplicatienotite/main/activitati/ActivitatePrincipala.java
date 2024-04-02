@@ -81,6 +81,12 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
     }
 
+    void initializareToasty(){
+        Toasty.Config.getInstance()
+                .setToastTypeface(Objects.requireNonNull(ResourcesCompat.getFont(this, R.font.alata)))
+                .apply();
+    }
+
     void incarcareRecyclerView(AdapterSectiune adapter){
         sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
 
@@ -96,9 +102,4 @@ public class ActivitatePrincipala extends AppCompatActivity {
         });
     }
 
-    void initializareToasty(){
-        Toasty.Config.getInstance()
-                .setToastTypeface(Objects.requireNonNull(ResourcesCompat.getFont(this, R.font.alata)))
-                .apply();
-    }
 }

@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
@@ -89,7 +91,15 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                     NotitaLista listaNotite=new NotitaLista(etNumeLista.getText().toString(),
                             etCorpListaNotite.getText().toString());
                     try{
-                        db.getNotitaListaDao().insertNotita((NotitaLista) listaNotite);
+                        db.getNotitaListaDao().insertNotitaLista((NotitaLista) listaNotite);
+                        listaNotite.setNotitaId(db.getNotitaListaDao()
+                                .getNotitaListaDupaTitlu(String.valueOf(etNumeLista.getText())).getNotitaId());
+                        Sectiune sectiuneDeLegat=db.getSectiuneDao().
+                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+
+                        SectiuneNotiteListaJoin legaturaNoua=new SectiuneNotiteListaJoin(listaNotite.getNotitaId(),
+                                sectiuneDeLegat.getSectiuneId());
+                        db.getSectiuneNotiteListaJoinDao().insert(legaturaNoua);
                         setResult(RESULT_OK);
                         finish();
                     }catch (Exception e){

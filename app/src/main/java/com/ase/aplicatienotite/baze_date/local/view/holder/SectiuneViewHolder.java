@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,11 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         tvNumeNotita2.setText("");
         NotiteDB.databaseWriteExecutor.execute(()->{
             NotiteDB db=NotiteDB.getInstance(context);
-            sectiune.setNotite(db.getSectiuneNotiteJoinDao().
-                        getNotitePentruSectiune(sectiune.getSectiuneId()));
+            sectiune.setNotite(db.getSectiuneNotiteJoinDao()
+                    .getNotitePentruSectiune(sectiune.getSectiuneId()));
+
+            sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
+                    .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
             if(sectiune.getNotite()!=null){
                 if(sectiune.getNotite().size()>1){
                     tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
@@ -52,6 +56,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                     }
                 }
             }
+            Log.e("Test",sectiune.getNotiteLista().toString());
         });
 
         btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {

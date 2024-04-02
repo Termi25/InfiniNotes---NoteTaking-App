@@ -1,7 +1,14 @@
 package com.ase.aplicatienotite.main.activitati;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
     private SectiuneNotiteJoinViewModel sectiuneNotiteJoinViewModel;
+    private ActivityResultLauncher<Intent>launcher;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,19 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         fab.setOnClickListener(v -> {
             setResult(RESULT_OK);
             finish();
+        });
+
+        launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
+            Log.d("Test","Testare launcher ptr activitate liste");
+        });
+
+        Button btnVizualListe=findViewById(R.id.btnVizualListe);
+        btnVizualListe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ActivitateVizualNotiteSectiune.class);
+                launcher.launch(intent);
+            }
         });
     }
 
