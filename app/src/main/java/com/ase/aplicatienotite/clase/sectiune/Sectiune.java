@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity(tableName = "sectiuni",indices = {@Index(value = {"denumireSectiune"},
         unique = true)})
-public class Sectiune {
+public class Sectiune{
     @PrimaryKey(autoGenerate = true)
     private int sectiuneId;
     private String denumireSectiune;
@@ -26,6 +26,9 @@ public class Sectiune {
     public Sectiune( String denumireSectiune, String culoareSectiune) {
         this.denumireSectiune = denumireSectiune;
         this.culoareSectiune = culoareSectiune;
+    }
+    private Sectiune(){
+
     }
 
     public int getSectiuneId() {
@@ -58,7 +61,7 @@ public class Sectiune {
 
     public void setNotite(List<Notita> notite) {
         this.notite = new ArrayList<>();
-        this.notite.addAll(notite);
+        this.notite=notite;
     }
 
     public List<NotitaLista> getNotiteLista() {
@@ -67,7 +70,7 @@ public class Sectiune {
 
     public void setNotiteLista(List<NotitaLista> notiteListe) {
         this.notiteListe = new ArrayList<>();
-        this.notiteListe.addAll(notiteListe);
+        this.notiteListe=notiteListe;
     }
 
     public void addElementNotita(Notita notita){
@@ -93,4 +96,5 @@ public class Sectiune {
         }
         return deReturnat.toString();
     }
+
 }

@@ -37,6 +37,8 @@
             android:exported="false"/>
         <activity android:name=".main.activitati.ActivitateAdaugaNotita"
             android:exported="false"/>
+        <activity android:name=".main.activitati.ActivitateVizualListeSectiune"
+            android:exported="false"/>
         <activity android:name=".main.activitati.ActivitateVizualNotiteSectiune"
             android:exported="false"/>
         <activity android:name=".main.activitati.ActivitateEditeazaNotita"

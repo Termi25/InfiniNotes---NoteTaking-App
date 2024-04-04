@@ -4,7 +4,6 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,20 +24,19 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     static ActivityResultLauncher<Intent> launcher;
     private final TextView tvNumeSectiune;
     private final TextView tvNumeNotita1;
-    private final TextView tvNumeNotita2;
+    private final TextView tvNumeLista;
     private final Button btnVizualizareNotiteDinSectiune;
     public static Context context;
     public SectiuneViewHolder(@NonNull View itemView) {
         super(itemView);
         tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);
         tvNumeNotita1=itemView.findViewById(R.id.tvNotita1);
-        tvNumeNotita2=itemView.findViewById(R.id.tvNotita2);
+        tvNumeLista=itemView.findViewById(R.id.tvLista);
         btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
     }
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
         tvNumeNotita1.setText("");
-        tvNumeNotita2.setText("");
         NotiteDB.databaseWriteExecutor.execute(()->{
             NotiteDB db=NotiteDB.getInstance(context);
             sectiune.setNotite(db.getSectiuneNotiteJoinDao()
@@ -46,18 +44,19 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
 
             sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
                     .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
+
             if(sectiune.getNotite()!=null){
-                if(sectiune.getNotite().size()>1){
+                if(!sectiune.getNotite().isEmpty()){
                     tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
-                    tvNumeNotita2.setText(sectiune.getNotite().get(1).getTitlu());
-                }else{
-                    if(sectiune.getNotite().size()>0){
-                        tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
-                    }
                 }
             }
-            Log.e("Test",sectiune.getNotiteLista().toString());
+            if(sectiune.getNotiteLista()!=null){
+                if(!sectiune.getNotiteLista().isEmpty()){
+                    tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
+                }
+            }
         });
+
 
         btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
             Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);

@@ -32,7 +32,6 @@ import es.dmoral.toasty.Toasty;
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
     private SectiuniViewModel sectiuneViewModel;
-    private List<Sectiune>listaSectiuni=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

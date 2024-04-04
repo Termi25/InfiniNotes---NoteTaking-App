@@ -53,4 +53,7 @@
     <string name="error_view_weather_json_read_fail">Eroare citire fisier JSON OpenWeather API.</string>
     <string name="error_view_weather_general_fail">Incarcare view weather esuata</string>
     <string name="descriere_setari_internet">Această opțiune dezactivează ilustrarea temperaturii, precum și opțiunea de partajare sau backup în Google Drive.</string>
+    <string name="btn_back">Buton pentru revenire la activitatea precedenta.</string>
+    <string name="btn_text_liste">LISTE</string>
+    <string name="btn_vizual_notite">Buton vizualizare notite</string>
 </resources>

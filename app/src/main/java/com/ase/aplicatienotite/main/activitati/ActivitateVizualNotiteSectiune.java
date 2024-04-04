@@ -20,6 +20,8 @@ import com.ase.aplicatienotite.adaptoare.AdapterNotita;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuneNotiteJoinViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import es.dmoral.toasty.Toasty;
+
 public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
     private SectiuneNotiteJoinViewModel sectiuneNotiteJoinViewModel;
     private ActivityResultLauncher<Intent>launcher;
@@ -40,7 +42,7 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
             loadRecyclerView(adapter,idSectiune);
         }
 
-        FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizual);
+        FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizualNotite);
         fab.setOnClickListener(v -> {
             setResult(RESULT_OK);
             finish();
@@ -54,8 +56,9 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         btnVizualListe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ActivitateVizualNotiteSectiune.class);
+                Intent intent=new Intent(getApplicationContext(),ActivitateVizualListeSectiune.class);
                 launcher.launch(intent);
+                Toasty.normal(getApplicationContext(),"S-a apasat pe butonul de liste").show();
             }
         });
     }
