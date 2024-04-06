@@ -87,13 +87,13 @@
         android:fontFamily="@font/alata"
         android:text="Partajare notițe"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.112"
+        custom:layout_constraintHorizontal_bias="0.059"
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
-        custom:layout_constraintVertical_bias="0.04" />
+        custom:layout_constraintVertical_bias="0.037" />
 
     <TextView
         android:id="@+id/textView12"
@@ -103,12 +103,24 @@
         android:fontFamily="@font/alata"
         android:text="Încărcare notițe"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.109"
+        custom:layout_constraintHorizontal_bias="0.059"
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toBottomOf="@+id/textView11"
+        custom:layout_constraintVertical_bias="0.003" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.ase.aplicatienotite.main.fragmente.FragmentSetari"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        custom:layout_constraintBottom_toTopOf="@+id/imgBtnShareDB"
+        custom:layout_constraintEnd_toEndOf="@+id/viewWeather"
+        custom:layout_constraintHorizontal_bias="1.0"
+        custom:layout_constraintStart_toStartOf="@+id/textView2"
+        custom:layout_constraintTop_toBottomOf="@+id/textView"
         custom:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
@@ -139,16 +151,40 @@
         custom:layout_constraintVertical_bias="0.104"
         custom:srcCompat="@drawable/upload" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.ase.aplicatienotite.main.fragmente.FragmentSetari"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        custom:layout_constraintBottom_toTopOf="@+id/imgBtnShareDB"
-        custom:layout_constraintEnd_toEndOf="@+id/viewWeather"
+    <Button
+        android:id="@+id/btnBackupFisiereDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_selector_skin_brown"
+        android:fontFamily="@font/alata"
+        android:padding="5sp"
+        android:text="Backup fisiere"
+        android:textColor="@color/white"
+        android:typeface="normal"
+        custom:layout_constraintBottom_toTopOf="@+id/imgBtnSalvareSetari"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.0"
+        custom:layout_constraintStart_toStartOf="@+id/textView12"
+        custom:layout_constraintTop_toBottomOf="@+id/textView12"
+        custom:layout_constraintVertical_bias="0.336" />
+
+    <Button
+        android:id="@+id/btnRestaurareFisiereDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_selector_skin_brown"
+        android:fontFamily="@font/alata"
+        android:padding="5sp"
+        android:text="Restaurare fisiere"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:typeface="normal"
+        custom:layout_constraintBottom_toTopOf="@+id/imgBtnSalvareSetari"
+        custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintHorizontal_bias="1.0"
-        custom:layout_constraintStart_toStartOf="@+id/textView2"
-        custom:layout_constraintTop_toBottomOf="@+id/textView"
+        custom:layout_constraintStart_toEndOf="@+id/btnBackupFisiereDB"
+        custom:layout_constraintTop_toTopOf="@+id/btnBackupFisiereDB"
         custom:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
