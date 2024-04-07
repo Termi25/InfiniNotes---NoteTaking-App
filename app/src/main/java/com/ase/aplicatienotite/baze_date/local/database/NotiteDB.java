@@ -8,6 +8,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
@@ -86,10 +87,9 @@ public abstract class NotiteDB extends RoomDatabase {
             if (fisierDBShm.exists()){
                 Files.copy(fisierDBShm.toPath(), fisierDBShmBkp.toPath());
             }
-            Toasty.success(context,"Backup realizat cu succes!",Toasty.LENGTH_LONG).show();
+            checkpoint();
         } catch (IOException e) {
             Log.e("TEST", "Eroare la salvarea de backup de fisiere de baza de date. Mesaj eroare: "+e.toString());
-            Toasty.error(context,"Backup-ul a esuat.",Toasty.LENGTH_LONG).show();
         }
     }
 
@@ -99,7 +99,6 @@ public abstract class NotiteDB extends RoomDatabase {
                 Paths.get(
                         context.getDatabasePath(notiteDB).getPath()
                                 + "-bkp"))){
-            Toasty.error(context,"Nu exista fisier backup pentru restaurare.",Toasty.LENGTH_LONG).show();
             Log.e("TEST","Nu exista fisier backup pentru efectuarea restaurarii.");
         }
         if(instanta==null){
@@ -121,6 +120,7 @@ public abstract class NotiteDB extends RoomDatabase {
             if (fisierDBShm.exists()){
                 Files.copy(fisierDBShm.toPath(), fisierDBShmBkp.toPath());
             }
+            checkpoint();
         } catch (IOException e) {
             Log.e("TEST", "Eroare la salvarea de backup de fisiere de baza de date. Mesaj eroare: "+e.toString());
         }
@@ -134,5 +134,10 @@ public abstract class NotiteDB extends RoomDatabase {
                 System.exit(0);
             }
         }
+    }
+
+    private void checkpoint() {
+        SupportSQLiteDatabase db = this.getOpenHelper().getWritableDatabase();
+        db.query("PRAGMA wal_checkpoint(FULL);");
     }
 }
