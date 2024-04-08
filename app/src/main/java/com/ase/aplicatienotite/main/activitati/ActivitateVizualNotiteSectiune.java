@@ -30,6 +30,7 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_vizual_notite);
 
+        Button btnVizualListe=findViewById(R.id.btnVizualListe);
         Bundle extras=getIntent().getExtras();
         int idSectiune;
         if(extras!=null){
@@ -40,26 +41,31 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
             rlv.setLayoutManager(new LinearLayoutManager(this));
 
             loadRecyclerView(adapter,idSectiune);
+
+            launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
+                Log.d("Test","Testare launcher ptr activitate liste");
+            });
+            btnVizualListe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(getApplicationContext(),ActivitateVizualListeSectiune.class);
+                    intent.putExtra("codSectiune",idSectiune);
+                    launcher.launch(intent);
+                }
+            });
+        }else{
+            btnVizualListe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toasty.error(getApplicationContext(),"Nu exista liste asociate acestei secțiuni.").show();
+                }
+            });
         }
 
         FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizualNotite);
         fab.setOnClickListener(v -> {
             setResult(RESULT_OK);
             finish();
-        });
-
-        launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
-            Log.d("Test","Testare launcher ptr activitate liste");
-        });
-
-        Button btnVizualListe=findViewById(R.id.btnVizualListe);
-        btnVizualListe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ActivitateVizualListeSectiune.class);
-                launcher.launch(intent);
-                Toasty.normal(getApplicationContext(),"S-a apasat pe butonul de liste").show();
-            }
         });
     }
 

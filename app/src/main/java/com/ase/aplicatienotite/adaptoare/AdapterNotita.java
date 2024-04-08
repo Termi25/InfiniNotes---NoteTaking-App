@@ -20,7 +20,6 @@ public class AdapterNotita extends ListAdapter<Notita, SectiuneNotiteJoinViewHol
         super(diffCallback);
     }
 
-
     @NonNull
     @Override
     public SectiuneNotiteJoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
