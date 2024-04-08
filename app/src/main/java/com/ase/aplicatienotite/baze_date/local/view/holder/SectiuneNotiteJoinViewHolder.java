@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +32,16 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
     private final TextView tvCorpPreviewNotita;
     private final Button btnStergereNotita;
     private final Button btnEditareNotita;
+    private final CheckBox cbChecked;
     private static Context context;
 
     public SectiuneNotiteJoinViewHolder(@NonNull View itemView) {
         super(itemView);
-        tvTitluNotita=itemView.findViewById(R.id.tvNumeNotita);
-        tvCorpPreviewNotita=itemView.findViewById(R.id.tvCorpPreviewNotita);
-        btnStergereNotita=itemView.findViewById(R.id.btnStergereNotita);
-        btnEditareNotita=itemView.findViewById(R.id.btnEditareNotita);
+        this.tvTitluNotita=itemView.findViewById(R.id.tvNumeNotita);
+        this.tvCorpPreviewNotita=itemView.findViewById(R.id.tvCorpPreviewNotita);
+        this.btnStergereNotita=itemView.findViewById(R.id.btnStergereNotita);
+        this.btnEditareNotita=itemView.findViewById(R.id.btnEditareNotita);
+        this.cbChecked=itemView.findViewById(R.id.cbNotita);
     }
 
     public void bind(Notita notita){
@@ -61,6 +65,15 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
             Intent intent=new Intent(context, ActivitateEditeazaNotita.class);
             intent.putExtra("Notita",notita);
             startActivity(context,intent,null);
+        });
+
+        cbChecked.setChecked(notita.isChecked());
+        cbChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            notita.setChecked(isChecked);
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB db=NotiteDB.getInstance(context);
+                db.getNotitaDao().updateNotita(notita);
+            });
         });
     }
 
