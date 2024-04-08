@@ -159,11 +159,18 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     ActivitateEditeazaNotita.this,
                     (view, year1, monthOfYear, dayOfMonth) ->{
-                        if(monthOfYear+1<10){
-                            btnReminderNotita.setText(dayOfMonth + " / 0" + (monthOfYear + 1) + " / " + year1);
-                        }else{
-                            btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1);
+                        StringBuilder builderData=new StringBuilder();
+                        if(dayOfMonth<10){
+                            builderData.append("0");
                         }
+                        builderData.append(dayOfMonth).append(" / ");
+
+                        if(monthOfYear+1<10){
+                            builderData.append("0");
+                        }
+                        builderData.append(monthOfYear+1).append(" / ");
+                        builderData.append(year);
+                        btnReminderNotita.setText(builderData.toString());
 
                         String dataString= dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1;
                         try{
