@@ -26,7 +26,9 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeNotita1;
     private final TextView tvNumeLista;
     private final Button btnVizualizareNotiteDinSectiune;
+
     public static Context context;
+    
     public SectiuneViewHolder(@NonNull View itemView) {
         super(itemView);
         tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);
@@ -37,26 +39,12 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     public void bind(Sectiune sectiune){
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
         tvNumeNotita1.setText("");
-        NotiteDB.databaseWriteExecutor.execute(()->{
-            NotiteDB db=NotiteDB.getInstance(context);
-            sectiune.setNotite(db.getSectiuneNotiteJoinDao()
-                    .getNotitePentruSectiune(sectiune.getSectiuneId()));
 
-            sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
-                    .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
-
-            if(sectiune.getNotite()!=null){
-                if(!sectiune.getNotite().isEmpty()){
-                    tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
-                }
-            }
-            if(sectiune.getNotiteLista()!=null){
-                if(!sectiune.getNotiteLista().isEmpty()){
-                    tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
-                }
-            }
-        });
-
+        try{
+            incarcareUI(sectiune);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
             Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);
@@ -70,5 +58,31 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                 .inflate(R.layout.view_sectiune,parent,false);
         context=parent.getContext();
         return new SectiuneViewHolder(view);
+    }
+
+    private void incarcareUI(Sectiune sectiune){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db=NotiteDB.getInstance(context);
+            sectiune.setNotite(db.getSectiuneNotiteJoinDao()
+                    .getNotitePentruSectiune(sectiune.getSectiuneId()));
+
+            sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
+                    .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
+
+            try{
+                if(sectiune.getNotite()!=null){
+                    if(!sectiune.getNotite().isEmpty()){
+                        tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
+                    }
+                }
+                if(sectiune.getNotiteLista()!=null){
+                    if(!sectiune.getNotiteLista().isEmpty()){
+                        tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 }

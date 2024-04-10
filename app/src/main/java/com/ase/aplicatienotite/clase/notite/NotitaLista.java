@@ -23,6 +23,7 @@ public class NotitaLista extends Notita{
     public void setElemente(List<Notita> elemente) {
         this.elemente.addAll(elemente);
     }
+
     public void addElement(Notita element){
         if(this.elemente==null){
             this.elemente=new ArrayList<>();

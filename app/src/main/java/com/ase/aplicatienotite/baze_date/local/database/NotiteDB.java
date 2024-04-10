@@ -11,11 +11,13 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
+import com.ase.aplicatienotite.baze_date.local.dao.ListaNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaListaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteListaJoinDao;
+import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
@@ -33,7 +35,7 @@ import java.util.concurrent.Executors;
 import es.dmoral.toasty.Toasty;
 
 @Database(entities = {Notita.class, NotitaLista.class,
-        Sectiune.class,SectiuneNotiteJoin.class,SectiuneNotiteListaJoin.class},version=8,
+        Sectiune.class,SectiuneNotiteJoin.class,SectiuneNotiteListaJoin.class,ListaNotiteJoin.class},version=9,
         exportSchema = false)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {
@@ -57,6 +59,7 @@ public abstract class NotiteDB extends RoomDatabase {
     public abstract SectiuneDao getSectiuneDao();
     public abstract SectiuneNotiteJoinDao getSectiuneNotiteJoinDao();
     public abstract SectiuneNotiteListaJoinDao getSectiuneNotiteListaJoinDao();
+    public abstract ListaNotiteJoinDao getListaNotiteJoinDao();
 
     public void backupDB(Context context){
         if(instanta==null){

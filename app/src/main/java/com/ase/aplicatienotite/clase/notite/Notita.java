@@ -13,11 +13,11 @@ import java.util.Locale;
         unique = true)})
 public class Notita implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int notitaId;
-    private String titlu;
-    private String corp;
-    private Date dataReminder;
-    private boolean checked;
+    protected int notitaId;
+    protected String titlu;
+    protected String corp;
+    protected Date dataReminder;
+    protected boolean checked;
 
     public Notita(String titlu, String corp) {
         this.titlu = titlu;

@@ -46,12 +46,13 @@ public class ActivitatePrincipala extends AppCompatActivity {
         rlv.setLayoutManager(new LinearLayoutManager(this));
 
         incarcareRecyclerView(adapter);
+        notifyAdapter(rlv);
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
                 Toasty.success(getApplicationContext(),getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
                 try{
-                    rlv.getAdapter().notifyDataSetChanged();
+                    notifyAdapter(rlv);
                 }catch (Exception e){
                     Log.e("Error","Eroare notifyDataSetChanged pentru RecyclerView in Activitate principala");
                 }
@@ -99,6 +100,10 @@ public class ActivitatePrincipala extends AppCompatActivity {
             }
             adapter.submitList(sectiuni);
         });
+    }
+
+    void notifyAdapter(RecyclerView rlv){
+        rlv.getAdapter().notifyDataSetChanged();
     }
 
 }

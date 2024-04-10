@@ -56,4 +56,5 @@
     <string name="btn_back">Buton pentru revenire la activitatea precedenta.</string>
     <string name="btn_text_liste">LISTE</string>
     <string name="btn_vizual_notite">Buton vizualizare notite</string>
+    <string name="error_adaugare_generala_lista_notite_adaugare_notite_esuata">Elementele sectiunii nu au putut fi salvate.</string>
 </resources>
