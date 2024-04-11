@@ -5,6 +5,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
@@ -17,13 +18,13 @@ public class Sectiune{
     @PrimaryKey(autoGenerate = true)
     private int sectiuneId;
     private String denumireSectiune;
-    private String culoareSectiune;
+    private CuloriSectiune culoareSectiune;
     @Ignore
     private List<Notita>notite;
     @Ignore
     private List<NotitaLista> notiteListe;
 
-    public Sectiune( String denumireSectiune, String culoareSectiune) {
+    public Sectiune( String denumireSectiune, CuloriSectiune culoareSectiune) {
         this.denumireSectiune = denumireSectiune;
         this.culoareSectiune = culoareSectiune;
     }
@@ -47,11 +48,11 @@ public class Sectiune{
         this.denumireSectiune = denumireSectiune;
     }
 
-    public String getCuloareSectiune() {
+    public CuloriSectiune getCuloareSectiune() {
         return culoareSectiune;
     }
 
-    public void setCuloareSectiune(String culoareSectiune) {
+    public void setCuloareSectiune(CuloriSectiune culoareSectiune) {
         this.culoareSectiune = culoareSectiune;
     }
 

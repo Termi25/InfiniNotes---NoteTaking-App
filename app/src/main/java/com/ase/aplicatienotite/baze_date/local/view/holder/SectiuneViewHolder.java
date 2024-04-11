@@ -1,5 +1,6 @@
 package com.ase.aplicatienotite.baze_date.local.view.holder;
 
+import static androidx.core.content.ContextCompat.getDrawable;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
@@ -86,6 +87,31 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
             });
         }catch (Exception e){
             e.printStackTrace();
+        }finally{
+            switch (sectiune.getCuloareSectiune()){
+                case MARO:{
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
+                    break;
+                }
+                case ROSU:{
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_red));
+                    break;
+                }
+                case ALBASTRU:{
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_blue));
+                    break;
+                }
+                case VERDE:{
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_green));
+                    break;
+                }
+                case VIOLET:{
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_purple));
+                    break;
+                }
+                default:
+                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
+            }
         }
 
     }

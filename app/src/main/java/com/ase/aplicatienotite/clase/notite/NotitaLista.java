@@ -16,7 +16,6 @@ public class NotitaLista extends Notita{
         super(titlu, corp);
         elemente=new ArrayList<>();
     }
-
     public List<Notita> getElemente() {
         return elemente;
     }

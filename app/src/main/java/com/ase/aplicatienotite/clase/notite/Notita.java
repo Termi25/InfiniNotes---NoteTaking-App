@@ -24,6 +24,9 @@ public class Notita implements Serializable {
         this.corp = corp;
     }
 
+    private Notita(){}
+
+
     public int getNotitaId() {
         return notitaId;
     }

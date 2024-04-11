@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
-    android:background="@drawable/border_listviewprincipal">
+    android:background="@drawable/border_lv_principal">
 
     <TextView
         android:id="@+id/tvDenumireLista"

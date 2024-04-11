@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +47,18 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
         tvTitluNotita.setText(notita.getTitlu());
         tvCorpPreviewNotita.setText(notita.getCorp());
 
+        setareButonStergere(notita);
+
+        btnEditareNotita.setOnClickListener(v->{
+            Intent intent=new Intent(context, ActivitateEditeazaNotita.class);
+            intent.putExtra("Notita",notita);
+            startActivity(context,intent,null);
+        });
+
+        setare_Checked(notita);
+    }
+
+    private void setareButonStergere(Notita notita) {
         btnStergereNotita.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(context);
@@ -60,13 +71,9 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
             });
             Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
         });
+    }
 
-        btnEditareNotita.setOnClickListener(v->{
-            Intent intent=new Intent(context, ActivitateEditeazaNotita.class);
-            intent.putExtra("Notita",notita);
-            startActivity(context,intent,null);
-        });
-
+    private void setare_Checked(Notita notita) {
         cbChecked.setChecked(notita.isChecked());
         cbChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
             notita.setChecked(isChecked);

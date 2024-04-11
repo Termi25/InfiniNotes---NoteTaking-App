@@ -12,7 +12,7 @@
     </style>
 
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
-        <item name="background">@drawable/border_listviewprincipal</item>
+        <item name="background">@drawable/border_lv_principal</item>
     </style>
 
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">

@@ -26,11 +26,11 @@
     <EditText
         android:id="@+id/etNumeAdaugaSectiune"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
-        android:layout_marginEnd="5sp"
-        android:background="@drawable/border_listviewprincipal"
+        android:layout_marginEnd="100sp"
+        android:background="@drawable/border_lv_principal"
         android:fontFamily="@font/alata"
         android:hint="@string/nume_sectiune"
         android:paddingStart="10sp"
@@ -38,7 +38,7 @@
         android:paddingBottom="5sp"
         android:singleLine="true"
         android:textColorHint="@color/grey"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAdaugaSectiune"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,7 +74,7 @@
         android:layout_marginEnd="10sp"
         android:layout_marginBottom="5sp"
         android:autoText="false"
-        android:background="@drawable/border_listviewprincipal"
+        android:background="@drawable/border_lv_principal"
         android:elegantTextHeight="false"
         android:gravity="top"
         android:hint="@string/scrie_aici"
@@ -103,7 +103,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btnAdaugaLista"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145"
+        app:layout_constraintVertical_bias="0.167"
         app:srcCompat="@drawable/addition" />
 
     <ImageButton
@@ -178,8 +178,8 @@
         android:layout_height="50sp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
-        android:layout_marginEnd="250sp"
-        android:background="@drawable/border_listviewprincipal"
+        android:layout_marginEnd="230sp"
+        android:background="@drawable/border_lv_principal"
         android:fontFamily="@font/alata"
         android:hint="@string/nume_lista"
         android:paddingStart="10sp"
@@ -187,7 +187,7 @@
         android:paddingBottom="5sp"
         android:singleLine="true"
         android:textColorHint="@color/grey"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
@@ -199,17 +199,16 @@
         android:id="@+id/spSectiuneListaNoua"
         android:layout_width="0dp"
         android:layout_height="50sp"
-        android:layout_margin="5sp"
-        android:layout_marginStart="10sp"
+        android:layout_marginStart="5sp"
         android:layout_marginEnd="10sp"
-        android:background="@drawable/border_listviewprincipal"
+        android:background="@drawable/border_lv_principal"
         android:padding="5sp"
         android:paddingBottom="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/etContinutAdaugaLista"
+        app:layout_constraintBottom_toBottomOf="@+id/etNumeAdaugaLista"
         app:layout_constraintEnd_toStartOf="@+id/btnAdaugaLista"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.838"
         app:layout_constraintStart_toEndOf="@+id/etNumeAdaugaLista"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etNumeAdaugaLista"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -275,4 +274,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.003"
         custom:setDataProvider="cheie.txt"/>
+
+    <Spinner
+        android:id="@+id/spCuloareSectiune"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp"
+        android:background="@drawable/border_lv_principal"
+        app:layout_constraintBottom_toBottomOf="@+id/etNumeAdaugaSectiune"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdaugaSectiune"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/etNumeAdaugaSectiune"
+        app:layout_constraintTop_toTopOf="@+id/etNumeAdaugaSectiune"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
