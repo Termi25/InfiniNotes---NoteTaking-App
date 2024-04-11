@@ -12,12 +12,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
 import com.ase.aplicatienotite.baze_date.local.dao.ElementListaDao;
-import com.ase.aplicatienotite.baze_date.local.dao.ListaNotiteJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.ListaNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaListaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
-import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteJoinDao;
-import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteListaJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
@@ -33,8 +33,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import es.dmoral.toasty.Toasty;
 
 @Database(entities = {Notita.class, NotitaLista.class,
         Sectiune.class,SectiuneNotiteJoin.class,

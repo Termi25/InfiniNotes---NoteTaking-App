@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
@@ -40,6 +39,10 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
         this.tvTitluLista.setText(notitaLista.getTitlu());
         this.tvCorpLista.setText(notitaLista.getCorp());
 
+        setareButonStergereNotitaLista(notitaLista);
+    }
+
+    private void setareButonStergereNotitaLista(NotitaLista notitaLista) {
         this.btnStergereLista.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(context);

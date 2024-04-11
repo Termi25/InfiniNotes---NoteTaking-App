@@ -47,15 +47,19 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
         tvTitluNotita.setText(notita.getTitlu());
         tvCorpPreviewNotita.setText(notita.getCorp());
 
+        setareButonEditareNotita(notita);
+
         setareButonStergere(notita);
 
+        setareChecked(notita);
+    }
+
+    private void setareButonEditareNotita(Notita notita) {
         btnEditareNotita.setOnClickListener(v->{
             Intent intent=new Intent(context, ActivitateEditeazaNotita.class);
             intent.putExtra("Notita",notita);
             startActivity(context,intent,null);
         });
-
-        setare_Checked(notita);
     }
 
     private void setareButonStergere(Notita notita) {
@@ -73,7 +77,7 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
         });
     }
 
-    private void setare_Checked(Notita notita) {
+    private void setareChecked(Notita notita) {
         cbChecked.setChecked(notita.isChecked());
         cbChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
             notita.setChecked(isChecked);

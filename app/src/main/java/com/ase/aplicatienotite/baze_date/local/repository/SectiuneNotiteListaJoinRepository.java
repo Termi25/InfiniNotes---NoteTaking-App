@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteListaJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;

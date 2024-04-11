@@ -1,4 +1,4 @@
-package com.ase.aplicatienotite.baze_date.local.dao;
+package com.ase.aplicatienotite.baze_date.local.dao.legaturi;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

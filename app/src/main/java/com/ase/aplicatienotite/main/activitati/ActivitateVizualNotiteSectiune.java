@@ -45,33 +45,29 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
             launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result->{
                 Log.d("Test","Testare launcher ptr activitate liste");
             });
-            btnVizualListe.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),ActivitateVizualListeSectiune.class);
-                    intent.putExtra("codSectiune",idSectiune);
-                    launcher.launch(intent);
-                }
+            btnVizualListe.setOnClickListener(v -> {
+                Intent intent=new Intent(getApplicationContext(),ActivitateVizualListeSectiune.class);
+                intent.putExtra("codSectiune",idSectiune);
+                launcher.launch(intent);
             });
         }else{
-            btnVizualListe.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toasty.error(getApplicationContext(),"Nu exista liste asociate acestei secțiuni.").show();
-                }
-            });
+            btnVizualListe.setOnClickListener(v -> Toasty.error(getApplicationContext(),"Nu exista liste asociate acestei secțiuni.").show());
         }
 
-        FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizualNotite);
-        fab.setOnClickListener(v -> {
-            setResult(RESULT_OK);
-            finish();
-        });
+        setareFabInchidere();
     }
 
     void loadRecyclerView(AdapterNotita adapter,int idSectiune){
         sectiuneNotiteJoinViewModel=new ViewModelProvider(this).get(SectiuneNotiteJoinViewModel.class);
 
         sectiuneNotiteJoinViewModel.getToateNotiteleSectiunii(idSectiune).observe(this, adapter::submitList);
+    }
+
+    private void setareFabInchidere() {
+        FloatingActionButton fab=findViewById(R.id.fActBtnInchidereVizualNotite);
+        fab.setOnClickListener(v -> {
+            setResult(RESULT_OK);
+            finish();
+        });
     }
 }

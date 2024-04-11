@@ -27,6 +27,12 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_vizual_liste);
 
+        incarcareVizualListe();
+
+        setareFabInchidere();
+    }
+
+    private void incarcareVizualListe() {
         Bundle extras=getIntent().getExtras();
         int idSectiune;
         if(extras!=null){
@@ -38,17 +44,19 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
 
             loadRecyclerView(adapter,idSectiune);
         }
-
-        FloatingActionButton fActBtnInchidereVizualListe=findViewById(R.id.fActBtnInchidereVizualListe);
-        fActBtnInchidereVizualListe.setOnClickListener(v->{
-            setResult(RESULT_OK);
-            finish();
-        });
     }
 
     private void loadRecyclerView(AdapterLista adapter, int idSectiune) {
         sectiuneNotiteListaJoinViewModel=new ViewModelProvider(this).get(SectiuneNotiteListaJoinViewModel.class);
 
         sectiuneNotiteListaJoinViewModel.getToateNotiteleListaSectiunii(idSectiune).observe(this, adapter::submitList);
+    }
+
+    private void setareFabInchidere() {
+        FloatingActionButton fActBtnInchidereVizualListe=findViewById(R.id.fActBtnInchidereVizualListe);
+        fActBtnInchidereVizualListe.setOnClickListener(v->{
+            setResult(RESULT_OK);
+            finish();
+        });
     }
 }

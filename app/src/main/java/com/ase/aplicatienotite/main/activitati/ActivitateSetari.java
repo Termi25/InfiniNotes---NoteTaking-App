@@ -1,9 +1,7 @@
 package com.ase.aplicatienotite.main.activitati;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,8 +16,9 @@ import com.ase.aplicatienotite.main.fragmente.FragmentSetari;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 public class ActivitateSetari extends AppCompatActivity {
     @Override
@@ -41,7 +40,12 @@ public class ActivitateSetari extends AppCompatActivity {
         btnBackupFisiereDB.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                db.backupDB(getApplicationContext());
+                try{
+                    db.backupDB(getApplicationContext());
+                    runOnUiThread(()-> Toasty.success(getApplicationContext(), R.string.succes_activity_setari_backup_db));
+                }catch (Exception e){
+                    runOnUiThread(()-> Toasty.error(getApplicationContext(), R.string.error_activity_setari_backup_db));
+                }
             });
         });
 
@@ -49,7 +53,13 @@ public class ActivitateSetari extends AppCompatActivity {
         btnRestaurareFisiereDB.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                db.restaurareDB(getApplicationContext(),true);
+                try{
+                    db.restaurareDB(getApplicationContext(),true);
+                    runOnUiThread(()-> Toasty.success(getApplicationContext(), R.string.succes_activity_setari_restaurare_db));
+                }catch (Exception e){
+                    runOnUiThread(()-> Toasty.error(getApplicationContext(), R.string.error_activity_setari_restaurare_db));
+                }
+
             });
         });
 
@@ -72,25 +82,25 @@ public class ActivitateSetari extends AppCompatActivity {
             File fisierDBShm =new File(fisierDBPartajat.getPath() + "-shm");
 
             Uri fisierDBUri = FileProvider.getUriForFile(getApplicationContext(),
-                    "com.ase.aplicatienotite.fileprovider", fisierDBPartajat);
+                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBPartajat);
 
             Uri fisierDBWalUri=FileProvider.getUriForFile(getApplicationContext(),
-                    "com.ase.aplicatienotite.fileprovider", fisierDBWal);
+                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBWal);
 
             Uri fisierDBShmUri=FileProvider.getUriForFile(getApplicationContext(),
-                    "com.ase.aplicatienotite.fileprovider", fisierDBShm);
+                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBShm);
 
             Intent share = new Intent();
             share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
             share.setAction(Intent.ACTION_SEND_MULTIPLE);
-            share.setType("application/db");
+            share.setType(getString(R.string.application_db_share_type));
             ArrayList<Uri> fisiereDB=new ArrayList<>();
             fisiereDB.add(fisierDBUri);
             fisiereDB.add(fisierDBWalUri);
             fisiereDB.add(fisierDBShmUri);
             share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fisiereDB);
-            startActivity(Intent.createChooser(share, "Export baza de date InfiniNotes"));
+            startActivity(Intent.createChooser(share, getString(R.string.message_export_db_infininotes)));
         });
     }
 }

@@ -38,7 +38,6 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
     }
     public void bind(Sectiune sectiune){
-        System.out.println(sectiune);
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
         tvNumeNotita1.setText("");
         tvNumeLista.setText("");

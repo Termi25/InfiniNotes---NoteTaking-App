@@ -45,6 +45,7 @@
     <string name="error_editeaza_notita_update_notita3">Eroare schimbare sectiune in ActivitateEditeazaNotita - schimbare legatura baza de date esuat</string>
     <string name="error_editeaza_notita_update_notita4">Eroare parsare dataReminder in ActivitateEditeazaNotita</string>
     <string name="error_adaugare_generala_lista_notite_existenta">Sectiunea deja exista, alegeti alta denumire</string>
+    <string name="error_adaugare_generala_lista_notite_adaugare_notite_esuata">Elementele sectiunii nu au putut fi salvate.</string>
     <string name="warning_no_name_listanotite">Nu s-a introdus o denumire pentru lista</string>
     <string name="error_adaugare_generala_sectiune_existenta">Sectiunea deja exista, alegeti alta denumire</string>
     <string name="warning_no_name_sectiune">Nu s-a introdus o denumire pentru sectiune</string>
@@ -56,5 +57,11 @@
     <string name="btn_back">Buton pentru revenire la activitatea precedenta.</string>
     <string name="btn_text_liste">LISTE</string>
     <string name="btn_vizual_notite">Buton vizualizare notite</string>
-    <string name="error_adaugare_generala_lista_notite_adaugare_notite_esuata">Elementele sectiunii nu au putut fi salvate.</string>
+    <string name="succes_activity_setari_backup_db">Backup realizat.</string>
+    <string name="error_activity_setari_backup_db">Backup eșuat.</string>
+    <string name="succes_activity_setari_restaurare_db">Restaurare realizată.</string>
+    <string name="error_activity_setari_restaurare_db">Restaurare eșuată.</string>
+    <string name="com_ase_aplicatienotite_fileprovider">com.ase.aplicatienotite.fileprovider</string>
+    <string name="application_db_share_type">application/db</string>
+    <string name="message_export_db_infininotes">Export baza de date InfiniNotes</string>
 </resources>
