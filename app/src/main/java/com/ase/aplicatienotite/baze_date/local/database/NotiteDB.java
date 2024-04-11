@@ -11,6 +11,7 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
+import com.ase.aplicatienotite.baze_date.local.dao.ElementListaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.ListaNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaListaDao;
@@ -20,6 +21,7 @@ import com.ase.aplicatienotite.baze_date.local.dao.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
+import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
@@ -35,7 +37,9 @@ import java.util.concurrent.Executors;
 import es.dmoral.toasty.Toasty;
 
 @Database(entities = {Notita.class, NotitaLista.class,
-        Sectiune.class,SectiuneNotiteJoin.class,SectiuneNotiteListaJoin.class,ListaNotiteJoin.class},version=9,
+        Sectiune.class,SectiuneNotiteJoin.class,
+        SectiuneNotiteListaJoin.class,ListaNotiteJoin.class,
+        ElementLista.class},version=11,
         exportSchema = false)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {
@@ -60,6 +64,7 @@ public abstract class NotiteDB extends RoomDatabase {
     public abstract SectiuneNotiteJoinDao getSectiuneNotiteJoinDao();
     public abstract SectiuneNotiteListaJoinDao getSectiuneNotiteListaJoinDao();
     public abstract ListaNotiteJoinDao getListaNotiteJoinDao();
+    public abstract ElementListaDao getElementListaDao();
 
     public void backupDB(Context context){
         if(instanta==null){

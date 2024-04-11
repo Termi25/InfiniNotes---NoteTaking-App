@@ -2,6 +2,8 @@ package com.ase.aplicatienotite.main.activitati;
 
 import static android.view.Gravity.apply;
 
+import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,7 +80,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 launcher.launch(intent);
             }
         });
-
+        notifyAdapter(rlv);
     }
 
     void initializareToasty(){
@@ -98,6 +100,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                     db.getSectiuneDao().insertSectiune(misc);
                 });
             }
+
             adapter.submitList(sectiuni);
         });
     }

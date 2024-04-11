@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
@@ -13,7 +14,7 @@ import com.ase.aplicatienotite.clase.notite.NotitaLista;
                 @ForeignKey(entity = NotitaLista.class,
                         parentColumns = "notitaId",
                         childColumns = "listaId"),
-                @ForeignKey(entity = Notita.class,
+                @ForeignKey(entity = ElementLista.class,
                         parentColumns = "notitaId",
                         childColumns = "notitaId")
         })

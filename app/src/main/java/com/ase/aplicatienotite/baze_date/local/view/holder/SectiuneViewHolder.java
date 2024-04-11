@@ -37,8 +37,10 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
     }
     public void bind(Sectiune sectiune){
+        System.out.println(sectiune);
         tvNumeSectiune.setText(sectiune.getDenumireSectiune());
         tvNumeNotita1.setText("");
+        tvNumeLista.setText("");
 
         try{
             incarcareUI(sectiune);
@@ -61,15 +63,16 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void incarcareUI(Sectiune sectiune){
-        NotiteDB.databaseWriteExecutor.execute(()->{
-            NotiteDB db=NotiteDB.getInstance(context);
-            sectiune.setNotite(db.getSectiuneNotiteJoinDao()
-                    .getNotitePentruSectiune(sectiune.getSectiuneId()));
 
-            sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
-                    .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
+        try{
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB db=NotiteDB.getInstance(context);
+                sectiune.setNotite(db.getSectiuneNotiteJoinDao()
+                        .getNotitePentruSectiune(sectiune.getSectiuneId()));
 
-            try{
+                sectiune.setNotiteLista(db.getSectiuneNotiteListaJoinDao()
+                        .getNotiteListaPentruSectiune(sectiune.getSectiuneId()));
+
                 if(sectiune.getNotite()!=null){
                     if(!sectiune.getNotite().isEmpty()){
                         tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
@@ -80,9 +83,10 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                         tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
                     }
                 }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        });
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

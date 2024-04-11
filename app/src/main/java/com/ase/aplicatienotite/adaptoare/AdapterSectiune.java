@@ -55,11 +55,15 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
                 listaNotiteNoua=db.getSectiuneNotiteJoinDao().
                         getNotitePentruSectiune(newItem.getSectiuneId());
             });
-            if(oldItem.getNotite()!=null && listaNotiteNoua!=null){
+            if(oldItem.getNotite()!=null && newItem.getNotite()!=null){
                 Log.d("TEST","Comparatie dimensiuni lista notite sectiune");
-                return oldItem.getNotite().size()==listaNotiteNoua.size();
+                return oldItem.getNotite().size()==newItem.getNotite().size();
             }else{
-                return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
+                if(oldItem.getNotiteLista()!=null && newItem.getNotiteLista()!=null){
+                    return oldItem.getNotite().size()==newItem.getNotiteLista().size();
+                }else{
+                    return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
+                }
             }
         }
     }

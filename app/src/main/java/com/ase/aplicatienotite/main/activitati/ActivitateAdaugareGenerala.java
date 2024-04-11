@@ -18,6 +18,7 @@ import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
+import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
@@ -120,28 +121,30 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                 }
 
                 try{
+                    if(!etCorpListaNotite.getText().toString().isEmpty()){
+                        List<String> listaLiniiCorpLista=new ArrayList<>();
+                        listaLiniiCorpLista= Arrays.asList(listaNotite.getCorp().split("\n"));
+                        String titluElementLista=listaNotite.getTitlu();
 
-                    String corpLista= String.valueOf(etCorpListaNotite.getText());
-                    List<String> listaLiniiCorpLista=new ArrayList<>();
-                    listaLiniiCorpLista= Arrays.asList(corpLista.split("\n"));
-                    String titluElementLista=listaNotite.getTitlu();
-                    for(int i=0;i<listaLiniiCorpLista.size();i++){
-                        Notita elementNotita=new Notita(titluElementLista+String.valueOf(i+1),listaLiniiCorpLista.get(i));
+                        for(int i=0;i<listaLiniiCorpLista.size();i++){
+                            ElementLista elementNotita=new ElementLista(titluElementLista+String.valueOf(i+1),listaLiniiCorpLista.get(i));
 
-                        db.getNotitaDao().insertNotita(elementNotita);
+                            db.getElementListaDao().insertElementLista(elementNotita);
 
-                        elementNotita.setNotitaId(db.getNotitaDao()
-                                .getNotitaDupaTitlu(titluElementLista+String.valueOf(i+1)).getNotitaId());
+                            elementNotita.setNotitaId(db.getElementListaDao()
+                                    .getElementListaDupaTitlu(titluElementLista+String.valueOf(i+1)).getNotitaId());
 
-                        ListaNotiteJoin legaturaNoua=new ListaNotiteJoin(listaNotite.getNotitaId(),
-                                elementNotita.getNotitaId());
-                        db.getListaNotiteJoinDao().insert(legaturaNoua);
+                            ListaNotiteJoin legaturaNoua=new ListaNotiteJoin(listaNotite.getNotitaId(),
+                                    elementNotita.getNotitaId());
+                            db.getListaNotiteJoinDao().insert(legaturaNoua);
+                        }
                     }
 
                     setResult(RESULT_OK);
                     finish();
                 }catch (Exception e){
-                    runOnUiThread(()->etNumeLista.setError(getString(R.string.error_adaugare_generala_lista_notite_adaugare_notite_esuata)));
+
+                    runOnUiThread(()->etCorpListaNotite.setError(getString(R.string.error_adaugare_generala_lista_notite_adaugare_notite_esuata)));
                 }
             });
         }
