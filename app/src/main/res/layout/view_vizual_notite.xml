@@ -11,19 +11,6 @@
     android:paddingEnd="10sp"
     android:paddingBottom="10sp">
 
-    <Button
-        android:id="@+id/btnStergereSectiune"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/trash_can"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/fActBtnInchidereVizualNotite"
-        app:layout_constraintEnd_toStartOf="@+id/fActBtnInchidereVizualNotite"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fActBtnInchidereVizualNotite"
-        app:layout_constraintVertical_bias="0.7" />
-
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="70dp"
@@ -57,7 +44,6 @@
         android:id="@+id/btnVizualListe"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10sp"
         android:layout_marginEnd="10sp"
         android:background="@drawable/btn_selector_skin_brown"
         android:fontFamily="@font/alata"
@@ -66,8 +52,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/fActBtnInchidereVizualNotite"
         app:layout_constraintEnd_toStartOf="@+id/fActBtnInchidereVizualNotite"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/btnStergereSectiune"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fActBtnInchidereVizualNotite"
         app:layout_constraintVertical_bias="0.0" />
 
