@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 import com.ase.aplicatienotite.main.activitati.ActivitateVizualNotiteSectiune;
 
 
@@ -27,28 +31,37 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeNotita1;
     private final TextView tvNumeLista;
     private final Button btnVizualizareNotiteDinSectiune;
+    private final Spinner spnCuloareSectiuneEditare;
 
     public static Context context;
     
     public SectiuneViewHolder(@NonNull View itemView) {
         super(itemView);
-        tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);
-        tvNumeNotita1=itemView.findViewById(R.id.tvNotita1);
-        tvNumeLista=itemView.findViewById(R.id.tvLista);
-        btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
+        this.tvNumeSectiune=itemView.findViewById(R.id.tvNumeSectiune);
+        this.tvNumeNotita1=itemView.findViewById(R.id.tvNotita1);
+        this.tvNumeLista=itemView.findViewById(R.id.tvLista);
+        this.btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
+        this.spnCuloareSectiuneEditare=itemView.findViewById(R.id.spCuloareSectiuneEditare);
     }
     public void bind(Sectiune sectiune){
-        tvNumeSectiune.setText(sectiune.getDenumireSectiune());
-        tvNumeNotita1.setText("");
-        tvNumeLista.setText("");
+        this.tvNumeSectiune.setText(sectiune.getDenumireSectiune());
+        this.tvNumeNotita1.setText("");
+        this.tvNumeLista.setText("");
 
+        if(sectiune.getCuloareSectiune()==null){
+            sectiune.setCuloareSectiune(CuloriSectiune.MARO);
+        }
+
+        incarcareSpinnerCulori(sectiune);
+
+        incarcareCuloareSectiune(sectiune);
         try{
             incarcareUI(sectiune);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
+        this.btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
             Intent intent=new Intent(context, ActivitateVizualNotiteSectiune.class);
             intent.putExtra("codSectiune",sectiune.getSectiuneId());
             startActivity(context,intent,null);
@@ -63,7 +76,6 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void incarcareUI(Sectiune sectiune){
-
         try{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(context);
@@ -75,43 +87,94 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
 
                 if(sectiune.getNotite()!=null){
                     if(!sectiune.getNotite().isEmpty()){
-                        tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
+                        this.tvNumeNotita1.setText(sectiune.getNotite().get(0).getTitlu());
                     }
                 }
                 if(sectiune.getNotiteLista()!=null){
                     if(!sectiune.getNotiteLista().isEmpty()){
-                        tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
+                        this.tvNumeLista.setText(String.format("Lista: %s", sectiune.getNotiteLista().get(0).getTitlu()));
                     }
                 }
             });
         }catch (Exception e){
             e.printStackTrace();
-        }finally{
-            switch (sectiune.getCuloareSectiune()){
-                case MARO:{
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
-                    break;
-                }
-                case ROSU:{
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_red));
-                    break;
-                }
-                case ALBASTRU:{
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_blue));
-                    break;
-                }
-                case VERDE:{
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_green));
-                    break;
-                }
-                case VIOLET:{
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_purple));
-                    break;
-                }
-                default:
-                    itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
-            }
         }
-
     }
+
+    private void incarcareCuloareSectiune(Sectiune sectiune){
+        switch (sectiune.getCuloareSectiune()){
+            case MARO:{
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
+                break;
+            }
+            case ROSU:{
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_red));
+                break;
+            }
+            case ALBASTRU:{
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_blue));
+                break;
+            }
+            case VERDE:{
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_green));
+                break;
+            }
+            case VIOLET:{
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_purple));
+                break;
+            }
+            default:
+                this.itemView.setBackground(getDrawable(context,R.drawable.border_lv_principal));
+        }
+    }
+
+    private void incarcareSpinnerCulori(Sectiune sectiune) {
+        this.spnCuloareSectiuneEditare.setAdapter(new ArrayAdapter<>
+                (context, android.R.layout.simple_spinner_item, CuloriSectiune.values()));
+        int pozitieSelectie=determinareCuloare(sectiune);
+        this.spnCuloareSectiuneEditare.setSelection(pozitieSelectie);
+        spnCuloareSectiuneEditare.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sectiune.setCuloareSectiune(CuloriSectiune.valueOf(spnCuloareSectiuneEditare.getSelectedItem().toString()));
+                incarcareCuloareSectiune(sectiune);
+
+                NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(context);
+                    db.getSectiuneDao().updateSectiune(sectiune);
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private int determinareCuloare(Sectiune sectiune){
+        int pozitieSelectie;
+        switch (sectiune.getCuloareSectiune()){
+            case ALBASTRU:{
+                pozitieSelectie=1;
+                break;
+            }
+            case ROSU:{
+                pozitieSelectie=2;
+                break;
+            }
+            case VERDE:{
+                pozitieSelectie=3;
+                break;
+            }
+            case VIOLET:{
+                pozitieSelectie=4;
+                break;
+            }
+            default:
+                pozitieSelectie=0;
+        }
+        return pozitieSelectie;
+    }
+
 }

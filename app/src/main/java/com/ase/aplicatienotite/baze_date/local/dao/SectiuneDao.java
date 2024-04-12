@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public interface SectiuneDao {
     @Insert
     void insertSectiune(Sectiune sectiune);
+
+    @Update
+    void updateSectiune(Sectiune sectiune);
     @Delete
     void deleteSectiune(Sectiune sectiune);
 

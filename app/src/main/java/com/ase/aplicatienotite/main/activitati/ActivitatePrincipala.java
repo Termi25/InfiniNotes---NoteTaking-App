@@ -24,6 +24,7 @@ import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
             if(sectiuni.isEmpty()){
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune misc=new Sectiune(getString(R.string.misc),null);
+                    Sectiune misc=new Sectiune(getString(R.string.misc), CuloriSectiune.MARO);
                     db.getSectiuneDao().insertSectiune(misc);
                 });
             }
