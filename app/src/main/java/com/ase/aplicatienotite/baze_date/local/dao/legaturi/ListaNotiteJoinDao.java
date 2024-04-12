@@ -18,14 +18,16 @@ import java.util.Map;
 public interface ListaNotiteJoinDao {
     @Insert
     void insert(ListaNotiteJoin legatura);
-    @Query("SELECT * FROM elementeliste INNER JOIN notita_lista_join ON elementeliste.notitaId=notita_lista_join.notitaId WHERE notita_lista_join.listaId=:listaId")
+    @Query("SELECT * FROM elemente_liste INNER JOIN notita_lista_join ON elemente_liste.notitaId=notita_lista_join.notitaId WHERE notita_lista_join.listaId=:listaId")
     List<ElementLista> getNotitePentruLista(final int listaId);
-    @Query("SELECT * FROM elementeliste INNER JOIN notita_lista_join ON elementeliste.notitaId=notita_lista_join.notitaId WHERE notita_lista_join.listaId=:listaId")
+    @Query("SELECT * FROM elemente_liste INNER JOIN notita_lista_join ON elemente_liste.notitaId=notita_lista_join.notitaId WHERE notita_lista_join.listaId=:listaId")
     LiveData<List<ElementLista>> getNotitePentruListaLive(final int listaId);
-    @Query("SELECT * FROM notita_lista_join WHERE notita_lista_join.notitaId=:idNotita")
-    List<ListaNotiteJoin> getLegaturiCuNotita(int idNotita);
+    @Query("SELECT * FROM notita_lista_join WHERE notita_lista_join.listaId=:idNotita")
+    List<ListaNotiteJoin> getLegaturiCuLista(int idNotita);
     @Query("SELECT listaId FROM notita_lista_join WHERE notitaId=:idNotita")
     int getIdLista(int idNotita);
+    @Query("DELETE FROM notita_lista_join WHERE listaId = :idLista")
+    void deleteLegaturaListaCuListaId(int idLista);
     @Delete
     void deleteLegatura(ListaNotiteJoin legatura);
 }

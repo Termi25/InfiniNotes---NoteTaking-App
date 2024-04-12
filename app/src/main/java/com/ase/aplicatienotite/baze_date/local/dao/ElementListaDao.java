@@ -22,12 +22,12 @@ public interface ElementListaDao {
     @Delete
     void deleteElementLista(ElementLista notita);
 
-    @Query("SELECT * FROM elementeliste WHERE notitaId=:identificator")
+    @Query("SELECT * FROM elemente_liste WHERE notitaId=:identificator")
     ElementLista getElementListaDupaId(int identificator);
 
-    @Query("SELECT * FROM elementeliste WHERE titlu=:titlu")
+    @Query("SELECT * FROM elemente_liste WHERE titlu=:titlu")
     ElementLista getElementListaDupaTitlu(String titlu);
 
-    @Query("SELECT * FROM elementeliste")
+    @Query("SELECT * FROM elemente_liste")
     List<ElementLista> getToateElementeleListelor();
 }

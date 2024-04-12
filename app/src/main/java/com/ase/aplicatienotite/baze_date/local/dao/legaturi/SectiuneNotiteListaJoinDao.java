@@ -5,7 +5,9 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
@@ -25,9 +27,15 @@ public interface SectiuneNotiteListaJoinDao {
     @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId GROUP BY sectiune_notita_lista_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotiteListaPentruSectiuni();
     @Query("SELECT * FROM sectiune_notita_lista_join WHERE sectiune_notita_lista_join.notitaId=:idNotita")
-    List<SectiuneNotiteListaJoin> getLegaturiCuNotitalista(int idNotita);
+    List<SectiuneNotiteListaJoin> getLegaturiCuNotitaLista(int idNotita);
+    @Query("SELECT * FROM sectiune_notita_lista_join WHERE sectiune_notita_lista_join.sectiuneId=:idSectiune")
+    List<SectiuneNotiteListaJoin> getLegaturiCuSectiune(int idSectiune);
     @Query("SELECT sectiuneId FROM sectiune_notita_lista_join WHERE notitaId=:idNotita")
     int getIdSectiune(int idNotita);
+    @Query("DELETE FROM sectiune_notita_lista_join WHERE notitaId = :idLista")
+    void deleteLegaturaSectiuneCuListaId(int idLista);
+    @Update
+    void updateLegatura(SectiuneNotiteListaJoin legatura);
     @Delete
     void deleteLegatura(SectiuneNotiteListaJoin legatura);
 }

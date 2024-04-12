@@ -5,7 +5,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 import com.ase.aplicatienotite.clase.notite.ElementLista;
-import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
 @Entity(tableName = "notita_lista_join",
@@ -19,10 +18,10 @@ import com.ase.aplicatienotite.clase.notite.NotitaLista;
                         childColumns = "notitaId")
         })
 public class ListaNotiteJoin {
-    public final int listaId;
+    public int listaId;
 
     @ColumnInfo(index = true)
-    public final int notitaId;
+    public int notitaId;
 
     public ListaNotiteJoin(int listaId, int notitaId) {
         this.listaId = listaId;

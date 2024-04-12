@@ -33,4 +33,7 @@ public interface NotitaListaDao {
 
     @Query("SELECT * FROM liste")
     List<NotitaLista> getToateNotiteleLista();
+
+    @Query("DELETE FROM liste WHERE notitaId=:id")
+    void deleteNotitaListaDupaId(int id);
 }

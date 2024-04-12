@@ -18,12 +18,14 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
                         childColumns = "sectiuneId")
         })
 public class SectiuneNotiteJoin {
-    public final int notitaId;
+    public int notitaId;
     @ColumnInfo(index = true)
-    public final int sectiuneId;
+    public int sectiuneId;
 
     public SectiuneNotiteJoin(final int notitaId, final int sectiuneId) {
         this.notitaId = notitaId;
         this.sectiuneId = sectiuneId;
     }
+
+
 }

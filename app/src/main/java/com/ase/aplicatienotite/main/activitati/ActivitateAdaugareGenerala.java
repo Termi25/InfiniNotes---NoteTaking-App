@@ -123,30 +123,25 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
                 EditText etCorpListaNotite=findViewById(R.id.etContinutAdaugaLista);
                 NotitaLista listaNotite=new NotitaLista(etNumeLista.getText().toString(),
                         etCorpListaNotite.getText().toString());
-                try{
-                    adaugareListaGoala(db, etNumeLista, listaNotite);
-                }catch (Exception e){
-                    runOnUiThread(()->etNumeLista.setError(getString(R.string.error_adaugare_generala_lista_notite_existenta)));
-                }
+
+                adaugareListaGoala(db, etNumeLista, listaNotite);
 
                 try{
-                    if(!etCorpListaNotite.getText().toString().isEmpty()){
-                        List<String> listaLiniiCorpLista=new ArrayList<>();
-                        listaLiniiCorpLista= Arrays.asList(listaNotite.getCorp().split("\n"));
-                        String titluElementLista=listaNotite.getTitlu();
+                    List<String> listaLiniiCorpLista=new ArrayList<>();
+                    listaLiniiCorpLista= Arrays.asList(listaNotite.getCorp().split("\n"));
+                    String titluElementLista=listaNotite.getTitlu();
 
-                        for(int i=0;i<listaLiniiCorpLista.size();i++){
-                            ElementLista elementNotita=new ElementLista(titluElementLista+String.valueOf(i+1),listaLiniiCorpLista.get(i));
+                    for(int i=0;i<listaLiniiCorpLista.size();i++){
+                        ElementLista elementNotita=new ElementLista(titluElementLista+String.valueOf(i+1),listaLiniiCorpLista.get(i));
 
-                            db.getElementListaDao().insertElementLista(elementNotita);
+                        db.getElementListaDao().insertElementLista(elementNotita);
 
-                            elementNotita.setNotitaId(db.getElementListaDao()
-                                    .getElementListaDupaTitlu(titluElementLista+String.valueOf(i+1)).getNotitaId());
+                        elementNotita.setNotitaId(db.getElementListaDao()
+                                .getElementListaDupaTitlu(titluElementLista+String.valueOf(i+1)).getNotitaId());
 
-                            ListaNotiteJoin legaturaNoua=new ListaNotiteJoin(listaNotite.getNotitaId(),
-                                    elementNotita.getNotitaId());
-                            db.getListaNotiteJoinDao().insert(legaturaNoua);
-                        }
+                        ListaNotiteJoin legaturaNoua=new ListaNotiteJoin(listaNotite.getNotitaId(),
+                                elementNotita.getNotitaId());
+                        db.getListaNotiteJoinDao().insert(legaturaNoua);
                     }
 
                     setResult(RESULT_OK);
@@ -160,15 +155,19 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
     }
 
     private void adaugareListaGoala(NotiteDB db, EditText etNumeLista, NotitaLista listaNotite){
-        db.getNotitaListaDao().insertNotitaLista((NotitaLista) listaNotite);
-        listaNotite.setNotitaId(db.getNotitaListaDao()
-                .getNotitaListaDupaTitlu(String.valueOf(etNumeLista.getText())).getNotitaId());
-        Sectiune sectiuneDeLegat=db.getSectiuneDao().
-                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+        try{
+            db.getNotitaListaDao().insertNotitaLista((NotitaLista) listaNotite);
+            listaNotite.setNotitaId(db.getNotitaListaDao()
+                    .getNotitaListaDupaTitlu(String.valueOf(etNumeLista.getText())).getNotitaId());
+            Sectiune sectiuneDeLegat=db.getSectiuneDao().
+                    getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
 
-        SectiuneNotiteListaJoin legaturaNoua=new SectiuneNotiteListaJoin(listaNotite.getNotitaId(),
-                sectiuneDeLegat.getSectiuneId());
-        db.getSectiuneNotiteListaJoinDao().insert(legaturaNoua);
+            SectiuneNotiteListaJoin legaturaNoua=new SectiuneNotiteListaJoin(listaNotite.getNotitaId(),
+                    sectiuneDeLegat.getSectiuneId());
+            db.getSectiuneNotiteListaJoinDao().insert(legaturaNoua);
+        }catch (Exception e){
+            runOnUiThread(()->etNumeLista.setError(getString(R.string.error_adaugare_generala_lista_notite_existenta)));
+        }
     }
 
     private void pregatireLauncherAdaugaNotita(){

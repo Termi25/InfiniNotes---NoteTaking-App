@@ -63,11 +63,12 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
     }
 
     private void setareButonStergere(Notita notita) {
-        btnStergereNotita.setOnClickListener(v->{
+        this.btnStergereNotita.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(context);
-                List<SectiuneNotiteJoin> listaLegaturi=new ArrayList<>();
-                listaLegaturi=db.getSectiuneNotiteJoinDao().getLegaturiCuNotita(notita.getNotitaId());
+                List<SectiuneNotiteJoin> listaLegaturi=db.getSectiuneNotiteJoinDao()
+                        .getLegaturiCuNotita(notita.getNotitaId());
+
                 for(int i=0;i<listaLegaturi.size();i++){
                     db.getSectiuneNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
                 }

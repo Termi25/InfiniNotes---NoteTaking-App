@@ -9,21 +9,21 @@ import java.util.List;
 @Entity(tableName = "liste",inheritSuperIndices = true)
 public class NotitaLista extends Notita{
     @Ignore
-    private List<Notita> elemente;
+    private List<ElementLista> elemente;
 
     public NotitaLista(String titlu,
                        String corp) {
         super(titlu, corp);
         elemente=new ArrayList<>();
     }
-    public List<Notita> getElemente() {
+    public List<ElementLista> getElemente() {
         return elemente;
     }
-    public void setElemente(List<Notita> elemente) {
+    public void setElemente(List<ElementLista> elemente) {
         this.elemente.addAll(elemente);
     }
 
-    public void addElement(Notita element){
+    public void addElement(ElementLista element){
         if(this.elemente==null){
             this.elemente=new ArrayList<>();
         }

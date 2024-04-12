@@ -15,6 +15,8 @@ import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
+import com.ase.aplicatienotite.clase.notite.ElementLista;
+import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
 import java.util.ArrayList;
@@ -26,8 +28,8 @@ import es.dmoral.toasty.Toasty;
 public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
     private static Context context;
     private final TextView tvCorpLista;
-    private TextView tvTitluLista;
-    private Button btnStergereLista;
+    private final TextView tvTitluLista;
+    private final Button btnStergereLista;
     public SectiuneNotiteListaJoinViewHolder(@NonNull View itemView) {
         super(itemView);
         this.tvTitluLista=itemView.findViewById(R.id.tvNumeNotita);
@@ -46,21 +48,27 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
         this.btnStergereLista.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
                 NotiteDB db=NotiteDB.getInstance(context);
-                List<ListaNotiteJoin> listaLegaturi=new ArrayList<>();
-                listaLegaturi=db.getListaNotiteJoinDao().getLegaturiCuNotita(notitaLista.getNotitaId());
+
+                List<ListaNotiteJoin> listaLegaturi=db.getListaNotiteJoinDao()
+                        .getLegaturiCuLista(notitaLista.getNotitaId());
+
                 for(int i=0;i<listaLegaturi.size();i++){
-                    int idElement=listaLegaturi.get(i).notitaId;
+                    ElementLista element=db.getElementListaDao()
+                            .getElementListaDupaId(listaLegaturi.get(i).notitaId);
+
                     db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
-                    db.getElementListaDao().deleteElementLista(db.getElementListaDao().getElementListaDupaId(idElement));
+
+                    db.getElementListaDao().deleteElementLista(element);
                 }
 
-                List<SectiuneNotiteListaJoin> listaLegaturiSectiune=new ArrayList<>();
-                listaLegaturiSectiune=db.getSectiuneNotiteListaJoinDao().getLegaturiCuNotitalista(notitaLista.getNotitaId());
+                List<SectiuneNotiteListaJoin> listaLegaturiSectiune=db.getSectiuneNotiteListaJoinDao()
+                        .getLegaturiCuNotitaLista(notitaLista.getNotitaId());
+
                 for(int i=0;i<listaLegaturiSectiune.size();i++){
                     db.getSectiuneNotiteListaJoinDao().deleteLegatura(listaLegaturiSectiune.get(i));
                 }
 
-                db.getNotitaListaDao().deleteNotitaLista(notitaLista);
+                db.getNotitaListaDao().deleteNotitaListaDupaId(notitaLista.getNotitaId());
             });
             Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
         });

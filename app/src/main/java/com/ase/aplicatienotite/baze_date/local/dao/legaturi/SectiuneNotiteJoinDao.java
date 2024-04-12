@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
@@ -26,8 +27,12 @@ public interface SectiuneNotiteJoinDao {
     LiveData<Map<Sectiune,List<Notita>>> getNotitePentruSectiuni();
     @Query("SELECT * FROM sectiune_notita_join WHERE sectiune_notita_join.notitaId=:idNotita")
     List<SectiuneNotiteJoin> getLegaturiCuNotita(int idNotita);
+    @Query("SELECT * FROM sectiune_notita_join WHERE sectiune_notita_join.sectiuneId=:idSectiune")
+    List<SectiuneNotiteJoin> getLegaturiCuSectiune(int idSectiune);
     @Query("SELECT sectiuneId FROM sectiune_notita_join WHERE notitaId=:idNotita")
     int getIdSectiune(int idNotita);
+    @Update
+    void updateLegatura(SectiuneNotiteJoin legatura);
     @Delete
     void deleteLegatura(SectiuneNotiteJoin legatura);
 }

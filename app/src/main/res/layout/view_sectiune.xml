@@ -92,14 +92,14 @@
         android:background="@drawable/border_lv_principal"
         android:padding="5sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnStergereNotita"
+        app:layout_constraintEnd_toStartOf="@+id/btnStergereSectiune"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tvLista"
         app:layout_constraintTop_toBottomOf="@+id/tvLista"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnStergereNotita"
+        android:id="@+id/btnStergereSectiune"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="5sp"

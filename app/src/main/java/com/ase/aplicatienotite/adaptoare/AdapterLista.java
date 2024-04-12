@@ -20,7 +20,6 @@ import java.util.List;
 
 public class AdapterLista extends ListAdapter<NotitaLista, SectiuneNotiteListaJoinViewHolder> {
     private SectiuneNotiteListaJoinViewModel sectiuneNotiteListaJoinViewModel;
-    private static List<Notita> listaNotiteNoua=new ArrayList<>();
     public AdapterLista(@NonNull DiffUtil.ItemCallback<NotitaLista> diffCallback) {
         super(diffCallback);
     }
@@ -46,12 +45,7 @@ public class AdapterLista extends ListAdapter<NotitaLista, SectiuneNotiteListaJo
 
         @Override
         public boolean areContentsTheSame(@NonNull NotitaLista oldItem, @NonNull NotitaLista newItem) {
-            if(oldItem.getElemente()!=null && listaNotiteNoua!=null){
-                Log.d("TEST","Comparatie dimensiuni lista notite sectiune");
-                return oldItem.getElemente().size()==listaNotiteNoua.size();
-            }else{
-                return oldItem.getTitlu().equals(newItem.getTitlu());
-            }
+            return oldItem.getTitlu().equals(newItem.getTitlu());
         }
     }
 }
