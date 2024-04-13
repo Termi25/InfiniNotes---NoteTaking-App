@@ -66,10 +66,10 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
     private AlertDialog pregatireAlertaConfirmareStergere(NotitaLista notitaLista){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(true);
-        builder.setTitle("Doriți ștergerea acestei sectiuni?");
-        builder.setMessage("În urma ștergerii acestei secțiuni, întreg conținutul va fi mutat la secțiunea MISC.");
+        builder.setTitle("Doriți ștergerea acestei liste?");
+        builder.setMessage("În urma ștergerii acestei liste, toate elemente asociate vor fi sterse.");
         builder.setPositiveButton("Confirm", (dialog, which) -> {
-            stergereNotitaListaSiMigrareDate(notitaLista);
+            stergereNotitaLista(notitaLista);
         });
         builder.setNegativeButton("Anulează", (dialog, which) -> {
 
@@ -78,7 +78,7 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
         return builder.create();
     }
 
-    private void stergereNotitaListaSiMigrareDate(NotitaLista notitaLista){
+    private void stergereNotitaLista(NotitaLista notitaLista){
         NotiteDB.databaseWriteExecutor.execute(()->{
             NotiteDB db=NotiteDB.getInstance(context);
 

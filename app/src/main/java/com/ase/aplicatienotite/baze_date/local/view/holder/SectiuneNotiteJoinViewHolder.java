@@ -2,6 +2,7 @@ package com.ase.aplicatienotite.baze_date.local.view.holder;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -21,7 +22,6 @@ import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.main.activitati.ActivitateEditeazaNotita;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -64,18 +64,33 @@ public class SectiuneNotiteJoinViewHolder extends RecyclerView.ViewHolder{
 
     private void setareButonStergere(Notita notita) {
         this.btnStergereNotita.setOnClickListener(v->{
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(context);
-                List<SectiuneNotiteJoin> listaLegaturi=db.getSectiuneNotiteJoinDao()
-                        .getLegaturiCuNotita(notita.getNotitaId());
-
-                for(int i=0;i<listaLegaturi.size();i++){
-                    db.getSectiuneNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
-                }
-                db.getNotitaDao().deleteNotita(notita);
-            });
-            Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
+            AlertDialog dialog=pregatireAlertaConfirmareStergere(notita);
+            dialog.show();
         });
+    }
+
+    private AlertDialog pregatireAlertaConfirmareStergere(Notita notita){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle("Doriți ștergerea acestei notițe?");
+        builder.setPositiveButton("Confirm", (dialog, which) -> {stergereNotita(notita);});
+        builder.setNegativeButton("Anulează", (dialog, which) -> {});
+
+        return builder.create();
+    }
+
+    private void stergereNotita(Notita notita){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db=NotiteDB.getInstance(context);
+            List<SectiuneNotiteJoin> listaLegaturi=db.getSectiuneNotiteJoinDao()
+                    .getLegaturiCuNotita(notita.getNotitaId());
+
+            for(int i=0;i<listaLegaturi.size();i++){
+                db.getSectiuneNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
+            }
+            db.getNotitaDao().deleteNotita(notita);
+        });
+        Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
     }
 
     private void setareChecked(Notita notita) {
