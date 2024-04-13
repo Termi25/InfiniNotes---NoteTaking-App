@@ -28,6 +28,8 @@ import com.ase.aplicatienotite.main.activitati.ActivitateVizualNotiteSectiune;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeSectiune;
@@ -71,30 +73,34 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private void setareButonStergereSectiune(Sectiune sectiune) {
         this.btnStergereSectiune.setOnClickListener(v->{
             NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(context);
+                if(sectiune.getDenumireSectiune().equals("MISC")){
+                    Toasty.warning(context,"Nu se paote sterge sectiunea de baza.").show();
+                }else{
+                    NotiteDB db=NotiteDB.getInstance(context);
 
-                List<SectiuneNotiteJoin> legaturiNotite=db.getSectiuneNotiteJoinDao()
-                        .getLegaturiCuSectiune(sectiune.getSectiuneId());
+                    List<SectiuneNotiteJoin> legaturiNotite=db.getSectiuneNotiteJoinDao()
+                            .getLegaturiCuSectiune(sectiune.getSectiuneId());
 
-                for(SectiuneNotiteJoin legatura:legaturiNotite){
-                    SectiuneNotiteJoin copie=new SectiuneNotiteJoin(legatura.notitaId,legatura.sectiuneId);
-                    copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
-                    db.getSectiuneNotiteJoinDao().insert(copie);
-                    db.getSectiuneNotiteJoinDao().deleteLegatura(legatura);
+                    for(SectiuneNotiteJoin legatura:legaturiNotite){
+                        SectiuneNotiteJoin copie=new SectiuneNotiteJoin(legatura.notitaId,legatura.sectiuneId);
+                        copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
+                        db.getSectiuneNotiteJoinDao().insert(copie);
+                        db.getSectiuneNotiteJoinDao().deleteLegatura(legatura);
+                    }
+
+                    List<SectiuneNotiteListaJoin> legaturiNotiteLista=db.getSectiuneNotiteListaJoinDao()
+                            .getLegaturiCuSectiune(sectiune.getSectiuneId());
+
+                    for(SectiuneNotiteListaJoin legatura:legaturiNotiteLista){
+                        SectiuneNotiteListaJoin copie=new SectiuneNotiteListaJoin(legatura.notitaId,legatura.sectiuneId);
+                        copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
+                        db.getSectiuneNotiteListaJoinDao().insert(copie);
+                        db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
+
+                    }
+
+                    db.getSectiuneDao().deleteSectiune(sectiune);
                 }
-
-                List<SectiuneNotiteListaJoin> legaturiNotiteLista=db.getSectiuneNotiteListaJoinDao()
-                        .getLegaturiCuSectiune(sectiune.getSectiuneId());
-
-                for(SectiuneNotiteListaJoin legatura:legaturiNotiteLista){
-                    SectiuneNotiteListaJoin copie=new SectiuneNotiteListaJoin(legatura.notitaId,legatura.sectiuneId);
-                    copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
-                    db.getSectiuneNotiteListaJoinDao().insert(copie);
-                    db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
-
-                }
-
-                db.getSectiuneDao().deleteSectiune(sectiune);
             });
         });
     }

@@ -3,11 +3,12 @@ package com.ase.aplicatienotite.clase.notite;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "liste",inheritSuperIndices = true)
-public class NotitaLista extends Notita{
+public class NotitaLista extends Notita implements Serializable {
     @Ignore
     private List<ElementLista> elemente;
 

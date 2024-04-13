@@ -9,23 +9,22 @@
     android:background="@drawable/border_lv_principal">
 
     <TextView
-        android:id="@+id/tvDenumireLista"
+        android:id="@+id/tvCorpElementLista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:fontFamily="@font/alata"
         android:singleLine="true"
-        android:text="Lista"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnStergereLista"
+        app:layout_constraintEnd_toStartOf="@+id/btnStergereElementLista"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbElementLista"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.695" />
 
     <Button
-        android:id="@+id/btnStergereLista"
+        android:id="@+id/btnStergereElementLista"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10sp"
@@ -36,5 +35,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/cbElementLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

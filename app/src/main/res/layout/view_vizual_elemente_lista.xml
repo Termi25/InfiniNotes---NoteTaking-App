@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_listviewprincipal_unrounded"
+    android:elevation="0dp"
+    android:paddingStart="10sp"
+    android:paddingTop="10sp"
+    android:paddingEnd="10sp"
+    android:paddingBottom="10sp">
+
+    <ImageButton
+        android:id="@+id/logo_aplicatie_vizual_liste"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5sp"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/logo_aplicatie"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logo_centrat_app" />
+
+    <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_margin="5sp"
+        android:background="@drawable/btn_selector_skin_brown"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/logo_aplicatie_vizual_liste"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvNumeLista"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:fontFamily="@font/alata"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/rlvElementeLista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_aplicatie_vizual_liste" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="5sp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/underline"
+        app:layout_constraintBottom_toTopOf="@+id/rlvElementeLista"
+        app:layout_constraintEnd_toEndOf="@+id/tvNumeLista"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="@+id/tvNumeLista"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumeLista"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlvElementeLista"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_aplicatie_vizual_liste"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fActBtnInchidereVizualElementeLista"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#00FFFFFF"
+        android:clickable="true"
+        android:contentDescription="@string/btn_back"
+        android:elevation="0dp"
+        android:foregroundGravity="center"
+        android:scaleType="centerInside"
+        app:backgroundTint="@color/brown"
+        app:elevation="0dp"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/rlvElementeLista"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/arrow_white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,9 @@
 package com.ase.aplicatienotite.baze_date.local.view.holder;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,9 @@ import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
+import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.main.activitati.ActivitateVizualElementeListaNotite;
+import com.ase.aplicatienotite.main.activitati.ActivitateVizualNotiteSectiune;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +36,13 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvCorpLista;
     private final TextView tvTitluLista;
     private final Button btnStergereLista;
+    private final Button btnVizualizareElementeDinLista;
     public SectiuneNotiteListaJoinViewHolder(@NonNull View itemView) {
         super(itemView);
         this.tvTitluLista=itemView.findViewById(R.id.tvNumeNotita);
         this.tvCorpLista=itemView.findViewById(R.id.tvCorpPreviewNotita);
         this.btnStergereLista=itemView.findViewById(R.id.btnStergereNotita);
+        this.btnVizualizareElementeDinLista = itemView.findViewById(R.id.btnEditareNotita);
     }
 
     public void bind(NotitaLista notitaLista){
@@ -42,6 +50,8 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
         this.tvCorpLista.setText(notitaLista.getCorp());
 
         setareButonStergereNotitaLista(notitaLista);
+
+        setareButonVizualNotite(notitaLista);
     }
 
     private void setareButonStergereNotitaLista(NotitaLista notitaLista) {
@@ -71,6 +81,14 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
                 db.getNotitaListaDao().deleteNotitaListaDupaId(notitaLista.getNotitaId());
             });
             Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
+        });
+    }
+
+    private void setareButonVizualNotite(NotitaLista notitaLista) {
+        this.btnVizualizareElementeDinLista.setOnClickListener(v -> {
+            Intent intent=new Intent(context, ActivitateVizualElementeListaNotite.class);
+            intent.putExtra("notitaLista",notitaLista);
+            startActivity(context,intent,null);
         });
     }
 

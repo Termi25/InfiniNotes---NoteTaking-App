@@ -17,18 +17,18 @@ public class SectiuneNotiteJoinRepository {
 
     public SectiuneNotiteJoinRepository(Application application,int idSectiune) {
         NotiteDB db=NotiteDB.getInstance(application);
-        sectiuneNotiteJoinDao=db.getSectiuneNotiteJoinDao();
-        notite=sectiuneNotiteJoinDao.getNotitePentruSectiuneLive(idSectiune);
+        this.sectiuneNotiteJoinDao=db.getSectiuneNotiteJoinDao();
+        this.notite=this.sectiuneNotiteJoinDao.getNotitePentruSectiuneLive(idSectiune);
     }
 
     public LiveData<List<Notita>>getToateNotiteleSectiunii(){
-        return notite;
+        return this.notite;
     }
 
     public void insert(int idNotita,int idSectiune){
         SectiuneNotiteJoin legatura=new SectiuneNotiteJoin(idNotita,idSectiune);
         NotiteDB.databaseWriteExecutor.execute(()->{
-            sectiuneNotiteJoinDao.insert(legatura);
+            this.sectiuneNotiteJoinDao.insert(legatura);
         });
     }
 }

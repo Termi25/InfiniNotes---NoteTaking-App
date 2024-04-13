@@ -30,6 +30,12 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_vizual_notite);
 
+        incarcareUI();
+
+        setareFabInchidere();
+    }
+
+    private void incarcareUI() {
         Button btnVizualListe=findViewById(R.id.btnVizualListe);
         Bundle extras=getIntent().getExtras();
         int idSectiune;
@@ -53,8 +59,6 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
         }else{
             btnVizualListe.setOnClickListener(v -> Toasty.error(getApplicationContext(),"Nu exista liste asociate acestei secțiuni.").show());
         }
-
-        setareFabInchidere();
     }
 
     void loadRecyclerView(AdapterNotita adapter,int idSectiune){

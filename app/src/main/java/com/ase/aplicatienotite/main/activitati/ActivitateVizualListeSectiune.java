@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ActivitateVizualListeSectiune extends AppCompatActivity {
     private SectiuneNotiteListaJoinViewModel sectiuneNotiteListaJoinViewModel;
-    private ActivityResultLauncher<Intent> launcher;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

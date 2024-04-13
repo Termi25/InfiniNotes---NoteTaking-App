@@ -7,14 +7,11 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneNotiteJoinViewHolder;
-import com.ase.aplicatienotite.baze_date.local.view.model.SectiuneNotiteJoinViewModel;
 import com.ase.aplicatienotite.clase.notite.Notita;
 
 import java.util.Objects;
 
 public class AdapterNotita extends ListAdapter<Notita, SectiuneNotiteJoinViewHolder> {
-
-    private SectiuneNotiteJoinViewModel sectiuneNotiteJoinViewModel;
 
     public AdapterNotita(@NonNull DiffUtil.ItemCallback<Notita> diffCallback) {
         super(diffCallback);
