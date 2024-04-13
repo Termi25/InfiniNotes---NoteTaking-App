@@ -5,7 +5,6 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,9 +69,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
 
         setareButonVizualNotite(sectiune);
 
-        AlertDialog dialog=pregatireAlertaConfirmareStergere(sectiune);
-
-        setareButonStergereSectiune(dialog);
+        setareButonStergereSectiune(sectiune);
     }
 
     public static SectiuneViewHolder create(ViewGroup parent){
@@ -237,11 +235,12 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                 db.getSectiuneDao().deleteSectiune(sectiune);
             }
         });
-        Toasty.success(context,"Modificari realizate cu succes.").show();
+        Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
     }
 
-    private void setareButonStergereSectiune(AlertDialog dialog) {
+    private void setareButonStergereSectiune(Sectiune sectiune) {
         this.btnStergereSectiune.setOnClickListener(v->{
+            AlertDialog dialog=pregatireAlertaConfirmareStergere(sectiune);
             dialog.show();
         });
     }

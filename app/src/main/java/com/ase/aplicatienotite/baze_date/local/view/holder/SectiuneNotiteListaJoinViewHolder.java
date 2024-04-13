@@ -2,6 +2,7 @@ package com.ase.aplicatienotite.baze_date.local.view.holder;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.Notita;
@@ -56,32 +58,52 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
 
     private void setareButonStergereNotitaLista(NotitaLista notitaLista) {
         this.btnStergereLista.setOnClickListener(v->{
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(context);
-
-                List<ListaNotiteJoin> listaLegaturi=db.getListaNotiteJoinDao()
-                        .getLegaturiCuLista(notitaLista.getNotitaId());
-
-                for(int i=0;i<listaLegaturi.size();i++){
-                    ElementLista element=db.getElementListaDao()
-                            .getElementListaDupaId(listaLegaturi.get(i).notitaId);
-
-                    db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
-
-                    db.getElementListaDao().deleteElementLista(element);
-                }
-
-                List<SectiuneNotiteListaJoin> listaLegaturiSectiune=db.getSectiuneNotiteListaJoinDao()
-                        .getLegaturiCuNotitaLista(notitaLista.getNotitaId());
-
-                for(int i=0;i<listaLegaturiSectiune.size();i++){
-                    db.getSectiuneNotiteListaJoinDao().deleteLegatura(listaLegaturiSectiune.get(i));
-                }
-
-                db.getNotitaListaDao().deleteNotitaListaDupaId(notitaLista.getNotitaId());
-            });
-            Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
+            AlertDialog dialog= pregatireAlertaConfirmareStergere(notitaLista);
+            dialog.show();
         });
+    }
+
+    private AlertDialog pregatireAlertaConfirmareStergere(NotitaLista notitaLista){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle("Doriți ștergerea acestei sectiuni?");
+        builder.setMessage("În urma ștergerii acestei secțiuni, întreg conținutul va fi mutat la secțiunea MISC.");
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            stergereNotitaListaSiMigrareDate(notitaLista);
+        });
+        builder.setNegativeButton("Anulează", (dialog, which) -> {
+
+        });
+
+        return builder.create();
+    }
+
+    private void stergereNotitaListaSiMigrareDate(NotitaLista notitaLista){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db=NotiteDB.getInstance(context);
+
+            List<ListaNotiteJoin> listaLegaturi=db.getListaNotiteJoinDao()
+                    .getLegaturiCuLista(notitaLista.getNotitaId());
+
+            for(int i=0;i<listaLegaturi.size();i++){
+                ElementLista element=db.getElementListaDao()
+                        .getElementListaDupaId(listaLegaturi.get(i).notitaId);
+
+                db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
+
+                db.getElementListaDao().deleteElementLista(element);
+            }
+
+            List<SectiuneNotiteListaJoin> listaLegaturiSectiune=db.getSectiuneNotiteListaJoinDao()
+                    .getLegaturiCuNotitaLista(notitaLista.getNotitaId());
+
+            for(int i=0;i<listaLegaturiSectiune.size();i++){
+                db.getSectiuneNotiteListaJoinDao().deleteLegatura(listaLegaturiSectiune.get(i));
+            }
+
+            db.getNotitaListaDao().deleteNotitaListaDupaId(notitaLista.getNotitaId());
+        });
+        Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
     }
 
     private void setareButonVizualNotite(NotitaLista notitaLista) {
