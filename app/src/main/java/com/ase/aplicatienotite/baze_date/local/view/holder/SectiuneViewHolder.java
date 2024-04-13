@@ -3,7 +3,9 @@ package com.ase.aplicatienotite.baze_date.local.view.holder;
 import static androidx.core.content.ContextCompat.getDrawable;
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,42 +69,9 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
 
         setareButonVizualNotite(sectiune);
 
-        setareButonStergereSectiune(sectiune);
-    }
+        AlertDialog dialog=pregatireAlertaConfirmareStergere(sectiune);
 
-    private void setareButonStergereSectiune(Sectiune sectiune) {
-        this.btnStergereSectiune.setOnClickListener(v->{
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                if(sectiune.getDenumireSectiune().equals("MISC")){
-                    Toasty.warning(context,"Nu se paote sterge sectiunea de baza.").show();
-                }else{
-                    NotiteDB db=NotiteDB.getInstance(context);
-
-                    List<SectiuneNotiteJoin> legaturiNotite=db.getSectiuneNotiteJoinDao()
-                            .getLegaturiCuSectiune(sectiune.getSectiuneId());
-
-                    for(SectiuneNotiteJoin legatura:legaturiNotite){
-                        SectiuneNotiteJoin copie=new SectiuneNotiteJoin(legatura.notitaId,legatura.sectiuneId);
-                        copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
-                        db.getSectiuneNotiteJoinDao().insert(copie);
-                        db.getSectiuneNotiteJoinDao().deleteLegatura(legatura);
-                    }
-
-                    List<SectiuneNotiteListaJoin> legaturiNotiteLista=db.getSectiuneNotiteListaJoinDao()
-                            .getLegaturiCuSectiune(sectiune.getSectiuneId());
-
-                    for(SectiuneNotiteListaJoin legatura:legaturiNotiteLista){
-                        SectiuneNotiteListaJoin copie=new SectiuneNotiteListaJoin(legatura.notitaId,legatura.sectiuneId);
-                        copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
-                        db.getSectiuneNotiteListaJoinDao().insert(copie);
-                        db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
-
-                    }
-
-                    db.getSectiuneDao().deleteSectiune(sectiune);
-                }
-            });
-        });
+        setareButonStergereSectiune(dialog);
     }
 
     public static SectiuneViewHolder create(ViewGroup parent){
@@ -217,6 +186,66 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
             Log.e("Error","Eroare incarcare preview sectiune in SectiuneViewHolder");
         }
     }
+
+    private AlertDialog pregatireAlertaConfirmareStergere(Sectiune sectiune){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle("Doriți ștergerea acestei sectiuni?");
+        builder.setMessage("În urma ștergerii acestei secțiuni, întreg conținutul va fi mutat la secțiunea MISC.");
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            if(sectiune.getDenumireSectiune().equals("MISC")){
+                Toasty.warning(context,"Nu se poate sterge sectiunea de baza.").show();
+            }else{
+                stergereSectiuneSiMigrareDate(sectiune);
+            }
+        });
+        builder.setNegativeButton("Anulează", (dialog, which) -> {
+
+        });
+
+        return builder.create();
+    }
+
+    private void stergereSectiuneSiMigrareDate(Sectiune sectiune){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            if(sectiune.getDenumireSectiune().equals("MISC")){
+                Toasty.warning(context,"Nu se poate sterge sectiunea de baza.").show();
+            }else{
+                NotiteDB db=NotiteDB.getInstance(context);
+
+                List<SectiuneNotiteJoin> legaturiNotite=db.getSectiuneNotiteJoinDao()
+                        .getLegaturiCuSectiune(sectiune.getSectiuneId());
+
+                for(SectiuneNotiteJoin legatura:legaturiNotite){
+                    SectiuneNotiteJoin copie=new SectiuneNotiteJoin(legatura.notitaId,legatura.sectiuneId);
+                    copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
+                    db.getSectiuneNotiteJoinDao().insert(copie);
+                    db.getSectiuneNotiteJoinDao().deleteLegatura(legatura);
+                }
+
+                List<SectiuneNotiteListaJoin> legaturiNotiteLista=db.getSectiuneNotiteListaJoinDao()
+                        .getLegaturiCuSectiune(sectiune.getSectiuneId());
+
+                for(SectiuneNotiteListaJoin legatura:legaturiNotiteLista){
+                    SectiuneNotiteListaJoin copie=new SectiuneNotiteListaJoin(legatura.notitaId,legatura.sectiuneId);
+                    copie.sectiuneId=db.getSectiuneDao().getSectiuneCuDenumire("MISC").getSectiuneId();
+                    db.getSectiuneNotiteListaJoinDao().insert(copie);
+                    db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
+
+                }
+
+                db.getSectiuneDao().deleteSectiune(sectiune);
+            }
+        });
+        Toasty.success(context,"Modificari realizate cu succes.").show();
+    }
+
+    private void setareButonStergereSectiune(AlertDialog dialog) {
+        this.btnStergereSectiune.setOnClickListener(v->{
+            dialog.show();
+        });
+    }
+
 
     private void setareButonVizualNotite(Sectiune sectiune) {
         this.btnVizualizareNotiteDinSectiune.setOnClickListener(v -> {
