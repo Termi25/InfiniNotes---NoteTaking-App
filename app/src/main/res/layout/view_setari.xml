@@ -38,8 +38,8 @@
 
     <ImageButton
         android:id="@+id/imgBtnSalvareSetari"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="20sp"
         android:background="@drawable/cancel"
         android:scaleType="fitCenter"
@@ -99,7 +99,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="30sp"
         android:fontFamily="@font/alata"
         android:text="Încărcare notițe"
         android:textColor="@color/black"
@@ -109,7 +109,7 @@
         custom:layout_constraintHorizontal_bias="0.059"
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toBottomOf="@+id/textView11"
-        custom:layout_constraintVertical_bias="0.003" />
+        custom:layout_constraintVertical_bias="0.0" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
@@ -125,8 +125,9 @@
 
     <ImageButton
         android:id="@+id/imgBtnShareDB"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/share"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
@@ -139,16 +140,17 @@
 
     <ImageButton
         android:id="@+id/imgBtnUploadFile"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/upload"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.176"
+        custom:layout_constraintHorizontal_bias="0.174"
         custom:layout_constraintStart_toEndOf="@+id/textView12"
         custom:layout_constraintTop_toBottomOf="@+id/textView11"
-        custom:layout_constraintVertical_bias="0.104"
+        custom:layout_constraintVertical_bias="0.079"
         custom:srcCompat="@drawable/upload" />
 
     <Button

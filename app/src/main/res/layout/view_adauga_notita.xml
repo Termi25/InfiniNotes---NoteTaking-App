@@ -110,8 +110,8 @@
 
     <ImageButton
         android:id="@+id/btnAdaugaNotitaFinal"
-        android:layout_width="80sp"
-        android:layout_height="80sp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="10sp"
         android:background="@drawable/addition"
         android:contentDescription="buton adaugare notita"
@@ -126,8 +126,8 @@
 
     <ImageButton
         android:id="@+id/btnAnulareEditareNotita"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_margin="10sp"
         android:background="@drawable/left_arrow_in_circular_button_black_symbol"
         android:contentDescription="buton anulare Adaugare button"
