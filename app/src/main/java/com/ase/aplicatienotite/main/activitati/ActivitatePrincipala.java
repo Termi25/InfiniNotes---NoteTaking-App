@@ -7,12 +7,17 @@ import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHo
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,13 +40,13 @@ import es.dmoral.toasty.Toasty;
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
     private SectiuniViewModel sectiuneViewModel;
-
     private RecyclerView rlv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_principal);
+        cererePermisiuniNecesare();
 
         initializareToasty();
 
@@ -116,6 +121,20 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
     void notifyAdapter(RecyclerView rlv){
         rlv.getAdapter().notifyDataSetChanged();
+    }
+
+    void cererePermisiuniNecesare(){
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(ActivitatePrincipala.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ActivitatePrincipala.this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+            }
+        }
     }
 
 }
