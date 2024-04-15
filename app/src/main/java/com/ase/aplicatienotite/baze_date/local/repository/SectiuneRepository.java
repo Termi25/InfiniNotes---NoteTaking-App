@@ -18,19 +18,38 @@ import java.util.Map;
 
 public class SectiuneRepository {
     private final SectiuneDao sectiuneDao;
-    private final LiveData<List<Sectiune>> sectiuni;
+    private LiveData<List<Sectiune>> sectiuni;
     private final LiveData<Map<Sectiune,List<Notita>>> sectiuniCuNotite;
 
     public SectiuneRepository(Application application) {
-        LiveData<List<Sectiune>> sectiuni1;
         NotiteDB db=NotiteDB.getInstance(application);
-        sectiuneDao=db.getSectiuneDao();
-        sectiuni =sectiuneDao.selectToateSectiuni();
-        sectiuniCuNotite=db.getSectiuneNotiteJoinDao().getNotitePentruSectiuni();
+        this.sectiuneDao=db.getSectiuneDao();
+        this.sectiuni =this.sectiuneDao.selectToateSectiuni();
+        this.sectiuniCuNotite=db.getSectiuneNotiteJoinDao().getNotitePentruSectiuni();
     }
 
-    public LiveData<List<Sectiune>>getToateSectiuni(){
-        return sectiuni;
+    public LiveData<List<Sectiune>>getToateSectiuni(int tipOrdonare){
+        switch(tipOrdonare){
+            case 0:{
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticA_Z();
+                break;
+            }
+            case 1:{
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticZ_A();
+                break;
+            }
+            case 2:{
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniNumarNotiteCRESC();
+                break;
+            }
+            case 3:{
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniNumarNotiteDESC();
+                break;
+            }
+            default:{
+            }
+        }
+        return this.sectiuni;
     }
     public LiveData<Map<Sectiune,List<Notita>>>getToateSectiuniCuNotite(){return sectiuniCuNotite;}
 

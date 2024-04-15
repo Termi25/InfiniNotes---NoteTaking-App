@@ -101,7 +101,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
                 sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
 
-                sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
+                sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
                     List<String> listaSpinnerSectiuni =  new ArrayList<>();
                     for(int i=0;i<sectiuni.size();i++){
                         listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());

@@ -2,7 +2,7 @@ package com.ase.aplicatienotite.main.activitati;
 
 import static android.view.Gravity.apply;
 
-import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
+import static com.google.android.material.internal.ContextUtils.getActivity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,14 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ase.aplicatienotite.R;
@@ -32,7 +36,6 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -40,7 +43,9 @@ import es.dmoral.toasty.Toasty;
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
     private SectiuniViewModel sectiuneViewModel;
+    private AdapterSectiune adapter;
     private RecyclerView rlv;
+    private Spinner spOrdineSectiuni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +56,13 @@ public class ActivitatePrincipala extends AppCompatActivity {
         initializareToasty();
 
         this.rlv=findViewById(R.id.rlv_main);
-        final AdapterSectiune adapter = new AdapterSectiune(new AdapterSectiune.SectiuneDiff());
-        this.rlv.setAdapter(adapter);
+        this.adapter = new AdapterSectiune(new AdapterSectiune.SectiuneDiff());
+        this.rlv.setAdapter(this.adapter);
         this.rlv.setLayoutManager(new LinearLayoutManager(this));
 
-        incarcareRecyclerView(adapter);
+        this.spOrdineSectiuni=findViewById(R.id.spOrdineSectiuni);
+        incarcareSpinnerOrdineSectiuni();
+        incarcareRecyclerView();
         notifyAdapter(this.rlv);
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
@@ -103,10 +110,61 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 .apply();
     }
 
-    void incarcareRecyclerView(AdapterSectiune adapter){
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+    void incarcareSpinnerOrdineSectiuni(){
+        this.spOrdineSectiuni.setAdapter(new ArrayAdapter<>
+                (getApplicationContext(), android.R.layout.simple_spinner_item, new String[]{"Alfabetic A-Z",
+                        "Alfabetic Z-A","După număr notițe crescător","După număr notițe descrescător"}));
 
-        sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
+        SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
+        if(!sharedPrefs.contains("ordineSectiuni")){
+            SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
+            editor.putInt("ordineSectiuni",0);
+            editor.apply();
+        }
+        int ordineSectiuni=sharedPrefs.getInt("ordineSectiuni",0);
+        this.spOrdineSectiuni.setSelection(ordineSectiuni);
+        this.spOrdineSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                incarcareRecyclerView();
+                SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
+                editor.putInt("ordineSectiuni",position);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    void incarcareRecyclerView(){
+        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+        int optiuneOrdonare;
+        switch (this.spOrdineSectiuni.getSelectedItemPosition()){
+            case 0:{
+                optiuneOrdonare=0;
+                break;
+            }
+            case 1:{
+                optiuneOrdonare=1;
+                break;
+            }
+            case 2:{
+                optiuneOrdonare=2;
+                break;
+            }
+            case 3:{
+                optiuneOrdonare=3;
+                break;
+            }
+            default:{
+                optiuneOrdonare=0;
+            }
+        }
+
+        sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this,sectiuni->{
             if(sectiuni.isEmpty()){
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
@@ -115,7 +173,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 });
             }
 
-            adapter.submitList(sectiuni);
+            this.adapter.submitList(sectiuni);
         });
     }
 

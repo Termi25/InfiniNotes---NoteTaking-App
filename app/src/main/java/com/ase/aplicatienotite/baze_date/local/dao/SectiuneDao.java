@@ -21,9 +21,16 @@ public interface SectiuneDao {
     void updateSectiune(Sectiune sectiune);
     @Delete
     void deleteSectiune(Sectiune sectiune);
-
     @Query("SELECT * FROM sectiuni")
     LiveData<List<Sectiune>> selectToateSectiuni();
+    @Query("SELECT * FROM sectiuni ORDER BY denumireSectiune")
+    LiveData<List<Sectiune>> selectToateSectiuniAlfabeticA_Z();
+    @Query("SELECT * FROM sectiuni ORDER BY denumireSectiune DESC")
+    LiveData<List<Sectiune>> selectToateSectiuniAlfabeticZ_A();
+    @Query("SELECT * FROM sectiuni ORDER BY (SELECT COUNT(sectiuneId) FROM sectiune_notita_join WHERE sectiune_notita_join.sectiuneId=sectiuni.sectiuneId)")
+    LiveData<List<Sectiune>> selectToateSectiuniNumarNotiteCRESC();
+    @Query("SELECT * FROM sectiuni ORDER BY (SELECT COUNT(sectiuneId) FROM sectiune_notita_join WHERE sectiune_notita_join.sectiuneId=sectiuni.sectiuneId) DESC")
+    LiveData<List<Sectiune>> selectToateSectiuniNumarNotiteDESC();
     @Query("SELECT * FROM sectiuni")
     List<Sectiune> selectToateSectiuniNoLive();
     @Query("SELECT * FROM sectiuni WHERE denumireSectiune=:denumire")

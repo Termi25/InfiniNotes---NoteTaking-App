@@ -93,7 +93,9 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                                 .getNotitaId(), sectiuneDeLegat.getSectiuneId());
                         db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
 
-                        setareAlarma(notitaNoua,sectiuneDeLegat,this.calendarDeTransmis);
+                        if(notitaNoua.getDataReminder()!=null){
+                            setareAlarma(notitaNoua,sectiuneDeLegat,this.calendarDeTransmis);
+                        }
 
                         setResult(RESULT_OK);
                         finish();
@@ -117,7 +119,7 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
     private void setareSpinnerSectiuni() {
         sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
 
-        sectiuneViewModel.getToateSectiuni().observe(this, sectiuni -> {
+        sectiuneViewModel.getToateSectiuni(0).observe(this, sectiuni -> {
             List<String> listaSpinnerSectiuni = new ArrayList<>();
             for (int i = 0; i < sectiuni.size(); i++) {
                 listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
