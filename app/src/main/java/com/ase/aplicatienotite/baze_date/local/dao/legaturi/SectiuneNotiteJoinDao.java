@@ -21,7 +21,7 @@ public interface SectiuneNotiteJoinDao {
     void insert(SectiuneNotiteJoin legatura);
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId")
     List<Notita> getNotitePentruSectiune(final int sectiuneId);
-    @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId")
+    @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId WHERE sectiune_notita_join.sectiuneId=:sectiuneId ORDER BY notite.titlu")
     LiveData<List<Notita>> getNotitePentruSectiuneLive(final int sectiuneId);
     @Query("SELECT * FROM notite INNER JOIN sectiune_notita_join ON notite.notitaId=sectiune_notita_join.notitaId GROUP BY sectiune_notita_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotitePentruSectiuni();
@@ -31,6 +31,8 @@ public interface SectiuneNotiteJoinDao {
     List<SectiuneNotiteJoin> getLegaturiCuSectiune(int idSectiune);
     @Query("SELECT sectiuneId FROM sectiune_notita_join WHERE notitaId=:idNotita")
     int getIdSectiune(int idNotita);
+    @Query("SELECT * FROM sectiuni INNER JOIN sectiune_notita_join WHERE sectiuni.sectiuneId=sectiune_notita_join.sectiuneId AND sectiune_notita_join.notitaId=:idNotita")
+    Sectiune getSectiune(int idNotita);
     @Update
     void updateLegatura(SectiuneNotiteJoin legatura);
     @Delete

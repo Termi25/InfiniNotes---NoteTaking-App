@@ -101,7 +101,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
                 sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
 
-                sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
+                sectiuneViewModel.getToateSectiuni(4).observe(this,sectiuni->{
                     List<String> listaSpinnerSectiuni =  new ArrayList<>();
                     for(int i=0;i<sectiuni.size();i++){
                         listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
@@ -116,7 +116,8 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                     NotiteDB.databaseWriteExecutor.execute(()->{
                         NotiteDB db=NotiteDB.getInstance(getApplicationContext());
                         try{
-                            spinnerSectiuni.setSelection(db.getSectiuneNotiteJoinDao().getIdSectiune(notita.getNotitaId())-1);
+                            Sectiune sectiuneActuala=db.getSectiuneNotiteJoinDao().getSectiune(notita.getNotitaId());
+                            runOnUiThread(()->spinnerSectiuni.setSelection(listaSpinnerSectiuni.indexOf(sectiuneActuala.getDenumireSectiune())));
                         }catch (Exception e){
                             Log.e("Error",getString(R.string.error_editeaza_notita_update_notita2));
                         }

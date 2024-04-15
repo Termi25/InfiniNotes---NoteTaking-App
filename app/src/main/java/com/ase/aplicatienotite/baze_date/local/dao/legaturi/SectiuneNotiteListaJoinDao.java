@@ -22,7 +22,7 @@ public interface SectiuneNotiteListaJoinDao {
     void insert(SectiuneNotiteListaJoin legatura);
     @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId")
     List<NotitaLista> getNotiteListaPentruSectiune(final int sectiuneId);
-    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId")
+    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId ORDER BY titlu")
     LiveData<List<NotitaLista>> getNotiteListaPentruSectiuneLive(final int sectiuneId);
     @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId GROUP BY sectiune_notita_lista_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotiteListaPentruSectiuni();
