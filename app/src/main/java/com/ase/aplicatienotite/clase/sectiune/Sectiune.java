@@ -9,12 +9,13 @@ import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "sectiuni",indices = {@Index(value = {"denumireSectiune"},
         unique = true)})
-public class Sectiune{
+public class Sectiune implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int sectiuneId;
     private String denumireSectiune;

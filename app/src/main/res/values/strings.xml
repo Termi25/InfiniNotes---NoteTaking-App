@@ -64,4 +64,6 @@
     <string name="com_ase_aplicatienotite_fileprovider">com.ase.aplicatienotite.fileprovider</string>
     <string name="application_db_share_type">application/db</string>
     <string name="message_export_db_infininotes">Export baza de date InfiniNotes</string>
+    <string name="error_view_adauga_notita_invalid_date">error_view_adauga_notita_invalid_date</string>
+    <string name="error_broadcast_receiver_notita_reminder">error_broadcast_receiver_notita_reminder</string>
 </resources>

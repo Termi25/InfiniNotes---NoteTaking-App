@@ -1,8 +1,12 @@
 package com.ase.aplicatienotite.baze_date.local.repository;
 
+import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
+
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
@@ -18,9 +22,10 @@ public class SectiuneRepository {
     private final LiveData<Map<Sectiune,List<Notita>>> sectiuniCuNotite;
 
     public SectiuneRepository(Application application) {
+        LiveData<List<Sectiune>> sectiuni1;
         NotiteDB db=NotiteDB.getInstance(application);
         sectiuneDao=db.getSectiuneDao();
-        sectiuni=sectiuneDao.selectToateSectiuni();
+        sectiuni =sectiuneDao.selectToateSectiuni();
         sectiuniCuNotite=db.getSectiuneNotiteJoinDao().getNotitePentruSectiuni();
     }
 

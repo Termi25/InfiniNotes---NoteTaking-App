@@ -8,6 +8,9 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
     <meta-data
         android:name="com.google.android.gms.car.application"
@@ -57,6 +60,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
         </provider>
+
+
+        <receiver android:name=".main.receiver.AlarmBroadcastReceiverReminderNotita"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="me.proft.alarms.ACTION_ALARM" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

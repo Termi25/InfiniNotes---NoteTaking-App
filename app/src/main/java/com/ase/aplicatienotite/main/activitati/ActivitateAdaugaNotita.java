@@ -1,9 +1,16 @@
 package com.ase.aplicatienotite.main.activitati;
 
+import android.Manifest;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +19,7 @@ import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ase.aplicatienotite.R;
@@ -20,6 +28,7 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiverReminderNotita;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,13 +41,15 @@ import java.util.Locale;
 public class ActivitateAdaugaNotita extends AppCompatActivity {
     private SectiuniViewModel sectiuneViewModel;
     private Spinner spinnerSectiuni;
-    private Date dataReminder=null;
+    private Date dataReminder = null;
+    private Calendar calendarDeTransmis;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_adauga_notita);
 
-        ImageButton btnAnulare=findViewById(R.id.btnAnulareEditareNotita);
+        ImageButton btnAnulare = findViewById(R.id.btnAnulareEditareNotita);
         btnAnulare.setOnClickListener(v -> {
             setResult(RESULT_CANCELED);
             finish();
@@ -49,48 +60,52 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
         Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
         setareBtnReminder(btnReminderNotita);
 
-        ImageButton btnAdaugareNotita=findViewById(R.id.btnAdaugaNotitaFinal);
-        btnAdaugareNotita.setOnClickListener(v->{
-                EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
-                if(TextUtils.isEmpty(etTitluNotita.getText())){
-                    etTitluNotita.setError(getString(R.string.titlu_este_necesar_pentru_salvare));
-                }else{
-                    NotiteDB.databaseWriteExecutor.execute(()->{
-                        EditText etCorpNotita=findViewById(R.id.etCorpTextNotita);
-                        Notita notitaNoua=new Notita(String.valueOf(etTitluNotita.getText()),
-                                String.valueOf(etCorpNotita.getText()));
+        ImageButton btnAdaugareNotita = findViewById(R.id.btnAdaugaNotitaFinal);
+        btnAdaugareNotita.setOnClickListener(v -> {
+            EditText etTitluNotita = findViewById(R.id.etNumeAdaugaNotita);
+            if (TextUtils.isEmpty(etTitluNotita.getText())) {
+                etTitluNotita.setError(getString(R.string.titlu_este_necesar_pentru_salvare));
+            } else {
+                NotiteDB.databaseWriteExecutor.execute(() -> {
+                    EditText etCorpNotita = findViewById(R.id.etCorpTextNotita);
+                    Notita notitaNoua = new Notita(String.valueOf(etTitluNotita.getText()),
+                            String.valueOf(etCorpNotita.getText()));
 
-                        if(dataReminder!=null){
-                            notitaNoua.setDataReminder(dataReminder);
-                        }
+                    if (dataReminder != null) {
+                        notitaNoua.setDataReminder(dataReminder);
+                    }
 
-                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                        try{
-                            db.getNotitaDao().insertNotita(notitaNoua);
+                    NotiteDB db = NotiteDB.getInstance(getApplicationContext());
+                    try {
+                        db.getNotitaDao().insertNotita(notitaNoua);
 
-                            notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
-                            Sectiune sectiuneDeLegat=db.getSectiuneDao().
-                                    getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+                        notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
 
-                            SectiuneNotiteJoin legaturaNoua=new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
-                                    sectiuneDeLegat.getSectiuneId());
-                            db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
-                            setResult(RESULT_OK);
-                            finish();
-                        }catch (Exception e){
-                            runOnUiThread(() -> etTitluNotita.setError("Titlu este deja utilizat, incercati alta denumire."));
-                        }
-                    });
-                }
+                        Sectiune sectiuneDeLegat = db.getSectiuneDao().
+                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+
+                        SectiuneNotiteJoin legaturaNoua = new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
+                                sectiuneDeLegat.getSectiuneId());
+                        db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
+
+                        setareAlarma(notitaNoua,sectiuneDeLegat,this.calendarDeTransmis);
+
+                        setResult(RESULT_OK);
+                        finish();
+                    } catch (Exception e) {
+                        runOnUiThread(() -> etTitluNotita.setError("Titlu este deja utilizat, incercati alta denumire."));
+                    }
+                });
+            }
         });
     }
 
     private void setareSpinnerSectiuni() {
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+        sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
 
-        sectiuneViewModel.getToateSectiuni().observe(this,sectiuni->{
-            List<String> listaSpinnerSectiuni =  new ArrayList<>();
-            for(int i=0;i<sectiuni.size();i++){
+        sectiuneViewModel.getToateSectiuni().observe(this, sectiuni -> {
+            List<String> listaSpinnerSectiuni = new ArrayList<>();
+            for (int i = 0; i < sectiuni.size(); i++) {
                 listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
             }
 
@@ -103,9 +118,10 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
         });
     }
 
-    private void setareBtnReminder(Button btnReminderNotita){
+    private void setareBtnReminder(Button btnReminderNotita) {
         LocaleList locale = getResources().getConfiguration().getLocales();
         Locale.setDefault(locale.get(0));
+        this.calendarDeTransmis=Calendar.getInstance();
         btnReminderNotita.setOnClickListener(v -> {
             final Calendar c = Calendar.getInstance();
 
@@ -114,26 +130,48 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     ActivitateAdaugaNotita.this,
-                    (view, year1, monthOfYear, dayOfMonth) ->{
+                    (view, year1, monthOfYear, dayOfMonth) -> {
                         btnReminderNotita.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1);
 
-                        StringBuilder dateBuilder=new StringBuilder();
-                        dateBuilder.append(dayOfMonth);
-                        dateBuilder.append('-');
-                        dateBuilder.append(monthOfYear+1);
-                        dateBuilder.append('-');
-                        dateBuilder.append(year1);
-                        String dataString=dateBuilder.toString();
-                        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MM-yyyy",
+                        String dataString = String.valueOf(dayOfMonth) +
+                                '-' +
+                                (monthOfYear + 1) +
+                                '-' +
+                                year1;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy",
                                 Locale.ENGLISH);
-                        try{
-                            dataReminder=simpleDateFormat.parse(dataString);
-                        }catch (ParseException e){
-                            e.printStackTrace();
+
+                        try {
+                            dataReminder = simpleDateFormat.parse(dataString);
+                            if(dataReminder!=null){
+                                this.calendarDeTransmis.setTime(dataReminder);
+                                this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,8);
+                            }
+                        } catch (ParseException e) {
+                            Log.e("Error",getString(R.string.error_view_adauga_notita_invalid_date));
                         }
                     },
                     year, month, day);
             datePickerDialog.show();
         });
+    }
+
+    private void setareAlarma(Notita notita, Sectiune sectiuneDeLegat, Calendar calendar) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+        }
+
+        Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
+        intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+
+        intentToFire.putExtra("notita",notita);
+        intentToFire.putExtra("sectiune",sectiuneDeLegat);
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                1, intentToFire, PendingIntent.FLAG_MUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().
+                getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
     }
 }
