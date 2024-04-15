@@ -28,8 +28,6 @@ public class SectiuniViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Sectiune>> getToateSectiuni(){
-
-
         return toateSectiunile;
     }
     public LiveData<Map<Sectiune,List<Notita>>> getToateSectiunileCuNotite(){

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -57,56 +58,58 @@ public class ViewWeather extends ConstraintLayout {
     public ViewWeather(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         View.inflate(context, R.layout.view_vreme, this);
-        try {
-            TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ViewWeather);
-            fileName = ta.getString(R.styleable.ViewWeather_setDataProvider);
-            RequestQueue req = Volley.newRequestQueue(context);
-            String url = null;
+        boolean preferences = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("Conexiune la Internet",true);
+        if(preferences){
+            try {
+                TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ViewWeather);
+                fileName = ta.getString(R.styleable.ViewWeather_setDataProvider);
+                RequestQueue req = Volley.newRequestQueue(context);
+                String url = null;
 
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            while (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                while (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-            }
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            TextView oras = findViewById(R.id.tvOrasTemperatura);
-            if (location != null) {
-                this.longitude = location.getLongitude();
-                this.latitude = location.getLatitude();
-                url = "https://api.openweathermap.org/data/3.0/onecall?lat=" + this.latitude + "&lon=" +
-                        this.longitude + "&exclude=hourly,daily,minutely,alerts&units=metric&appid=";
-                try {
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(context.getAssets().open("cheie.txt")));
-                    url = url + reader.readLine();
-                } catch (IOException e) {
-                    Log.e("Error", getContext().getString(R.string.error_view_weather_key_file_no_read));
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
                 }
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-                Geocoder geocoder=new Geocoder(context, Locale.ENGLISH);
-                try {
-                    List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                    Address obj = addresses.get(0);
-                    String localitate = obj.getLocality();
-                    oras.setText(localitate);
+                TextView oras = findViewById(R.id.tvOrasTemperatura);
+                if (location != null) {
+                    this.longitude = location.getLongitude();
+                    this.latitude = location.getLatitude();
+                    url = "https://api.openweathermap.org/data/3.0/onecall?lat=" + this.latitude + "&lon=" +
+                            this.longitude + "&exclude=hourly,daily,minutely,alerts&units=metric&appid=";
+                    try {
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(context.getAssets().open("cheie.txt")));
+                        url = url + reader.readLine();
+                    } catch (IOException e) {
+                        Log.e("Error", getContext().getString(R.string.error_view_weather_key_file_no_read));
+                    }
 
-                } catch (IOException e) {
-                    Log.e("Error","eroare obtinere localitate pentru coordonatele furnizat in ViewWeather");
+                    Geocoder geocoder=new Geocoder(context, Locale.ENGLISH);
+                    try {
+                        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                        Address obj = addresses.get(0);
+                        String localitate = obj.getLocality();
+                        oras.setText(localitate);
+
+                    } catch (IOException e) {
+                        Log.e("Error","eroare obtinere localitate pentru coordonatele furnizat in ViewWeather");
+                    }
+                } else {
+                    try {
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(context.getAssets().open("default.txt")));
+                        url = reader.readLine();
+                    } catch (IOException e) {
+                        Log.e("Error", getContext().getString(R.string.error_view_weather_key_file_no_read));
+                    }
                 }
-            } else {
-                try {
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(context.getAssets().open("default.txt")));
-                    url = reader.readLine();
-                } catch (IOException e) {
-                    Log.e("Error", getContext().getString(R.string.error_view_weather_key_file_no_read));
-                }
-            }
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                         url,
                         null,
                         (Response.Listener<JSONObject>) response -> {
@@ -129,11 +132,12 @@ public class ViewWeather extends ConstraintLayout {
                         });
                 req.add(jsonObjectRequest);
                 ta.recycle();
-        }catch(Exception e){
-            Log.e("Error", getContext().getString(R.string.error_view_weather_general_fail));
+            }catch(Exception e){
+                Log.e("Error", getContext().getString(R.string.error_view_weather_general_fail));
+            }
+            Button btnRefresh = findViewById(R.id.btnReincarcareVreme);
+            btnRefresh.setOnClickListener(v -> postInvalidate());
         }
-        Button btnRefresh = findViewById(R.id.btnReincarcareVreme);
-        btnRefresh.setOnClickListener(v -> postInvalidate());
     }
 
     private void incarcaImagine(String URL,Context context,String momentZi){

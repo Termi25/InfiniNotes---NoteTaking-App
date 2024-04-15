@@ -15,7 +15,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="@string/logo_aplicatie"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/etNumeAdaugaSectiune"
         android:layout_width="0dp"
-        android:layout_height="50sp"
+        android:layout_height="40sp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
         android:layout_marginEnd="100sp"
@@ -62,8 +62,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintTop_toBottomOf="@+id/etNumeAdaugaSectiune"
+        app:layout_constraintVertical_bias="0.015" />
 
     <EditText
         android:id="@+id/etContinutAdaugaLista"
@@ -93,48 +93,49 @@
 
     <ImageButton
         android:id="@+id/btnAdaugaSectiune"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="15sp"
         android:background="@drawable/addition"
         android:contentDescription="@string/btn_adauga_sectiune"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnAdaugaLista"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/spCuloareSectiune"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/btnAdaugaLista"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167"
-        app:srcCompat="@drawable/addition" />
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.588" />
 
     <ImageButton
         android:id="@+id/btnAdaugaNotita"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="10sp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="15sp"
         android:background="@drawable/addition"
         android:contentDescription="@string/btn_adauga_notita"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.971"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/addition" />
 
     <ImageButton
         android:id="@+id/btnAdaugaLista"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="15sp"
         android:background="@drawable/addition"
         android:contentDescription="@string/btn_adauga_lista"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/etContinutAdaugaLista"
-        app:layout_constraintEnd_toEndOf="@+id/btnAdaugaNotita"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/etNumeAdaugaLista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/btnAdaugaNotita"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdaugaSectiune"
-        app:layout_constraintVertical_bias="0.871"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@drawable/addition" />
 
     <TextView
@@ -153,8 +154,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.019" />
 
     <TextView
         android:id="@+id/textView7"
@@ -175,7 +176,7 @@
     <EditText
         android:id="@+id/etNumeAdaugaLista"
         android:layout_width="0dp"
-        android:layout_height="50sp"
+        android:layout_height="40sp"
         android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
         android:layout_marginEnd="230sp"
@@ -198,9 +199,9 @@
     <Spinner
         android:id="@+id/spSectiuneListaNoua"
         android:layout_width="0dp"
-        android:layout_height="50sp"
+        android:layout_height="0dp"
         android:layout_marginStart="5sp"
-        android:layout_marginEnd="10sp"
+        android:layout_marginEnd="5sp"
         android:background="@drawable/border_lv_principal"
         android:padding="5sp"
         android:paddingBottom="10sp"
@@ -249,31 +250,35 @@
 
     <ImageButton
         android:id="@+id/btnAnulareAdaugare"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="15sp"
         android:background="@drawable/left_arrow_in_circular_button_black_symbol"
         android:contentDescription="@string/buton_pentru_anulare_proces_de_adaugare"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etContinutAdaugaLista"
-        app:layout_constraintVertical_bias="0.222"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather4"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_margin="10sp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="15sp"
         android:background="@drawable/btn_selector_skin_brown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.003"
-        custom:setDataProvider="cheie.txt"/>
+        custom:setDataProvider="cheie.txt" />
 
     <Spinner
         android:id="@+id/spCuloareSectiune"
