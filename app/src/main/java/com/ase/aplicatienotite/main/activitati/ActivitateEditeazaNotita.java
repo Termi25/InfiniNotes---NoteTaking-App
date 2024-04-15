@@ -1,7 +1,12 @@
 package com.ase.aplicatienotite.main.activitati;
 
+import android.Manifest;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.util.Log;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ase.aplicatienotite.R;
@@ -24,6 +30,7 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
+import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiverReminderNotita;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +47,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
     private SectiuniViewModel sectiuneViewModel;
     private Spinner spinnerSectiuni;
     private Date dataReminder=null;
+    private Calendar calendarDeTransmis=Calendar.getInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,12 +78,16 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
                     NotiteDB.databaseWriteExecutor.execute(()->{
                         NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+
+                        int idSectiune=db.getSectiuneNotiteJoinDao().getIdSectiune(notita.getNotitaId());
+
+                        Sectiune sectiuneDeLegat=db.getSectiuneDao().getSectiuneCuId(idSectiune);
                         try{
                             notita.setTitlu(String.valueOf(etTitluNotita.getText()));
                             notita.setCorp(String.valueOf(etCorpNotita.getText()));
                             if(dataReminder!=null){
                                 notita.setDataReminder(dataReminder);
-                                Log.d("TEST",simpleDateFormat.format(dataReminder));
+                                setareAlarma(notita,sectiuneDeLegat,calendarDeTransmis);
                             }
                             db.getNotitaDao().updateNotita(notita);
                         }catch (Exception e){
@@ -175,6 +187,10 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                         String dataString= dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1;
                         try{
                             dataReminder=simpleDateFormat.parse(dataString);
+                            if(dataReminder!=null){
+                                this.calendarDeTransmis.setTime(dataReminder);
+                                this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,8);
+                            }
                         }catch (ParseException e){
                             Log.e("Error",getString(R.string.error_editeaza_notita_update_notita4));
                         }
@@ -182,5 +198,24 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                     year, month, day);
             datePickerDialog.show();
         });
+    }
+
+    private void setareAlarma(Notita notita, Sectiune sectiuneDeLegat, Calendar calendar) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+        }
+
+        Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
+        intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+
+        intentToFire.putExtra("notita",notita);
+        intentToFire.putExtra("sectiune",sectiuneDeLegat);
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                1, intentToFire, PendingIntent.FLAG_MUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().
+                getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
     }
 }

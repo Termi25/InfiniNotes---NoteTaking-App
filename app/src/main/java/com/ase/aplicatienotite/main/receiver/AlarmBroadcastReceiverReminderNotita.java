@@ -33,9 +33,9 @@ public class AlarmBroadcastReceiverReminderNotita extends BroadcastReceiver {
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                             String.valueOf(notita.getNotitaId()))
                             .setSmallIcon(R.drawable.logo_centrat_app)
-                            .setContentTitle("Reminder "+notita.getTitlu())
-                            .setContentText("Nu uita de notița "+notita.getTitlu()
-                                    +" care se regăsește în secțiunea "
+                            .setContentTitle("Reminder \""+notita.getTitlu()+"\"")
+                            .setContentText("Nu uita de notița \""+notita.getTitlu()
+                                    +"\" care se regăsește în secțiunea "
                                     +sectiune.getDenumireSectiune()+'.')
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                     NotificationManager notificationManager = (NotificationManager)context.getSystemService(
