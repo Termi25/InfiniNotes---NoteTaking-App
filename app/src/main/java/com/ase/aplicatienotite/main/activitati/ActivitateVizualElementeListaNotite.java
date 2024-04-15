@@ -49,7 +49,11 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
                     if(notitaLista.getTitlu().toLowerCase().contains("lista")){
                         tvNumeLista.setText(notitaLista.getTitlu());
                     }else{
-                        tvNumeLista.setText(String.format("Lista: %s", notitaLista.getTitlu()));
+                        if(notitaLista.getTitlu().toLowerCase().contains("listă")){
+                            tvNumeLista.setText(notitaLista.getTitlu());
+                        }else{
+                            tvNumeLista.setText(String.format("Lista: %s", notitaLista.getTitlu()));
+                        }
                     }
                 }
             }
