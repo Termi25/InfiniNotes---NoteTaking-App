@@ -45,6 +45,10 @@ public class SectiuniViewModel extends AndroidViewModel {
                 this.toateSectiunile=this.sRepository.getToateSectiuni(3);
                 break;
             }
+            case 4:{
+                this.toateSectiunile=this.sRepository.getToateSectiuni(4);
+                break;
+            }
             default:{
             }
         }

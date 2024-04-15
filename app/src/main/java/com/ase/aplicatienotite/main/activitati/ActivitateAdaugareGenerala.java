@@ -1,6 +1,7 @@
 package com.ase.aplicatienotite.main.activitati;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -73,7 +74,9 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
 
     private void incarcareSpinnerLista() {
         sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
-        sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
+        SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
+        int ordineSectiuni=sharedPrefs.getInt("ordineSectiuni",4);
+        sectiuneViewModel.getToateSectiuni(ordineSectiuni).observe(this,sectiuni->{
             List<String> listaSpinnerSectiuni =  new ArrayList<>();
             for(int i=0;i<sectiuni.size();i++){
                 listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());

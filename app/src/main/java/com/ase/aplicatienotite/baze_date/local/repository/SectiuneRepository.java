@@ -46,6 +46,10 @@ public class SectiuneRepository {
                 this.sectiuni=this.sectiuneDao.selectToateSectiuniNumarNotiteDESC();
                 break;
             }
+            case 4:{
+                this.sectiuni=this.sectiuneDao.selectToateSectiuni();
+                break;
+            }
             default:{
             }
         }

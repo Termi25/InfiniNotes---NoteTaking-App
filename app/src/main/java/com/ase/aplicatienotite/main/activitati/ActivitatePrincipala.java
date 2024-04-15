@@ -1,9 +1,5 @@
 package com.ase.aplicatienotite.main.activitati;
 
-import static android.view.Gravity.apply;
-
-import static com.google.android.material.internal.ContextUtils.getActivity;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -35,14 +30,12 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
-    private SectiuniViewModel sectiuneViewModel;
     private AdapterSectiune adapter;
     private RecyclerView rlv;
     private Spinner spOrdineSectiuni;
@@ -79,21 +72,15 @@ public class ActivitatePrincipala extends AppCompatActivity {
         });
 
         ImageButton btnSetari=findViewById(R.id.imgBtnSetari);
-        btnSetari.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ActivitateSetari.class);
-                launcher.launch(intent);
-            }
+        btnSetari.setOnClickListener(v -> {
+            Intent intent=new Intent(getApplicationContext(),ActivitateSetari.class);
+            launcher.launch(intent);
         });
 
         ImageButton btnAdauga=findViewById(R.id.imgBtnAdaugareGenerala);
-        btnAdauga.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ActivitateAdaugareGenerala.class);
-                launcher.launch(intent);
-            }
+        btnAdauga.setOnClickListener(v -> {
+            Intent intent=new Intent(getApplicationContext(),ActivitateAdaugareGenerala.class);
+            launcher.launch(intent);
         });
         notifyAdapter(this.rlv);
     }
@@ -113,7 +100,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     void incarcareSpinnerOrdineSectiuni(){
         this.spOrdineSectiuni.setAdapter(new ArrayAdapter<>
                 (getApplicationContext(), android.R.layout.simple_spinner_item, new String[]{"Alfabetic A-Z",
-                        "Alfabetic Z-A","După număr notițe crescător","După număr notițe descrescător"}));
+                        "Alfabetic Z-A","După număr notițe crescător","După număr notițe descrescător","După dată creare"}));
 
         SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
         if(!sharedPrefs.contains("ordineSectiuni")){
@@ -140,7 +127,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     }
 
     void incarcareRecyclerView(){
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
+        SectiuniViewModel sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
         int optiuneOrdonare;
         switch (this.spOrdineSectiuni.getSelectedItemPosition()){
             case 0:{
@@ -159,12 +146,16 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 optiuneOrdonare=3;
                 break;
             }
+            case 4:{
+                optiuneOrdonare=4;
+                break;
+            }
             default:{
                 optiuneOrdonare=0;
             }
         }
 
-        sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this,sectiuni->{
+        sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this, sectiuni->{
             if(sectiuni.isEmpty()){
                 NotiteDB.databaseWriteExecutor.execute(()->{
                     NotiteDB db=NotiteDB.getInstance(getApplicationContext());
@@ -178,7 +169,11 @@ public class ActivitatePrincipala extends AppCompatActivity {
     }
 
     void notifyAdapter(RecyclerView rlv){
-        rlv.getAdapter().notifyDataSetChanged();
+        try{
+            Objects.requireNonNull(rlv.getAdapter()).notifyDataSetChanged();
+        }catch (Exception e){
+            Log.e("Error","Eroare adapter recyclerview ActivitatePrincipala");
+        }
     }
 
     void cererePermisiuniNecesare(){
