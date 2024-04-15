@@ -136,7 +136,7 @@ public class ViewWeather extends ConstraintLayout {
                 Log.e("Error", getContext().getString(R.string.error_view_weather_general_fail));
             }
             Button btnRefresh = findViewById(R.id.btnReincarcareVreme);
-            btnRefresh.setOnClickListener(v -> postInvalidate());
+            btnRefresh.setOnClickListener(v -> invalidate());
         }
     }
 

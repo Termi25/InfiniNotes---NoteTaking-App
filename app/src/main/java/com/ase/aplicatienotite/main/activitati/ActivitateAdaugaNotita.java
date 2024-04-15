@@ -50,17 +50,18 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_adauga_notita);
 
-        ImageButton btnAnulare = findViewById(R.id.btnAnulareEditareNotita);
-        btnAnulare.setOnClickListener(v -> {
-            setResult(RESULT_CANCELED);
-            finish();
-        });
+        setareButonAnulare();
 
         setareSpinnerSectiuni();
 
-        Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
-        setareBtnReminder(btnReminderNotita);
+        //TODO - creare buton cu dialog asociat pentru setarea orei reminderului (necesita adaugare si in editeaza notita)Edit
 
+        setareBtnReminder();
+
+        setareButonAdaugareNotita();
+    }
+
+    private void setareButonAdaugareNotita() {
         ImageButton btnAdaugareNotita = findViewById(R.id.btnAdaugaNotitaFinal);
         btnAdaugareNotita.setOnClickListener(v -> {
             EditText etTitluNotita = findViewById(R.id.etNumeAdaugaNotita);
@@ -80,13 +81,16 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                     try {
                         db.getNotitaDao().insertNotita(notitaNoua);
 
-                        notitaNoua.setNotitaId(db.getNotitaDao().getNotitaDupaTitlu(String.valueOf(etTitluNotita.getText())).getNotitaId());
+                        notitaNoua.setNotitaId(db.getNotitaDao()
+                                .getNotitaDupaTitlu(String
+                                        .valueOf(etTitluNotita.getText())).getNotitaId());
 
                         Sectiune sectiuneDeLegat = db.getSectiuneDao().
-                                getSectiuneCuDenumire(spinnerSectiuni.getSelectedItem().toString());
+                                getSectiuneCuDenumire(spinnerSectiuni
+                                        .getSelectedItem().toString());
 
-                        SectiuneNotiteJoin legaturaNoua = new SectiuneNotiteJoin(notitaNoua.getNotitaId(),
-                                sectiuneDeLegat.getSectiuneId());
+                        SectiuneNotiteJoin legaturaNoua = new SectiuneNotiteJoin(notitaNoua
+                                .getNotitaId(), sectiuneDeLegat.getSectiuneId());
                         db.getSectiuneNotiteJoinDao().insert(legaturaNoua);
 
                         setareAlarma(notitaNoua,sectiuneDeLegat,this.calendarDeTransmis);
@@ -94,10 +98,19 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                         setResult(RESULT_OK);
                         finish();
                     } catch (Exception e) {
-                        runOnUiThread(() -> etTitluNotita.setError("Titlu este deja utilizat, incercati alta denumire."));
+                        runOnUiThread(() -> etTitluNotita
+                                .setError("Titlu este deja utilizat, incercati alta denumire."));
                     }
                 });
             }
+        });
+    }
+
+    private void setareButonAnulare() {
+        ImageButton btnAnulare = findViewById(R.id.btnAnulareEditareNotita);
+        btnAnulare.setOnClickListener(v -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
     }
 
@@ -119,7 +132,8 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
         });
     }
 
-    private void setareBtnReminder(Button btnReminderNotita) {
+    private void setareBtnReminder() {
+        Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
         LocaleList locale = getResources().getConfiguration().getLocales();
         Locale.setDefault(locale.get(0));
         this.calendarDeTransmis=Calendar.getInstance();
