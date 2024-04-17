@@ -4,6 +4,7 @@ import static androidx.core.content.ContextCompat.getDrawable;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
+import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;

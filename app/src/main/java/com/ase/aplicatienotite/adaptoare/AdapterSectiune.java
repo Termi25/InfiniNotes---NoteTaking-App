@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
+import com.ase.aplicatienotite.baze_date.local.repository.SectiuneRepository;
 import com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.notite.Notita;
@@ -24,6 +25,7 @@ import java.util.List;
 public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
     private SectiuniViewModel sectiuneViewModel;
+    private List<Sectiune> listaSectiune=new ArrayList<>();
 
     public AdapterSectiune(@NonNull DiffUtil.ItemCallback<Sectiune> diffCallback) {
         super(diffCallback);

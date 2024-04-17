@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private AdapterSectiune adapter;
     private RecyclerView rlv;
     private Spinner spOrdineSectiuni;
+    private List<Sectiune> initialList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,40 @@ public class ActivitatePrincipala extends AppCompatActivity {
             launcher.launch(intent);
         });
         notifyAdapter(this.rlv);
+        
+        
+        setareCautareSectiuni();
+    }
+
+    private void setareCautareSectiuni() {
+        SearchView svSectiuni=findViewById(R.id.svSectiuni);
+        svSectiuni.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filtruCautare(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty()){
+                    incarcareRecyclerView();
+                }
+                return false;
+            }
+        });
+    }
+
+    private void filtruCautare(String text) {
+        List<Sectiune> filteredList = new ArrayList<Sectiune>();
+
+        for (Sectiune item : this.initialList) {
+            if (item.getDenumireSectiune().toLowerCase().contains(text.toLowerCase())) {
+                System.out.println(item);
+                filteredList.add(item);
+            }
+        }
+        this.adapter.submitList(filteredList);
     }
 
     @Override
@@ -133,7 +169,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
         int optiuneOrdonare=0;
         switch (this.spOrdineSectiuni.getSelectedItemPosition()){
             case 0:{
-                optiuneOrdonare=0;
                 break;
             }
             case 1:{
@@ -161,7 +196,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
                     db.getSectiuneDao().insertSectiune(misc);
                 });
             }
-
+            this.initialList=new ArrayList<>();
+            this.initialList.addAll(sectiuni);
             this.adapter.submitList(sectiuni);
         });
     }

@@ -1,16 +1,17 @@
 package com.ase.aplicatienotite.baze_date.local.repository;
 
-import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
-
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteJoinDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
+import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class SectiuneRepository {
 
     public void insert(Sectiune sectiune){
         NotiteDB.databaseWriteExecutor.execute(()->{
-            sectiuneDao.insertSectiune(sectiune);
+            this.sectiuneDao.insertSectiune(sectiune);
         });
     }
 }
