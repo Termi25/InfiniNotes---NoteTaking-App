@@ -30,6 +30,8 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -128,7 +130,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
     void incarcareRecyclerView(){
         SectiuniViewModel sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
-        int optiuneOrdonare;
+        int optiuneOrdonare=0;
         switch (this.spOrdineSectiuni.getSelectedItemPosition()){
             case 0:{
                 optiuneOrdonare=0;
@@ -150,11 +152,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 optiuneOrdonare=4;
                 break;
             }
-            default:{
-                optiuneOrdonare=0;
-            }
         }
-
         sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this, sectiuni->{
             if(sectiuni.isEmpty()){
                 NotiteDB.databaseWriteExecutor.execute(()->{
@@ -190,4 +188,18 @@ public class ActivitatePrincipala extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        AdapterSectiune adapterNou = (AdapterSectiune) this.rlv.getAdapter();
+        if(adapterNou!=null){
+            List<Sectiune> listaSectiuni = new ArrayList<>(adapterNou.getCurrentList());
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                    for(Sectiune sectiune:listaSectiuni){
+                        db.getSectiuneDao().updateSectiune(sectiune);
+                    }
+                });
+        }
+    }
 }

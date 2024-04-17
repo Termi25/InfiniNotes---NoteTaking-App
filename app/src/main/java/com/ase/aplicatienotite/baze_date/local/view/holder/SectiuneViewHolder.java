@@ -231,7 +231,6 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                     db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
 
                 }
-
                 db.getSectiuneDao().deleteSectiune(sectiune);
             }
         });
@@ -253,5 +252,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
             startActivity(context,intent,null);
         });
     }
+
+
 
 }

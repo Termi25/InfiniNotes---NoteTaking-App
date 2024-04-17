@@ -24,7 +24,6 @@ import java.util.List;
 public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
     private SectiuniViewModel sectiuneViewModel;
-    private static List<Notita> listaNotiteNoua=new ArrayList<>();
 
     public AdapterSectiune(@NonNull DiffUtil.ItemCallback<Sectiune> diffCallback) {
         super(diffCallback);
@@ -50,21 +49,14 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(context);
-                listaNotiteNoua=db.getSectiuneNotiteJoinDao().
-                        getNotitePentruSectiune(newItem.getSectiuneId());
-            });
             if(oldItem.getNotite()!=null && newItem.getNotite()!=null){
                 Log.d("TEST","Comparatie dimensiuni lista notite sectiune");
                 return oldItem.getNotite().size()==newItem.getNotite().size();
             }else{
-                if(oldItem.getNotiteLista()!=null && newItem.getNotiteLista()!=null){
-                    return oldItem.getNotite().size()==newItem.getNotiteLista().size();
-                }else{
-                    return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
-                }
+                return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
             }
         }
     }
+
+
 }

@@ -39,19 +39,16 @@ public class AlarmBroadcastReceiverReminderNotita extends BroadcastReceiver {
                                     +sectiune.getDenumireSectiune()+'.')
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                     NotificationManager notificationManager = (NotificationManager)context.getSystemService(
-                            context.NOTIFICATION_SERVICE);
+                            Context.NOTIFICATION_SERVICE);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    {
-                        String channelId = String.valueOf(notita.getNotitaId());
-                        NotificationChannel channel = new NotificationChannel(
+                    String channelId = String.valueOf(notita.getNotitaId());
+                    NotificationChannel channel = new NotificationChannel(
                                 channelId,
                                 notita.getTitlu(),
                                 NotificationManager.IMPORTANCE_HIGH);
-                        notificationManager.createNotificationChannel(channel);
-                        builder.setChannelId(channelId);
-                    }
-                    notificationManager.notify(notita.getNotitaId(),builder.build());
+                    notificationManager.createNotificationChannel(channel);
+                    builder.setChannelId(channelId);
+        notificationManager.notify(notita.getNotitaId(),builder.build());
                 }
             }catch (Exception e){
                 Log.e("Error",context.getString(R.string.error_broadcast_receiver_notita_reminder));

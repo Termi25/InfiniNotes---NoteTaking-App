@@ -191,6 +191,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                             if(dataReminder!=null){
                                 this.calendarDeTransmis.setTime(dataReminder);
                                 this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,8);
+                                this.calendarDeTransmis.add(Calendar.MINUTE,0);
                             }
                         }catch (ParseException e){
                             Log.e("Error",getString(R.string.error_editeaza_notita_update_notita4));
