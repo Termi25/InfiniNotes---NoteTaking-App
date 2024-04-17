@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
 import android.util.Log;
@@ -48,6 +50,8 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
     private Spinner spinnerSectiuni;
     private Date dataReminder=null;
     private Calendar calendarDeTransmis=Calendar.getInstance();
+    private Button btnReminderNotita;
+    private Button btnOraReminderNotita;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,10 +62,14 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
         EditText etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
         EditText etCorpNotita =findViewById(R.id.etCorpTextNotita);
 
-        Button btnReminderNotita = findViewById(R.id.btnReminderAdaugaNotita);
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(getString(R.string.pattern_data),
+        this.btnReminderNotita = findViewById(R.id.btnReminderEditeazaNotita);
+        SimpleDateFormat dateFormat=new SimpleDateFormat(getString(R.string.pattern_data),
                 Locale.ENGLISH);
-        seteazaBtnReminder(btnReminderNotita,simpleDateFormat);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm",
+                Locale.ENGLISH);
+
+        seteazaBtnReminder(dateFormat);
+        seteazaBtnOraReminder();
 
         if(intent.getExtras()!=null){
             Notita notita=(Notita)intent.getSerializableExtra("Notita");
@@ -69,7 +77,8 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                 etTitluNotita.setText(notita.getTitlu());
                 etCorpNotita.setText(notita.getCorp());
                 if(notita.getDataReminder()!=null){
-                    btnReminderNotita.setText(simpleDateFormat.format(notita.getDataReminder()));
+                    btnReminderNotita.setText(dateFormat.format(notita.getDataReminder()));
+                    btnOraReminderNotita.setText(timeFormat.format(notita.getDataReminder()));
                     dataReminder=notita.getDataReminder();
                 }
 
@@ -86,7 +95,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                             notita.setTitlu(String.valueOf(etTitluNotita.getText()));
                             notita.setCorp(String.valueOf(etCorpNotita.getText()));
                             if(dataReminder!=null){
-                                notita.setDataReminder(dataReminder);
+                                notita.setDataReminder(calendarDeTransmis.getTime());
                                 setareAlarma(notita,sectiuneDeLegat,calendarDeTransmis);
                             }
                             db.getNotitaDao().updateNotita(notita);
@@ -156,10 +165,10 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
     }
 
-    private void seteazaBtnReminder(Button btnReminderNotita,SimpleDateFormat simpleDateFormat) {
+    private void seteazaBtnReminder(SimpleDateFormat simpleDateFormat) {
         LocaleList locale = getResources().getConfiguration().getLocales();
         Locale.setDefault(locale.get(0));
-        btnReminderNotita.setOnClickListener(v -> {
+        this.btnReminderNotita.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
             if(dataReminder!=null){
                 calendar.setTime(dataReminder);
@@ -183,15 +192,13 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                         }
                         builderData.append(monthOfYear+1).append(" / ");
                         builderData.append(year);
-                        btnReminderNotita.setText(builderData.toString());
+                        this.btnReminderNotita.setText(builderData.toString());
 
                         String dataString= dayOfMonth + " / " + (monthOfYear + 1) + " / " + year1;
                         try{
-                            dataReminder=simpleDateFormat.parse(dataString);
-                            if(dataReminder!=null){
+                            this.dataReminder=simpleDateFormat.parse(dataString);
+                            if(this.dataReminder!=null){
                                 this.calendarDeTransmis.setTime(dataReminder);
-                                this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,8);
-                                this.calendarDeTransmis.add(Calendar.MINUTE,0);
                             }
                         }catch (ParseException e){
                             Log.e("Error",getString(R.string.error_editeaza_notita_update_notita4));
@@ -202,22 +209,56 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
         });
     }
 
-    private void setareAlarma(Notita notita, Sectiune sectiuneDeLegat, Calendar calendar) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+    private void seteazaBtnOraReminder(){
+        this.btnOraReminderNotita=findViewById(R.id.btnOraReminderEditeazaNotita);
+
+        final Calendar calendar = Calendar.getInstance();
+        if(this.dataReminder!=null){
+            calendar.setTime(this.dataReminder);
         }
 
-        Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
-        intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        this.btnOraReminderNotita.setOnClickListener(v->{
+            if(!this.btnReminderNotita.getText().toString().equalsIgnoreCase("data reminder")){
+                TimePickerDialog timePickerDialog=new TimePickerDialog(ActivitateEditeazaNotita.this,(view, hourOfDay, minute1) -> {
+                    this.btnOraReminderNotita.setText(hourOfDay + " : " + minute1);
+                    StringBuilder builderData=new StringBuilder();
+                    builderData.append(hour).append(":").append(minute1);
+                    this.btnOraReminderNotita.setText(builderData.toString());
 
-        intentToFire.putExtra("notita",notita);
-        intentToFire.putExtra("sectiune",sectiuneDeLegat);
+                    this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,hourOfDay);
+                    this.calendarDeTransmis.add(Calendar.MINUTE,minute1);
+                    this.calendarDeTransmis.add(Calendar.SECOND,0);
+                },hour,minute,true);
+                timePickerDialog.show();
+            }else{
+                Toasty.warning(getApplicationContext(),"Setați data reminderului mai întâi.").show();
+            }
+        });
+    }
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),
-                1, intentToFire, PendingIntent.FLAG_MUTABLE);
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().
-                getSystemService(Context.ALARM_SERVICE);
+    private void setareAlarma(Notita notita, Sectiune sectiuneDeLegat, Calendar calendar) {
+        Calendar calendarValidare=Calendar.getInstance();
+        if(calendar.getTimeInMillis()>calendarValidare.getTimeInMillis()){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+                }
+            }
 
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
+            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
+            intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+
+            intentToFire.putExtra("notita",notita);
+            intentToFire.putExtra("sectiune",sectiuneDeLegat);
+
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),
+                    1, intentToFire, PendingIntent.FLAG_MUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getApplicationContext().
+                    getSystemService(Context.ALARM_SERVICE);
+
+            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), alarmIntent);
+        }
     }
 }

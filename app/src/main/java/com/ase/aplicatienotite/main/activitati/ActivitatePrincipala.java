@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -219,6 +222,14 @@ public class ActivitatePrincipala extends AppCompatActivity {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ActivitatePrincipala.this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
+            }
+        }
+        NotificationManager notificationManager= (NotificationManager) getApplicationContext().getSystemService(
+                Context.NOTIFICATION_SERVICE);
+
+        if(notificationManager.areNotificationsEnabled()){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 ActivityCompat.requestPermissions(ActivitatePrincipala.this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, 0);
             }
         }

@@ -67,4 +67,7 @@
     <string name="error_view_adauga_notita_invalid_date">error_view_adauga_notita_invalid_date</string>
     <string name="error_broadcast_receiver_notita_reminder">error_broadcast_receiver_notita_reminder</string>
     <string name="pref_sectiuni_ordine" />
+    <string name="btn_ora_reminder">Ora reminder</string>
+    <string name="buton_anulare_adaugare">buton anulare Adaugare button</string>
+    <string name="buton_adaugare_notitta">buton adaugare notitta</string>
 </resources>
