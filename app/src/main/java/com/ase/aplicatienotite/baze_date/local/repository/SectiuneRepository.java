@@ -32,11 +32,11 @@ public class SectiuneRepository {
     public LiveData<List<Sectiune>>getToateSectiuni(int tipOrdonare){
         switch(tipOrdonare){
             case 0:{
-                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticA_Z();
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticZ_A();
                 break;
             }
             case 1:{
-                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticZ_A();
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticA_Z();
                 break;
             }
             case 2:{

@@ -63,13 +63,13 @@ public class ActivitatePrincipala extends AppCompatActivity {
         this.spOrdineSectiuni=findViewById(R.id.spOrdineSectiuni);
         incarcareSpinnerOrdineSectiuni();
         incarcareRecyclerView();
-        notifyAdapter(this.rlv);
+        notifyAdapter();
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
                 Toasty.success(getApplicationContext(),getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
                 try{
-                    notifyAdapter(this.rlv);
+                    notifyAdapter();
                 }catch (Exception e){
                     Log.e("Error","Eroare notifyDataSetChanged pentru RecyclerView in Activitate principala");
                 }
@@ -89,7 +89,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
             Intent intent=new Intent(getApplicationContext(),ActivitateAdaugareGenerala.class);
             launcher.launch(intent);
         });
-        notifyAdapter(this.rlv);
+        notifyAdapter();
         
         
         setareCautareSectiuni();
@@ -129,7 +129,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        notifyAdapter(this.rlv);
+        notifyAdapter();
     }
 
     void initializareToasty(){
@@ -149,8 +149,9 @@ public class ActivitatePrincipala extends AppCompatActivity {
             editor.putInt("ordineSectiuni",0);
             editor.apply();
         }
-        int ordineSectiuni=sharedPrefs.getInt("ordineSectiuni",0);
-        this.spOrdineSectiuni.setSelection(ordineSectiuni);
+        final int[] ordineSectiuni = {sharedPrefs.getInt("ordineSectiuni", 0)};
+        this.spOrdineSectiuni.setSelection(ordineSectiuni[0]);
+        Log.d("TEST", String.valueOf(ordineSectiuni[0]));
         this.spOrdineSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -158,6 +159,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
                 editor.putInt("ordineSectiuni",position);
                 editor.apply();
+                ordineSectiuni[0] =position;
+                Log.d("TEST", String.valueOf(ordineSectiuni[0]));
             }
 
             @Override
@@ -172,6 +175,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
         int optiuneOrdonare=0;
         switch (this.spOrdineSectiuni.getSelectedItemPosition()){
             case 0:{
+                optiuneOrdonare=0;
                 break;
             }
             case 1:{
@@ -205,9 +209,9 @@ public class ActivitatePrincipala extends AppCompatActivity {
         });
     }
 
-    void notifyAdapter(RecyclerView rlv){
+    void notifyAdapter(){
         try{
-            rlv.getAdapter().notifyDataSetChanged();
+            incarcareRecyclerView();
         }catch (Exception e){
             Log.e("Error","Eroare adapter recyclerview ActivitatePrincipala");
         }
