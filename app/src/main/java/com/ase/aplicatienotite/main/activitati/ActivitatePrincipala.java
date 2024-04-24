@@ -141,7 +141,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     void incarcareSpinnerOrdineSectiuni(){
         this.spOrdineSectiuni.setAdapter(new ArrayAdapter<>
                 (getApplicationContext(), android.R.layout.simple_spinner_item, new String[]{"Alfabetic A-Z",
-                        "Alfabetic Z-A","După număr notițe crescător","După număr notițe descrescător","După dată creare"}));
+                        "Alfabetic Z-A","După notițe crescător","După notițe descrescător","După dată creare"}));
 
         SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
         if(!sharedPrefs.contains("ordineSectiuni")){
