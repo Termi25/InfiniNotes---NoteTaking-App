@@ -211,7 +211,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
     void notifyAdapter(){
         try{
-            incarcareRecyclerView();
+            rlv.getAdapter().notifyDataSetChanged();
         }catch (Exception e){
             Log.e("Error","Eroare adapter recyclerview ActivitatePrincipala");
         }
