@@ -5,6 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +47,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private AdapterSectiune adapter;
     private RecyclerView rlv;
     private Spinner spOrdineSectiuni;
-    private List<Sectiune> initialList;
+    private int ordinePrecedenta = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +119,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private void filtruCautare(String text) {
         List<Sectiune> filteredList = new ArrayList<Sectiune>();
 
-        for (Sectiune item : this.initialList) {
+        for (Sectiune item : this.adapter.getCurrentList()) {
             if (item.getDenumireSectiune().toLowerCase().contains(text.toLowerCase())) {
                 System.out.println(item);
                 filteredList.add(item);
@@ -149,9 +151,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
             editor.putInt("ordineSectiuni",0);
             editor.apply();
         }
-        final int[] ordineSectiuni = {sharedPrefs.getInt("ordineSectiuni", 0)};
+        int[] ordineSectiuni = {sharedPrefs.getInt("ordineSectiuni", 0)};
         this.spOrdineSectiuni.setSelection(ordineSectiuni[0]);
-        Log.d("TEST", String.valueOf(ordineSectiuni[0]));
         this.spOrdineSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -159,8 +160,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
                 editor.putInt("ordineSectiuni",position);
                 editor.apply();
-                ordineSectiuni[0] =position;
-                Log.d("TEST", String.valueOf(ordineSectiuni[0]));
+                ordineSectiuni[0] = position;
             }
 
             @Override
@@ -195,17 +195,33 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 break;
             }
         }
-        sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this, sectiuni->{
-            if(sectiuni.isEmpty()){
-                NotiteDB.databaseWriteExecutor.execute(()->{
-                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune misc=new Sectiune(getString(R.string.misc), CuloriSectiune.MARO);
-                    db.getSectiuneDao().insertSectiune(misc);
-                });
+        if(this.ordinePrecedenta == -1){
+            this.ordinePrecedenta = optiuneOrdonare;
+        }else{
+            if(this.ordinePrecedenta != optiuneOrdonare){
+                sectiuneViewModel.getToateSectiuni(this.ordinePrecedenta).removeObservers(this);
+                Log.d("TEST","removed observers for "+this.ordinePrecedenta);
+                this.ordinePrecedenta=optiuneOrdonare;
             }
-            this.initialList=new ArrayList<>();
-            this.initialList.addAll(sectiuni);
-            this.adapter.submitList(sectiuni);
+        }
+        int finalOptiuneOrdonare = optiuneOrdonare;
+        LiveData<List<Sectiune>> dateSectiuni = sectiuneViewModel.getToateSectiuni(optiuneOrdonare);
+        dateSectiuni.observe(this, new Observer<List<Sectiune>>() {
+            @Override
+            public void onChanged(List<Sectiune> sectiuni) {
+                if(sectiuni.isEmpty()){
+                    NotiteDB.databaseWriteExecutor.execute(()->{
+                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                        Sectiune misc=new Sectiune(getString(R.string.misc), CuloriSectiune.MARO);
+                        db.getSectiuneDao().insertSectiune(misc);
+                    });
+                }
+                Log.d("TEST","BUG "+ String.valueOf(finalOptiuneOrdonare));
+                AdapterSectiune adapter = (AdapterSectiune) rlv.getAdapter();
+                assert adapter != null;
+                adapter.submitList(sectiuni);
+                dateSectiuni.removeObserver(this);
+            }
         });
     }
 
