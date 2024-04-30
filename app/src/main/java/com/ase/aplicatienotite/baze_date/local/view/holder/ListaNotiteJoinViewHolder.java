@@ -75,7 +75,7 @@ public class ListaNotiteJoinViewHolder extends RecyclerView.ViewHolder {
                 for(int i=0;i<listaLegaturi.size();i++){
                     db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
                 }
-                db.getNotitaDao().deleteNotita(elementLista);
+                db.getElementListaDao().deleteElementListaDupaId(elementLista.getNotitaId());
             });
             Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
         });

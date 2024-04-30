@@ -58,8 +58,6 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
 
         setareSpinnerSectiuni();
 
-        //TODO - creare buton cu dialog asociat pentru setarea orei reminderului (necesita adaugare si in editeaza notita)Edit
-
         setareBtnReminder();
 
         setareBtnOraReminder();

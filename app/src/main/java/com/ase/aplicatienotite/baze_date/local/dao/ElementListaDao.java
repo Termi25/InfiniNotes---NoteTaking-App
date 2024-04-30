@@ -21,6 +21,8 @@ public interface ElementListaDao {
 
     @Delete
     void deleteElementLista(ElementLista notita);
+    @Query("DELETE FROM elemente_liste WHERE notitaId=:id")
+    void deleteElementListaDupaId(int id);
 
     @Query("SELECT * FROM elemente_liste WHERE notitaId=:identificator")
     ElementLista getElementListaDupaId(int identificator);

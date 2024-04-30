@@ -42,6 +42,7 @@
         android:layout_height="70dp"
         android:layout_margin="20sp"
         android:background="@drawable/cancel"
+        android:contentDescription="button for exiting settings"
         android:scaleType="fitCenter"
         android:src="@drawable/cancel"
         custom:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +53,7 @@
         custom:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvNumeSetari"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5sp"
@@ -69,19 +70,19 @@
         custom:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvUnderline"
         android:layout_width="0dp"
         android:layout_height="5sp"
         android:background="@drawable/underline"
-        custom:layout_constraintBottom_toBottomOf="@+id/textView2"
-        custom:layout_constraintEnd_toEndOf="@+id/textView2"
+        custom:layout_constraintBottom_toBottomOf="@+id/tvNumeSetari"
+        custom:layout_constraintEnd_toEndOf="@+id/tvNumeSetari"
         custom:layout_constraintHorizontal_bias="0.0"
-        custom:layout_constraintStart_toStartOf="@+id/textView2"
-        custom:layout_constraintTop_toTopOf="@+id/textView2"
+        custom:layout_constraintStart_toStartOf="@+id/tvNumeSetari"
+        custom:layout_constraintTop_toTopOf="@+id/tvNumeSetari"
         custom:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tvTextSetariPartajare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
@@ -96,7 +97,7 @@
         custom:layout_constraintVertical_bias="0.037" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/tvTextIncarcareSetari"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30sp"
@@ -108,7 +109,7 @@
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintHorizontal_bias="0.059"
         custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/textView11"
+        custom:layout_constraintTop_toBottomOf="@+id/tvTextSetariPartajare"
         custom:layout_constraintVertical_bias="0.0" />
 
     <androidx.fragment.app.FragmentContainerView
@@ -119,9 +120,10 @@
         custom:layout_constraintBottom_toTopOf="@+id/imgBtnShareDB"
         custom:layout_constraintEnd_toEndOf="@+id/viewWeather"
         custom:layout_constraintHorizontal_bias="1.0"
-        custom:layout_constraintStart_toStartOf="@+id/textView2"
-        custom:layout_constraintTop_toBottomOf="@+id/textView"
-        custom:layout_constraintVertical_bias="0.0" />
+        custom:layout_constraintStart_toStartOf="@+id/tvNumeSetari"
+        custom:layout_constraintTop_toBottomOf="@+id/tvUnderline"
+        custom:layout_constraintVertical_bias="0.0"
+        tools:layout="@layout/view_vreme" />
 
     <ImageButton
         android:id="@+id/imgBtnShareDB"
@@ -129,13 +131,14 @@
         android:layout_height="50dp"
         android:background="@drawable/share"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="button for share"
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintHorizontal_bias="0.177"
-        custom:layout_constraintStart_toEndOf="@+id/textView11"
+        custom:layout_constraintHorizontal_bias="0.174"
+        custom:layout_constraintStart_toEndOf="@+id/tvTextSetariPartajare"
         custom:layout_constraintTop_toTopOf="parent"
-        custom:layout_constraintVertical_bias="0.531"
+        custom:layout_constraintVertical_bias="0.553"
         custom:srcCompat="@drawable/share" />
 
     <ImageButton
@@ -144,12 +147,13 @@
         android:layout_height="50dp"
         android:background="@drawable/upload"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="button for import of data"
         android:scaleType="fitCenter"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintHorizontal_bias="0.174"
-        custom:layout_constraintStart_toEndOf="@+id/textView12"
-        custom:layout_constraintTop_toBottomOf="@+id/textView11"
+        custom:layout_constraintStart_toEndOf="@+id/tvTextIncarcareSetari"
+        custom:layout_constraintTop_toBottomOf="@+id/tvTextSetariPartajare"
         custom:layout_constraintVertical_bias="0.079"
         custom:srcCompat="@drawable/upload" />
 
@@ -166,8 +170,8 @@
         custom:layout_constraintBottom_toTopOf="@+id/imgBtnSalvareSetari"
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintHorizontal_bias="0.0"
-        custom:layout_constraintStart_toStartOf="@+id/textView12"
-        custom:layout_constraintTop_toBottomOf="@+id/textView12"
+        custom:layout_constraintStart_toStartOf="@+id/tvTextIncarcareSetari"
+        custom:layout_constraintTop_toBottomOf="@+id/tvTextIncarcareSetari"
         custom:layout_constraintVertical_bias="0.336" />
 
     <Button

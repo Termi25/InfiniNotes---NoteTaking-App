@@ -216,7 +216,6 @@ public class ActivitatePrincipala extends AppCompatActivity {
                         db.getSectiuneDao().insertSectiune(misc);
                     });
                 }
-                Log.d("TEST","BUG "+ String.valueOf(finalOptiuneOrdonare));
                 AdapterSectiune adapter = (AdapterSectiune) rlv.getAdapter();
                 assert adapter != null;
                 adapter.submitList(sectiuni);
