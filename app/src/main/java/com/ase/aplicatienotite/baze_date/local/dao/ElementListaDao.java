@@ -30,6 +30,10 @@ public interface ElementListaDao {
     @Query("SELECT * FROM elemente_liste WHERE titlu=:titlu")
     ElementLista getElementListaDupaTitlu(String titlu);
 
+    @Query("SELECT * FROM elemente_liste WHERE checked=1")
+    List<ElementLista> getElementeListaChecked();
+
     @Query("SELECT * FROM elemente_liste")
     List<ElementLista> getToateElementeleListelor();
+
 }

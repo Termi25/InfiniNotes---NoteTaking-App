@@ -31,6 +31,9 @@ public interface NotitaListaDao {
     @Query("SELECT * FROM liste WHERE titlu=:titlu")
     NotitaLista getNotitaListaDupaTitlu(String titlu);
 
+    @Query("SELECT * FROM liste WHERE checked=1")
+    List<NotitaLista> getNotiteListaChecked();
+
     @Query("SELECT * FROM liste")
     List<NotitaLista> getToateNotiteleLista();
 

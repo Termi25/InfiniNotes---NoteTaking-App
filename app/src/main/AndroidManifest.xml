@@ -63,7 +63,14 @@
 
 
         <receiver android:name=".main.receiver.AlarmBroadcastReceiverReminderNotita"
-            android:exported="true">
+            android:exported="false">
+            <intent-filter>
+                <action android:name="me.proft.alarms.ACTION_ALARM" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".main.receiver.RegularDeleteReceiverNotite"
+            android:exported="false">
             <intent-filter>
                 <action android:name="me.proft.alarms.ACTION_ALARM" />
             </intent-filter>
