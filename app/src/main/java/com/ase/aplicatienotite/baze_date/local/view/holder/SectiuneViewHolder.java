@@ -233,7 +233,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                     db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
 
                 }
-                db.getSectiuneDao().deleteSectiune(sectiune);
+                db.getSectiuneDao().deleteSectiuneDupaId(sectiune.getSectiuneId());
             }
         });
         Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();

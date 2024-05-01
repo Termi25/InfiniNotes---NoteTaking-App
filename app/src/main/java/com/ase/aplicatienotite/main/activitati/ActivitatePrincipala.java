@@ -47,7 +47,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private AdapterSectiune adapter;
     private RecyclerView rlv;
     private Spinner spOrdineSectiuni;
-    private int ordinePrecedenta = -1;
+    private Observer<List<Sectiune>> observerListaSectiuni;
+    LiveData<List<Sectiune>> dateSectiuni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,18 +196,11 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 break;
             }
         }
-        if(this.ordinePrecedenta == -1){
-            this.ordinePrecedenta = optiuneOrdonare;
-        }else{
-            if(this.ordinePrecedenta != optiuneOrdonare){
-                sectiuneViewModel.getToateSectiuni(this.ordinePrecedenta).removeObservers(this);
-                Log.d("TEST","removed observers for "+this.ordinePrecedenta);
-                this.ordinePrecedenta=optiuneOrdonare;
-            }
+        if(observerListaSectiuni!=null){
+            dateSectiuni.removeObserver(observerListaSectiuni);
         }
-        int finalOptiuneOrdonare = optiuneOrdonare;
-        LiveData<List<Sectiune>> dateSectiuni = sectiuneViewModel.getToateSectiuni(optiuneOrdonare);
-        dateSectiuni.observe(this, new Observer<List<Sectiune>>() {
+        dateSectiuni = sectiuneViewModel.getToateSectiuni(optiuneOrdonare);
+        observerListaSectiuni=new Observer<List<Sectiune>>() {
             @Override
             public void onChanged(List<Sectiune> sectiuni) {
                 if(sectiuni.isEmpty()){
@@ -219,9 +213,9 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 AdapterSectiune adapter = (AdapterSectiune) rlv.getAdapter();
                 assert adapter != null;
                 adapter.submitList(sectiuni);
-                dateSectiuni.removeObserver(this);
             }
-        });
+        };
+        dateSectiuni.observe(this, observerListaSectiuni);
     }
 
     void notifyAdapter(){

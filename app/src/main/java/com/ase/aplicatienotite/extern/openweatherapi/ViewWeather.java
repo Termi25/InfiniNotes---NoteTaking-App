@@ -110,7 +110,6 @@ public class ViewWeather extends ConstraintLayout {
                         null,
                         (Response.Listener<JSONObject>) response -> {
                             try {
-                                System.out.println(response);
                                 JSONObject current = response.getJSONObject("current");
                                 JSONArray weather = current.getJSONArray("weather");
                                 String temp = current.getString("temp");
