@@ -73,10 +73,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
     }
 
     private void incarcareSpinnerLista() {
-        sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
-        SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
-        int ordineSectiuni=sharedPrefs.getInt("ordineSectiuni",4);
-        sectiuneViewModel.getToateSectiuni(ordineSectiuni).observe(this,sectiuni->{
+        sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
             List<String> listaSpinnerSectiuni =  new ArrayList<>();
             for(int i=0;i<sectiuni.size();i++){
                 listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());

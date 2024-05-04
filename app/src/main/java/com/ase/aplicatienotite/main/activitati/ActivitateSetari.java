@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -26,6 +28,13 @@ import com.ase.aplicatienotite.main.fragmente.FragmentSetari;
 import com.ase.aplicatienotite.main.receiver.RegularDeleteReceiverNotite;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -44,8 +53,10 @@ public class ActivitateSetari extends AppCompatActivity {
                 .commit();
 
         ImageButton imgBtnShareDB=findViewById(R.id.imgBtnShareDB);
-
         imgBtnShareDB.setOnClickListener(v-> exportDatabase());
+
+        ImageButton imgBtnImportDB=findViewById(R.id.imgBtnUploadFile);
+        imgBtnImportDB.setOnClickListener(v->importDatabaseFile());
 
         Button btnBackupFisiereDB=findViewById(R.id.btnBackupFisiereDB);
         btnBackupFisiereDB.setOnClickListener(v-> backupDatabase());
@@ -55,8 +66,8 @@ public class ActivitateSetari extends AppCompatActivity {
 
         preferencesSetup();
 
-        ImageButton imgBtnSalavareSetari=findViewById(R.id.imgBtnSalvareSetari);
-        imgBtnSalavareSetari.setOnClickListener(v->{
+        ImageButton imgBtnSalvareSetari=findViewById(R.id.imgBtnSalvareSetari);
+        imgBtnSalvareSetari.setOnClickListener(v->{
             setResult(RESULT_OK);
             finish();
         });
@@ -65,7 +76,6 @@ public class ActivitateSetari extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("TEST","called preferencesSetup");
         preferencesSetup();
     }
 
@@ -103,6 +113,40 @@ public class ActivitateSetari extends AppCompatActivity {
         });
     }
 
+    private void importDatabaseFile() {
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(ActivitateSetari.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+        try {
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/notite.db", getDatabasePath("notite.db").getPath());
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-shm", getDatabasePath("notite.db").getPath() + "-shm");
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-wal", getDatabasePath("notite.db").getPath() + "-wal");
+
+            Intent intent=getPackageManager()
+                    .getLaunchIntentForPackage(getPackageName());
+            if(intent!=null){
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                System.exit(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyDataFromOneToAnother(String fromPath,String toPath) throws IOException {
+
+        File fisierInStream =new File(fromPath);
+        InputStream inStream = Files.newInputStream(Paths.get(fromPath));
+        FileOutputStream outStream = new FileOutputStream(toPath);
+
+        byte[] buf = new byte[8192];
+        int length;
+        while ((length = inStream.read(buf)) != -1) {
+            outStream.write(buf, 0, length);
+        }
+    }
+
     private void backupDatabase() {
         NotiteDB.databaseWriteExecutor.execute(()->{
             NotiteDB db=NotiteDB.getInstance(getApplicationContext());
@@ -124,7 +168,6 @@ public class ActivitateSetari extends AppCompatActivity {
             }catch (Exception e){
                 runOnUiThread(()-> Toasty.error(getApplicationContext(), R.string.error_activity_setari_restaurare_db));
             }
-
         });
     }
 

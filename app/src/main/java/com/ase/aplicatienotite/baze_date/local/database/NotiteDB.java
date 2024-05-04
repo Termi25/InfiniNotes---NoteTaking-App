@@ -2,8 +2,10 @@ package com.ase.aplicatienotite.baze_date.local.database;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -34,11 +36,13 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Notita.class, NotitaLista.class,
+@Database(
+        entities = {Notita.class, NotitaLista.class,
         Sectiune.class,SectiuneNotiteJoin.class,
         SectiuneNotiteListaJoin.class,ListaNotiteJoin.class,
         ElementLista.class},version=12,
-        exportSchema = false)
+        exportSchema = false
+)
 @TypeConverters({Convertori.class})
 public abstract class NotiteDB extends RoomDatabase {
     public static final String notiteDB="notite.db";
@@ -50,6 +54,7 @@ public abstract class NotiteDB extends RoomDatabase {
         if(instanta==null){
             instanta= Room.databaseBuilder(context,
                     NotiteDB.class,notiteDB)
+                    .createFromFile(new File(Environment.getExternalStorageDirectory().getPath() + "/Download/" + notiteDB))
                     .fallbackToDestructiveMigration()
                     .build();
         }
