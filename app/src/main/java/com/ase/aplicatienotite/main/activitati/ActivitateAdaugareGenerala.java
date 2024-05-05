@@ -73,6 +73,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
     }
 
     private void incarcareSpinnerLista() {
+        SectiuniViewModel sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
         sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
             List<String> listaSpinnerSectiuni =  new ArrayList<>();
             for(int i=0;i<sectiuni.size();i++){

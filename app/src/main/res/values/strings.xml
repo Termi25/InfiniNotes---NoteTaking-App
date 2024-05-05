@@ -73,4 +73,5 @@
     <string name="adaug_element_nou_n_lista_curent">Adaugă element nou în lista curentă</string>
     <string name="button_for_adding_new_list_item">Button for adding new list item</string>
     <string name="error_elementelistanotite_save_element_lista_nou">VizualElementeListaNotite salvare element lista nou esuata</string>
+    <string name="buton_pentru_partajare_continut_notita">Buton pentru partajare continut notita</string>
 </resources>
