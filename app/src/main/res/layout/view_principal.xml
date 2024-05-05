@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_centrat_app" />
+        app:srcCompat="@drawable/design_logo_aplicatie_centratnobg" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
         android:id="@+id/viewWeather"
