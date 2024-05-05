@@ -102,7 +102,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="5sp"
-        android:background="@drawable/trash_can"
+        android:background="@drawable/img_btn_selector_trash_can"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvLista"

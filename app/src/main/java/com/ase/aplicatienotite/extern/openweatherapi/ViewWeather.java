@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,10 @@ public class ViewWeather extends ConstraintLayout {
     public ViewWeather(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         View.inflate(context, R.layout.view_vreme, this);
+        incarcareVreme(context,attrs);
+    }
+
+    private void incarcareVreme(Context context,AttributeSet attrs){
         boolean preferences = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("Conexiune la Internet",true);
         if(preferences){
             try {
@@ -114,7 +119,7 @@ public class ViewWeather extends ConstraintLayout {
                                 JSONArray weather = current.getJSONArray("weather");
                                 String temp = current.getString("temp");
                                 String icon = weather.getJSONObject(0).getString("icon");
-                                incarcaImagine("https://openweathermap.org/img/wn/" + icon + "@2x.png", icon);
+                                incarcaImagine("https://openweathermap.org/img/wn/" + icon + "@2x.png", icon,attrs);
                                 TextView temperatura = findViewById(R.id.tvTemperatura);
 
                                 temperatura.setText(String.valueOf((int) Double.parseDouble(temp)));
@@ -132,12 +137,10 @@ public class ViewWeather extends ConstraintLayout {
             }catch(Exception e){
                 Log.e("Error", getContext().getString(R.string.error_view_weather_general_fail));
             }
-            Button btnRefresh = findViewById(R.id.btnReincarcareVreme);
-            btnRefresh.setOnClickListener(v -> invalidate());
         }
     }
 
-    private void incarcaImagine(String URL, String momentZi){
+    private void incarcaImagine(String URL, String momentZi,AttributeSet attrs){
         ImageView imgV=findViewById(R.id.imgVVremeIcon);
         if(momentZi.charAt(2)=='n'){
             imgV.setBackgroundResource(R.drawable.button_skin_blue);
@@ -154,6 +157,11 @@ public class ViewWeather extends ConstraintLayout {
                     .error(R.drawable.no_wifi)
                     .into(imgV);
         }
+        imgV.setOnClickListener(v->{
+            invalidate();
+            incarcareVreme(getContext(),attrs);
+            Toasty.info(getContext(),"Prognoză reîncărcată").show();
+        });
     }
 
 }

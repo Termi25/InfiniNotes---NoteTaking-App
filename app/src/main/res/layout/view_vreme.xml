@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvTemperatura"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:fontFamily="@font/alata"
@@ -37,7 +37,8 @@
         app:layout_constraintStart_toEndOf="@+id/tvOrasTemperatura"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/iconita_vreme" />
 
     <TextView
         android:id="@+id/tvUnitateMasuraTemperatura"
@@ -75,21 +76,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.009" />
 
-    <Button
-        android:id="@+id/btnReincarcareVreme"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="#00FFFFFF"
-        android:shadowColor="#00FFFFFF"
-        android:stateListAnimator="@null"
-        android:textColor="#00FFFFFF"
-        android:textColorHighlight="#00FFFFFF"
-        android:textColorHint="#00FFFFFF"
-        android:textColorLink="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

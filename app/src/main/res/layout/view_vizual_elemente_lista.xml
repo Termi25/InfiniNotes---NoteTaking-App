@@ -121,8 +121,7 @@
         android:id="@+id/imgBtnAdaugareElementLista"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/addition"
-        android:backgroundTint="#00FFFFFF"
+        android:background="@drawable/img_btn_selector_addition"
         android:contentDescription="@string/button_for_adding_new_list_item"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/fActBtnInchidereVizualElementeLista"
@@ -130,7 +129,6 @@
         app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fActBtnInchidereVizualElementeLista"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/addition" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

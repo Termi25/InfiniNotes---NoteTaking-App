@@ -31,7 +31,6 @@
         android:layout_marginTop="10sp"
         android:layout_marginEnd="100sp"
         android:background="@drawable/border_lv_principal"
-        android:contentDescription="Section name"
         android:fontFamily="@font/alata"
         android:hint="@string/nume_sectiune"
         android:paddingStart="10sp"
@@ -97,7 +96,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="15sp"
-        android:background="@drawable/addition"
+        android:background="@drawable/img_btn_selector_addition"
         android:contentDescription="@string/btn_adauga_sectiune"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/spCuloareSectiune"
@@ -112,7 +111,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="15sp"
-        android:background="@drawable/addition"
+        android:background="@drawable/img_btn_selector_addition"
         android:contentDescription="@string/btn_adauga_notita"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -120,8 +119,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/addition" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/btnAdaugaLista"
@@ -182,7 +180,6 @@
         android:layout_marginTop="10sp"
         android:layout_marginEnd="230sp"
         android:background="@drawable/border_lv_principal"
-        android:contentDescription="List name"
         android:fontFamily="@font/alata"
         android:hint="@string/nume_lista"
         android:paddingStart="10sp"
@@ -256,7 +253,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="15sp"
-        android:background="@drawable/left_arrow_in_circular_button_black_symbol"
+        android:background="@drawable/img_btn_selector_left_arrow"
         android:contentDescription="@string/buton_pentru_anulare_proces_de_adaugare"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -264,8 +261,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
         android:id="@+id/viewWeather4"
