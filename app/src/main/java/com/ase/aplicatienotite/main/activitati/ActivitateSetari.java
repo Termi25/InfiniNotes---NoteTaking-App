@@ -80,37 +80,42 @@ public class ActivitateSetari extends AppCompatActivity {
     }
 
     private void exportDatabase(){
-        NotiteDB.databaseWriteExecutor.execute(()->{
-            NotiteDB instantaDb=NotiteDB.getInstance(getApplicationContext());
+        Map<String,?> preferences = PreferenceManager.getDefaultSharedPreferences(this).getAll();
+        if((boolean)preferences.get(getResources().getString(R.string.pref_internet_name))){
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB instantaDb=NotiteDB.getInstance(getApplicationContext());
 
-            File fisierDBPartajat=new File(Objects.requireNonNull(
-                    instantaDb.getOpenHelper().getReadableDatabase().getPath()));
+                File fisierDBPartajat=new File(Objects.requireNonNull(
+                        instantaDb.getOpenHelper().getReadableDatabase().getPath()));
 
-            File fisierDBWal = new File(fisierDBPartajat.getPath() + "-wal");
+                File fisierDBWal = new File(fisierDBPartajat.getPath() + "-wal");
 
-            File fisierDBShm =new File(fisierDBPartajat.getPath() + "-shm");
+                File fisierDBShm =new File(fisierDBPartajat.getPath() + "-shm");
 
-            Uri fisierDBUri = FileProvider.getUriForFile(getApplicationContext(),
-                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBPartajat);
+                Uri fisierDBUri = FileProvider.getUriForFile(getApplicationContext(),
+                        getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBPartajat);
 
-            Uri fisierDBWalUri=FileProvider.getUriForFile(getApplicationContext(),
-                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBWal);
+                Uri fisierDBWalUri=FileProvider.getUriForFile(getApplicationContext(),
+                        getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBWal);
 
-            Uri fisierDBShmUri=FileProvider.getUriForFile(getApplicationContext(),
-                    getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBShm);
+                Uri fisierDBShmUri=FileProvider.getUriForFile(getApplicationContext(),
+                        getString(R.string.com_ase_aplicatienotite_fileprovider), fisierDBShm);
 
-            Intent share = new Intent();
-            share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Intent share = new Intent();
+                share.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            share.setAction(Intent.ACTION_SEND_MULTIPLE);
-            share.setType(getString(R.string.application_db_share_type));
-            ArrayList<Uri> fisiereDB=new ArrayList<>();
-            fisiereDB.add(fisierDBUri);
-            fisiereDB.add(fisierDBWalUri);
-            fisiereDB.add(fisierDBShmUri);
-            share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fisiereDB);
-            startActivity(Intent.createChooser(share, getString(R.string.message_export_db_infininotes)));
-        });
+                share.setAction(Intent.ACTION_SEND_MULTIPLE);
+                share.setType(getString(R.string.application_db_share_type));
+                ArrayList<Uri> fisiereDB=new ArrayList<>();
+                fisiereDB.add(fisierDBUri);
+                fisiereDB.add(fisierDBWalUri);
+                fisiereDB.add(fisierDBShmUri);
+                share.putParcelableArrayListExtra(Intent.EXTRA_STREAM, fisiereDB);
+                startActivity(Intent.createChooser(share, getString(R.string.message_export_db_infininotes)));
+            });
+        }else{
+            Toasty.error(this,"Conexiunea la Internet este dezactivată.").show();
+        }
     }
 
     private void importDatabaseFile() {
