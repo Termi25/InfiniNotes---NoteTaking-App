@@ -13,10 +13,6 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
 
-    <meta-data
-        android:name="com.google.android.gms.car.application"
-        android:resource="@xml/automotive_app_desc"/>
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
@@ -64,14 +60,7 @@
         </provider>
 
 
-        <receiver android:name=".main.receiver.AlarmBroadcastReceiverReminderNotita"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="me.proft.alarms.ACTION_ALARM" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".main.receiver.RegularDeleteReceiverNotite"
+        <receiver android:name=".main.receiver.AlarmBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="me.proft.alarms.ACTION_ALARM" />

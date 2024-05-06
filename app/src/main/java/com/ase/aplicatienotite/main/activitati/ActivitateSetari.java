@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,11 +24,9 @@ import androidx.preference.PreferenceManager;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.main.fragmente.FragmentSetari;
-import com.ase.aplicatienotite.main.receiver.RegularDeleteReceiverNotite;
+import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiver;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -186,8 +183,8 @@ public class ActivitateSetari extends AppCompatActivity {
                 }
             }
 
-            Intent intentToFire = new Intent(getApplicationContext(), RegularDeleteReceiverNotite.class);
-            intentToFire.setAction(RegularDeleteReceiverNotite.ACTION_ALARM);
+            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiver.class);
+            intentToFire.setAction(AlarmBroadcastReceiver.ACTION_DELETE);
 
             PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(),
                     1, intentToFire, PendingIntent.FLAG_MUTABLE);
@@ -217,7 +214,7 @@ public class ActivitateSetari extends AppCompatActivity {
             alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),periodicitate,alarmIntent);
         }else{
             try{
-                Intent intentToFire = new Intent(getApplicationContext(), RegularDeleteReceiverNotite.class);
+                Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiver.class);
                 PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(),
                         1, intentToFire, PendingIntent.FLAG_MUTABLE);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

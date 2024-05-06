@@ -30,7 +30,7 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
-import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiverReminderNotita;
+import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -212,8 +212,8 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                 }
             }
 
-            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
-            intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiver.class);
+            intentToFire.setAction(AlarmBroadcastReceiver.ACTION_ALARM);
 
             intentToFire.putExtra("notita",notita);
             intentToFire.putExtra("sectiune",sectiuneDeLegat);
