@@ -1,14 +1,8 @@
 package com.ase.aplicatienotite.baze_date.local.view.model;
 
-import static com.ase.aplicatienotite.baze_date.local.view.holder.SectiuneViewHolder.context;
-
 import android.app.Application;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.baze_date.local.repository.SectiuneRepository;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;

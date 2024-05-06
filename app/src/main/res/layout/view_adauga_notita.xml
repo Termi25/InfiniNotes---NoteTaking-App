@@ -68,6 +68,7 @@
         android:layout_marginBottom="10sp"
         android:background="@drawable/border_lv_principal"
         android:padding="5sp"
+        android:popupBackground="@drawable/border_lv_principal"
         app:layout_constraintBottom_toBottomOf="@+id/btnOraReminderAdaugaNotita"
         app:layout_constraintEnd_toEndOf="@+id/etNumeAdaugaNotita"
         app:layout_constraintHorizontal_bias="0.0"

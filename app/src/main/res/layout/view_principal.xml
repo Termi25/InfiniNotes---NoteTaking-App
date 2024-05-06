@@ -88,6 +88,7 @@
         android:layout_marginStart="5sp"
         android:layout_marginEnd="0sp"
         android:background="@drawable/border_lv_principal"
+        android:popupBackground="@drawable/border_lv_principal"
         app:layout_constraintBottom_toBottomOf="@+id/svSectiuni"
         app:layout_constraintEnd_toEndOf="@+id/rlv_main"
         app:layout_constraintHorizontal_bias="0.13"

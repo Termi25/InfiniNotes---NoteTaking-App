@@ -90,6 +90,7 @@
         android:layout_marginBottom="5sp"
         android:background="@drawable/border_lv_principal"
         android:padding="5sp"
+        android:popupBackground="@drawable/border_lv_principal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnStergereSectiune"
         app:layout_constraintHorizontal_bias="1.0"

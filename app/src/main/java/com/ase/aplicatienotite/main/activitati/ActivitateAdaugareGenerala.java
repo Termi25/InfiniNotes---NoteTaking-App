@@ -79,7 +79,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this, android.R.layout.simple_spinner_item, listaSpinnerSectiuni);
+                    this, R.layout.view_spinner, listaSpinnerSectiuni);
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerSectiuni = (Spinner) findViewById(R.id.spSectiuneListaNoua);
@@ -89,7 +89,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
 
     private void incarcareSpinnerCulori(Spinner spinnerCuloriSectiune) {
         spinnerCuloriSectiune.setAdapter(new ArrayAdapter<CuloriSectiune>
-                (this, android.R.layout.simple_spinner_item, CuloriSectiune.values()));
+                (this, R.layout.view_spinner, CuloriSectiune.values()));
     }
 
     private void adaugareSectiune(EditText etNumeSectiune, ImageButton btnSectiune){

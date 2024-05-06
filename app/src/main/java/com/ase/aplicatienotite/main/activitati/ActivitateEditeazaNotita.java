@@ -121,7 +121,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this, android.R.layout.simple_spinner_item, listaSpinnerSectiuni);
+                    this, R.layout.view_spinner, listaSpinnerSectiuni);
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerSectiuni = (Spinner) findViewById(R.id.spSectiuneAdaugaNotita);

@@ -120,9 +120,12 @@ public class ActivitateSetari extends AppCompatActivity {
             ActivityCompat.requestPermissions(ActivitateSetari.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
         }
         try {
-            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/notite.db", getDatabasePath("notite.db").getPath());
-            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-shm", getDatabasePath("notite.db").getPath() + "-shm");
-            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-wal", getDatabasePath("notite.db").getPath() + "-wal");
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/notite.db",
+                    getDatabasePath("notite.db").getPath());
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-shm",
+                    getDatabasePath("notite.db").getPath() + "-shm");
+            copyDataFromOneToAnother(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)  + "/notite.db-wal",
+                    getDatabasePath("notite.db").getPath() + "-wal");
 
             Intent intent=getPackageManager()
                     .getLaunchIntentForPackage(getPackageName());

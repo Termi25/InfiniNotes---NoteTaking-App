@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
-import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;

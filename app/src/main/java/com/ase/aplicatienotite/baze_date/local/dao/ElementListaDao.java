@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.ase.aplicatienotite.clase.notite.ElementLista;
-import com.ase.aplicatienotite.clase.notite.Notita;
 
 import java.util.List;
 
@@ -32,8 +31,5 @@ public interface ElementListaDao {
 
     @Query("SELECT * FROM elemente_liste WHERE checked=1")
     List<ElementLista> getElementeListaChecked();
-
-    @Query("SELECT * FROM elemente_liste")
-    List<ElementLista> getToateElementeleListelor();
 
 }
