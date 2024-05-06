@@ -1,7 +1,6 @@
 package com.ase.aplicatienotite.main.activitati;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
@@ -30,7 +29,6 @@ import java.util.List;
 
 public class ActivitateAdaugareGenerala extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
-    private SectiuniViewModel sectiuneViewModel;
     private Spinner spinnerSectiuni;
     private Spinner spinnerCuloriSectiune;
 
@@ -74,7 +72,7 @@ public class ActivitateAdaugareGenerala extends AppCompatActivity {
 
     private void incarcareSpinnerLista() {
         SectiuniViewModel sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
-        sectiuneViewModel.getToateSectiuni(0).observe(this,sectiuni->{
+        sectiuneViewModel.getToateSectiuni(4).observe(this,sectiuni->{
             List<String> listaSpinnerSectiuni =  new ArrayList<>();
             for(int i=0;i<sectiuni.size();i++){
                 listaSpinnerSectiuni.add(sectiuni.get(i).getDenumireSectiune());
