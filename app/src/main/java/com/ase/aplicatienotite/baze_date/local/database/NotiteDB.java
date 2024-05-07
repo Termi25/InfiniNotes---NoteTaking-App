@@ -53,7 +53,6 @@ public abstract class NotiteDB extends RoomDatabase {
         if(instanta==null){
             instanta= Room.databaseBuilder(context,
                     NotiteDB.class,notiteDB)
-                    .createFromFile(new File(Environment.getExternalStorageDirectory().getPath() + "/Download/" + notiteDB))
                     .fallbackToDestructiveMigration()
                     .build();
         }
