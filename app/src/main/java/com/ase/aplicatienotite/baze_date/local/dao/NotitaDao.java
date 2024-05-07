@@ -21,17 +21,9 @@ public interface NotitaDao {
     @Delete
     void deleteNotita(Notita notita);
 
-    @Query("SELECT * FROM notite WHERE notitaId=:identificator")
-    Notita getNotitaDupaId(int identificator);
-
-    @Query("SELECT * FROM notite WHERE corp=:corp")
-    Notita getNotitaDupaCorp(String corp);
-
     @Query("SELECT * FROM notite WHERE titlu=:titlu")
     Notita getNotitaDupaTitlu(String titlu);
 
-    @Query("SELECT * FROM notite")
-    List<Notita> getToateNotitele();
-
-
+    @Query("SELECT * FROM notite WHERE checked=1")
+    List<Notita> getNotiteChecked();
 }

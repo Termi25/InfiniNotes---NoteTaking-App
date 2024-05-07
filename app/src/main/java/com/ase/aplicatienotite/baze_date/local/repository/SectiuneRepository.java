@@ -5,13 +5,8 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
-import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteJoinDao;
-import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
-import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 
 import java.util.List;
@@ -32,11 +27,11 @@ public class SectiuneRepository {
     public LiveData<List<Sectiune>>getToateSectiuni(int tipOrdonare){
         switch(tipOrdonare){
             case 0:{
-                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticZ_A();
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticA_Z();
                 break;
             }
             case 1:{
-                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticA_Z();
+                this.sectiuni=this.sectiuneDao.selectToateSectiuniAlfabeticZ_A();
                 break;
             }
             case 2:{
@@ -50,8 +45,6 @@ public class SectiuneRepository {
             case 4:{
                 this.sectiuni=this.sectiuneDao.selectToateSectiuni();
                 break;
-            }
-            default:{
             }
         }
         return this.sectiuni;

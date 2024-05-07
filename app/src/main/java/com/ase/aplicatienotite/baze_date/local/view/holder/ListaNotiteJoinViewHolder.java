@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
-import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.ElementLista;
-import com.ase.aplicatienotite.clase.notite.Notita;
 
 import java.util.List;
 
@@ -67,17 +65,23 @@ public class ListaNotiteJoinViewHolder extends RecyclerView.ViewHolder {
 
     private void setareButonStergere(ElementLista elementLista) {
         this.btnStergereElementNotita.setOnClickListener(v->{
-            NotiteDB.databaseWriteExecutor.execute(()->{
-                NotiteDB db=NotiteDB.getInstance(context);
-                List<ListaNotiteJoin> listaLegaturi=db.getListaNotiteJoinDao()
-                        .getLegaturiCuElementulLista(elementLista.getNotitaId());
-
-                for(int i=0;i<listaLegaturi.size();i++){
-                    db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
-                }
-                db.getNotitaDao().deleteNotita(elementLista);
-            });
+            stergereElementLista(elementLista);
             Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();
         });
     }
+
+    private void stergereElementLista(ElementLista elementLista) {
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db=NotiteDB.getInstance(context);
+            List<ListaNotiteJoin> listaLegaturi=db.getListaNotiteJoinDao()
+                    .getLegaturiCuElementulLista(elementLista.getNotitaId());
+
+            for(int i=0;i<listaLegaturi.size();i++){
+                db.getListaNotiteJoinDao().deleteLegatura(listaLegaturi.get(i));
+            }
+            db.getElementListaDao().deleteElementListaDupaId(elementLista.getNotitaId());
+        });
+    }
+
+
 }

@@ -70,4 +70,17 @@
     <string name="btn_ora_reminder">Ora reminder</string>
     <string name="buton_anulare_adaugare">buton anulare Adaugare button</string>
     <string name="buton_adaugare_notitta">buton adaugare notitta</string>
+    <string name="adaug_element_nou_n_lista_curent">Adaugă element nou în lista curentă</string>
+    <string name="button_for_adding_new_list_item">Button for adding new list item</string>
+    <string name="error_elementelistanotite_save_element_lista_nou">VizualElementeListaNotite salvare element lista nou esuata</string>
+    <string name="buton_pentru_partajare_continut_notita">Buton pentru partajare continut notita</string>
+    <string name="buton_adaugare_generala">Buton adaugare generala</string>
+    <string name="backup_fisiere">Backup fisiere</string>
+    <string name="restaurare_fisiere">Restaurare fisiere</string>
+    <string name="button_for_import_of_data">button for import of data</string>
+    <string name="button_for_share">button for share</string>
+    <string name="nc_rcare_noti_e">Încărcare notițe</string>
+    <string name="partajare_noti_e">Partajare notițe</string>
+    <string name="iconita_vreme">Iconita vreme</string>
+    <string name="bucuresti">București</string>
 </resources>

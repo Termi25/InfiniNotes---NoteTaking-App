@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border_listviewprincipal_unrounded"
@@ -53,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logo_aplicatie_vizual_liste" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvUnderline"
         android:layout_width="0dp"
         android:layout_height="5sp"
         android:layout_marginBottom="3dp"
@@ -72,7 +71,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,10 +93,41 @@
         app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.987"
         app:layout_constraintStart_toStartOf="@+id/rlvElementeLista"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/arrow_white" />
+
+    <EditText
+        android:id="@+id/etAdaugareElementLista"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/border_lv_principal"
+        android:hint="@string/adaug_element_nou_n_lista_curent"
+        android:padding="10dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBtnAdaugareElementLista"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnAdaugareElementLista"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgBtnAdaugareElementLista"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imgBtnAdaugareElementLista"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/img_btn_selector_addition"
+        android:contentDescription="@string/button_for_adding_new_list_item"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/fActBtnInchidereVizualElementeLista"
+        app:layout_constraintEnd_toStartOf="@+id/fActBtnInchidereVizualElementeLista"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fActBtnInchidereVizualElementeLista"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

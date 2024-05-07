@@ -110,7 +110,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
 
     private void incarcareSpinnerCulori(Sectiune sectiune) {
         this.spnCuloareSectiuneEditare.setAdapter(new ArrayAdapter<>
-                (context, android.R.layout.simple_spinner_item, CuloriSectiune.values()));
+                (context, R.layout.view_spinner, CuloriSectiune.values()));
         int pozitieSelectie=determinareCuloare(sectiune);
         this.spnCuloareSectiuneEditare.setSelection(pozitieSelectie);
         this.spnCuloareSectiuneEditare.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -233,7 +233,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
                     db.getSectiuneNotiteListaJoinDao().deleteLegatura(legatura);
 
                 }
-                db.getSectiuneDao().deleteSectiune(sectiune);
+                db.getSectiuneDao().deleteSectiuneDupaId(sectiune.getSectiuneId());
             }
         });
         Toasty.success(context,R.string.modificari_succes, Toast.LENGTH_LONG).show();

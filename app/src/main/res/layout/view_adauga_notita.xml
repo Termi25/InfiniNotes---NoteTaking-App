@@ -68,6 +68,7 @@
         android:layout_marginBottom="10sp"
         android:background="@drawable/border_lv_principal"
         android:padding="5sp"
+        android:popupBackground="@drawable/border_lv_principal"
         app:layout_constraintBottom_toBottomOf="@+id/btnOraReminderAdaugaNotita"
         app:layout_constraintEnd_toEndOf="@+id/etNumeAdaugaNotita"
         app:layout_constraintHorizontal_bias="0.0"
@@ -142,7 +143,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="10sp"
-        android:background="@drawable/addition"
+        android:background="@drawable/img_btn_selector_addition"
         android:contentDescription="@string/buton_adaugare_notitta"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -150,15 +151,14 @@
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
-        app:layout_constraintVertical_bias="0.333"
-        app:srcCompat="@drawable/addition" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <ImageButton
         android:id="@+id/btnAnulareEditareNotita"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="10sp"
-        android:background="@drawable/left_arrow_in_circular_button_black_symbol"
+        android:background="@drawable/img_btn_selector_left_arrow"
         android:contentDescription="@string/buton_anulare_adaugare"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -166,8 +166,7 @@
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCorpTextNotita"
-        app:layout_constraintVertical_bias="0.357"
-        app:srcCompat="@drawable/left_arrow_in_circular_button_black_symbol" />
+        app:layout_constraintVertical_bias="0.357" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
         android:layout_width="0dp"

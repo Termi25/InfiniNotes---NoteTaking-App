@@ -5,6 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +47,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private AdapterSectiune adapter;
     private RecyclerView rlv;
     private Spinner spOrdineSectiuni;
-    private List<Sectiune> initialList;
+    private Observer<List<Sectiune>> observerListaSectiuni;
+    LiveData<List<Sectiune>> dateSectiuni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +120,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private void filtruCautare(String text) {
         List<Sectiune> filteredList = new ArrayList<Sectiune>();
 
-        for (Sectiune item : this.initialList) {
+        for (Sectiune item : this.adapter.getCurrentList()) {
             if (item.getDenumireSectiune().toLowerCase().contains(text.toLowerCase())) {
                 System.out.println(item);
                 filteredList.add(item);
@@ -140,7 +143,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
     void incarcareSpinnerOrdineSectiuni(){
         this.spOrdineSectiuni.setAdapter(new ArrayAdapter<>
-                (getApplicationContext(), android.R.layout.simple_spinner_item, new String[]{"Alfabetic A-Z",
+                (getApplicationContext(), R.layout.view_spinner, new String[]{"Alfabetic A-Z",
                         "Alfabetic Z-A","După notițe crescător","După notițe descrescător","După dată creare"}));
 
         SharedPreferences sharedPrefs = getSharedPreferences("preferences.xml", MODE_PRIVATE);
@@ -149,9 +152,8 @@ public class ActivitatePrincipala extends AppCompatActivity {
             editor.putInt("ordineSectiuni",0);
             editor.apply();
         }
-        final int[] ordineSectiuni = {sharedPrefs.getInt("ordineSectiuni", 0)};
+        int[] ordineSectiuni = {sharedPrefs.getInt("ordineSectiuni", 0)};
         this.spOrdineSectiuni.setSelection(ordineSectiuni[0]);
-        Log.d("TEST", String.valueOf(ordineSectiuni[0]));
         this.spOrdineSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -159,8 +161,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
                 editor.putInt("ordineSectiuni",position);
                 editor.apply();
-                ordineSectiuni[0] =position;
-                Log.d("TEST", String.valueOf(ordineSectiuni[0]));
+                ordineSectiuni[0] = position;
             }
 
             @Override
@@ -195,34 +196,43 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 break;
             }
         }
-        sectiuneViewModel.getToateSectiuni(optiuneOrdonare).observe(this, sectiuni->{
-            if(sectiuni.isEmpty()){
-                NotiteDB.databaseWriteExecutor.execute(()->{
-                    NotiteDB db=NotiteDB.getInstance(getApplicationContext());
-                    Sectiune misc=new Sectiune(getString(R.string.misc), CuloriSectiune.MARO);
-                    db.getSectiuneDao().insertSectiune(misc);
-                });
+        if(observerListaSectiuni!=null){
+            dateSectiuni.removeObserver(observerListaSectiuni);
+        }
+        dateSectiuni = sectiuneViewModel.getToateSectiuni(optiuneOrdonare);
+        observerListaSectiuni=new Observer<List<Sectiune>>() {
+            @Override
+            public void onChanged(List<Sectiune> sectiuni) {
+                if(sectiuni.isEmpty()){
+                    NotiteDB.databaseWriteExecutor.execute(()->{
+                        NotiteDB db=NotiteDB.getInstance(getApplicationContext());
+                        Sectiune misc=new Sectiune(getString(R.string.misc), CuloriSectiune.MARO);
+                        db.getSectiuneDao().insertSectiune(misc);
+                    });
+                }
+                AdapterSectiune adapter = (AdapterSectiune) rlv.getAdapter();
+                assert adapter != null;
+                adapter.submitList(sectiuni);
             }
-            this.initialList=new ArrayList<>();
-            this.initialList.addAll(sectiuni);
-            this.adapter.submitList(sectiuni);
-        });
+        };
+        dateSectiuni.observe(this, observerListaSectiuni);
     }
 
     void notifyAdapter(){
         try{
-            incarcareRecyclerView();
+            rlv.getAdapter().notifyDataSetChanged();
         }catch (Exception e){
             Log.e("Error","Eroare adapter recyclerview ActivitatePrincipala");
         }
     }
 
     void cererePermisiuniNecesare(){
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED||
+                ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
 
             ActivityCompat.requestPermissions(ActivitatePrincipala.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+                    Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {

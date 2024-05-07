@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +40,15 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvTitluLista;
     private final Button btnStergereLista;
     private final Button btnVizualizareElementeDinLista;
+    private final CheckBox cbChecked;
+
     public SectiuneNotiteListaJoinViewHolder(@NonNull View itemView) {
         super(itemView);
         this.tvTitluLista=itemView.findViewById(R.id.tvNumeNotita);
         this.tvCorpLista=itemView.findViewById(R.id.tvCorpPreviewNotita);
         this.btnStergereLista=itemView.findViewById(R.id.btnStergereNotita);
         this.btnVizualizareElementeDinLista = itemView.findViewById(R.id.btnEditareNotita);
+        this.cbChecked=itemView.findViewById(R.id.cbNotita);
     }
 
     public void bind(NotitaLista notitaLista){
@@ -54,6 +58,19 @@ public class SectiuneNotiteListaJoinViewHolder extends RecyclerView.ViewHolder {
         setareButonStergereNotitaLista(notitaLista);
 
         setareButonVizualNotite(notitaLista);
+
+        setareChecked(notitaLista);
+    }
+
+    private void setareChecked(NotitaLista notitaLista) {
+        cbChecked.setChecked(notitaLista.isChecked());
+        cbChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            notitaLista.setChecked(isChecked);
+            NotiteDB.databaseWriteExecutor.execute(()->{
+                NotiteDB db=NotiteDB.getInstance(context);
+                db.getNotitaListaDao().updateNotitaLista(notitaLista);
+            });
+        });
     }
 
     private void setareButonStergereNotitaLista(NotitaLista notitaLista) {

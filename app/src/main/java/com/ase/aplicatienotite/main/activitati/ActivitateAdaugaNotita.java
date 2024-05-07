@@ -30,7 +30,7 @@ import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
-import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiverReminderNotita;
+import com.ase.aplicatienotite.main.receiver.AlarmBroadcastReceiver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,8 +57,6 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
         setareButonAnulare();
 
         setareSpinnerSectiuni();
-
-        //TODO - creare buton cu dialog asociat pentru setarea orei reminderului (necesita adaugare si in editeaza notita)Edit
 
         setareBtnReminder();
 
@@ -132,7 +130,7 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    this, android.R.layout.simple_spinner_item, listaSpinnerSectiuni);
+                    this, R.layout.view_spinner, listaSpinnerSectiuni);
 
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerSectiuni = (Spinner) findViewById(R.id.spSectiuneAdaugaNotita);
@@ -214,8 +212,8 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
                 }
             }
 
-            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiverReminderNotita.class);
-            intentToFire.setAction(AlarmBroadcastReceiverReminderNotita.ACTION_ALARM);
+            Intent intentToFire = new Intent(getApplicationContext(), AlarmBroadcastReceiver.class);
+            intentToFire.setAction(AlarmBroadcastReceiver.ACTION_ALARM);
 
             intentToFire.putExtra("notita",notita);
             intentToFire.putExtra("sectiune",sectiuneDeLegat);
