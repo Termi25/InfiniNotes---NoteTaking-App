@@ -67,6 +67,24 @@
             </intent-filter>
         </receiver>
 
+        <meta-data android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data android:name="androidx.car.app.minCarApiLevel"
+            android:value="1" />
+
+        <meta-data
+            android:name="androidx.car.app.theme"
+            android:resource="@style/CarAppTheme"/>
+
+        <service
+            android:name=".main.automotive.NotiteAppService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.POI"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

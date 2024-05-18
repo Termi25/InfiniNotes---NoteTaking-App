@@ -1,4 +1,4 @@
-package com.ase.appautomotive;
+package com.ase.aplicatienotite.main.automotive;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -18,24 +18,12 @@ public class NotiteAppService extends CarAppService {
     @NonNull
     @Override
     public HostValidator createHostValidator() {
-        if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            return HostValidator.ALLOW_ALL_HOSTS_VALIDATOR;
-        } else {
-            return new HostValidator.Builder(getApplicationContext())
-                    .addAllowedHosts(androidx.car.app.R.array.hosts_allowlist_sample)
-                    .build();
-        }
+        return HostValidator.ALLOW_ALL_HOSTS_VALIDATOR;
     }
 
     @NonNull
     @Override
     public Session onCreateSession() {
-        return new Session() {
-            @Override
-            @NonNull
-            public Screen onCreateScreen(@Nullable Intent intent) {
-                return new NotiteAppScreen(getCarContext());
-            }
-        };
+        return new NotiteAppSession();
     }
 }

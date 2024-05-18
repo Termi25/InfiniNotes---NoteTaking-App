@@ -52,7 +52,7 @@ public abstract class NotiteDB extends RoomDatabase {
     public synchronized static NotiteDB getInstance(Context context){
         if(instanta==null){
             instanta= Room.databaseBuilder(context,
-                    NotiteDB.class,notiteDB)
+                    NotiteDB.class,notiteDB).allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }

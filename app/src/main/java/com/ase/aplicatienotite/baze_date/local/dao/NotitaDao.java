@@ -26,4 +26,7 @@ public interface NotitaDao {
 
     @Query("SELECT * FROM notite WHERE checked=1")
     List<Notita> getNotiteChecked();
+
+    @Query("SELECT * FROM notite")
+    List<Notita> getToateNotitele();
 }
