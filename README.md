@@ -1,6 +1,8 @@
-![InfiniNotes Logo](app/src/main/res/drawable/design_logo_aplicatie_centratnobg.png) # InfiniNotes
+<img src="/app/src/main/res
+/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="200"/>
+# InfiniNotes
 
-** Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank. **
+**Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank.**
 
 ## Description
 This is an Android Notetaking app with in-built functionality for Android Auto (works only in Debug mode due to current Android Auto regulations).
