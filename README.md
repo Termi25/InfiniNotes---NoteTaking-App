@@ -1,5 +1,4 @@
-<img src="/app/src/main/res
-/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="200"/>
+<img src="InfiniNotes---NoteTaking-App/app/src/main/res/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="200"/>
 # InfiniNotes
 
 **Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank.**
