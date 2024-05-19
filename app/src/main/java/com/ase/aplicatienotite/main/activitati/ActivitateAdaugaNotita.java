@@ -188,7 +188,20 @@ public class ActivitateAdaugaNotita extends AppCompatActivity {
             btnOraReminder.setOnClickListener(v->{
                 if(!this.btnReminderNotita.getText().toString().equalsIgnoreCase("data reminder")){
                     TimePickerDialog timePickerDialog=new TimePickerDialog(ActivitateAdaugaNotita.this,(view, hourOfDay, minute1) -> {
-                        btnOraReminder.setText(hourOfDay + " : " + minute1);
+                        StringBuilder oraDeSetat=new StringBuilder();
+                        if(hourOfDay<10){
+                            oraDeSetat.append("0").append(hourOfDay).append(" : ");
+                        }else{
+                            oraDeSetat.append(hourOfDay).append(" : ");
+                        }
+
+                        if(minute1<10){
+                            oraDeSetat.append("0").append(minute1);
+                        }else{
+                            oraDeSetat.append(minute1);
+                        }
+
+                        btnOraReminder.setText(oraDeSetat.toString());
 
                         this.calendarDeTransmis.add(Calendar.HOUR_OF_DAY,-8);
 

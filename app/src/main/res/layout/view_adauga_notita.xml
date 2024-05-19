@@ -126,15 +126,15 @@
         android:id="@+id/imageButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_margin="10sp"
+        android:layout_marginStart="10sp"
         android:background="#00FFFFFF"
         android:contentDescription="@string/logo_aplicatie"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/etNumeAdaugaNotita"
+        app:layout_constraintBottom_toBottomOf="@+id/viewWeather5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewWeather5"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_centrat_app" />
 
@@ -169,14 +169,17 @@
         app:layout_constraintVertical_bias="0.357" />
 
     <com.ase.aplicatienotite.extern.openweatherapi.ViewWeather
+        android:id="@+id/viewWeather5"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="1dp"
+        android:layout_margin="10sp"
+        android:layout_marginStart="0sp"
         android:background="@drawable/btn_selector_skin_brown"
         app:layout_constraintBottom_toTopOf="@+id/etNumeAdaugaNotita"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

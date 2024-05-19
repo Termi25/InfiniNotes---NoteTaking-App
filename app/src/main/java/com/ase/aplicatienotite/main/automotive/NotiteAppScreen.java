@@ -22,6 +22,7 @@ import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class NotiteAppScreen extends Screen {
@@ -35,32 +36,32 @@ public class NotiteAppScreen extends Screen {
         ListTemplate.Builder templateBuilder=new ListTemplate.Builder();
         ItemList.Builder itemList=new ItemList.Builder();
 
-        try {
-            SimpleDateFormat dateFormat=new SimpleDateFormat(getCarContext().getString(R.string.pattern_data),
-                    Locale.ENGLISH);
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm",
-                    Locale.ENGLISH);
+        SimpleDateFormat dateFormat=new SimpleDateFormat(getCarContext().getString(R.string.pattern_data),
+                Locale.ENGLISH);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm",
+                Locale.ENGLISH);
+        Calendar calendar=Calendar.getInstance();
 
+        try {
             for (Notita notita: NotiteDB.getInstance(getCarContext()).getNotitaDao().getToateNotitele()) {
                 if(notita.getDataReminder()!=null){
-                    itemList.addItem(buildRow(notita.getTitlu()+" - reminder: "
-                            +dateFormat.format(notita.getDataReminder())+" la ora "
-                            +timeFormat.format(notita.getDataReminder())));
-                }else{
-                    itemList.addItem(buildRow(notita.getTitlu()));
+                    if(notita.getDataReminder().getTime()>calendar.getTimeInMillis()){
+                        itemList.addItem(buildRow(notita.getTitlu()+" - "
+                                +dateFormat.format(notita.getDataReminder())+" ora "
+                                +timeFormat.format(notita.getDataReminder())));
+                    }
                 }
-                CarToast.makeText(getCarContext(), notita.toString(), CarToast.LENGTH_SHORT).show();
             }
 
             templateBuilder.addSectionedList(
                     SectionedItemList.create(itemList.build(), "Notite"));
         } catch (Exception e) {
-            CarToast.makeText(getCarContext(), "No more", CarToast.LENGTH_SHORT).show();
+            CarToast.makeText(getCarContext(), "There are none.", CarToast.LENGTH_SHORT).show();
         }
 
         return templateBuilder.setHeaderAction(Action.APP_ICON)
                 .setSingleList(itemList.build())
-                .setTitle("InfiniNotes")
+                .setTitle("InfiniNotes - Upcoming reminders - "+dateFormat.format(calendar.getTime()))
                 .build();
     }
 
@@ -68,6 +69,7 @@ public class NotiteAppScreen extends Screen {
     private Row buildRow(String data) {
         return new Row.Builder()
                 .setTitle(data)
+                .setOnClickListener(this::invalidate)
                 .build();
     }
 
