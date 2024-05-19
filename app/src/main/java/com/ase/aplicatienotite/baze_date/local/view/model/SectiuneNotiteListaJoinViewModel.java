@@ -21,11 +21,9 @@ public class SectiuneNotiteListaJoinViewModel extends AndroidViewModel {
         super(application);
         this.application=application;
     }
-    public LiveData<List<NotitaLista>> getToateNotiteleListaSectiunii(int idSectiune) {
-        if(toateNotiteleListaSectiunii==null){
-            sRepository=new SectiuneNotiteListaJoinRepository(application,idSectiune);
-            toateNotiteleListaSectiunii=sRepository.getToateNotiteleListaSectiunii();
-        }
+    public LiveData<List<NotitaLista>> getToateNotiteleListaSectiunii(int idSectiune,int tipOrdonare) {
+        sRepository=new SectiuneNotiteListaJoinRepository(application,idSectiune);
+        toateNotiteleListaSectiunii=sRepository.getToateNotiteleListaSectiunii(tipOrdonare);
         return toateNotiteleListaSectiunii;
     }
 }

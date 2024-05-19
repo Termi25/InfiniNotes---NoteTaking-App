@@ -44,6 +44,7 @@
         android:id="@+id/btnVizualListe"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="150sp"
         android:layout_marginEnd="10sp"
         android:background="@drawable/btn_selector_skin_brown"
         android:fontFamily="@font/alata"
@@ -90,5 +91,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/arrow_white" />
+
+    <Spinner
+        android:id="@+id/spOrdineNotite"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/border_listviewprincipal"
+        android:paddingStart="2dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="1dp"
+        android:paddingBottom="5dp"
+        android:popupBackground="@drawable/border_listviewprincipal"
+        app:layout_constraintBottom_toBottomOf="@+id/btnVizualListe"
+        app:layout_constraintEnd_toStartOf="@+id/btnVizualListe"
+        app:layout_constraintStart_toStartOf="@+id/rlvNotite"
+        app:layout_constraintTop_toTopOf="@+id/btnVizualListe" />
+
+    <TextView
+        android:id="@+id/tvNuExistaNotite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alata"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rlvNotite"
+        app:layout_constraintEnd_toEndOf="@+id/rlvNotite"
+        app:layout_constraintStart_toStartOf="@+id/rlvNotite"
+        app:layout_constraintTop_toTopOf="@+id/rlvNotite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

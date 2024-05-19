@@ -83,4 +83,6 @@
     <string name="partajare_noti_e">Partajare notițe</string>
     <string name="iconita_vreme">Iconita vreme</string>
     <string name="bucuresti">București</string>
+    <string name="nu_exista_notite_adaugate">Nu există notițe adăugate.</string>
+    <string name="nu_exista_liste_adaugate">Nu există liste adăugate.</string>
 </resources>

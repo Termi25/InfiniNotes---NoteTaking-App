@@ -52,10 +52,9 @@ public class AdapterSectiune extends ListAdapter<Sectiune, SectiuneViewHolder> {
         @Override
         public boolean areContentsTheSame(@NonNull Sectiune oldItem, @NonNull Sectiune newItem) {
             if(oldItem.getNotite()!=null && newItem.getNotite()!=null){
-                Log.d("TEST","Comparatie dimensiuni lista notite sectiune");
                 return oldItem.getNotite().size()==newItem.getNotite().size();
             }else{
-                return oldItem.getDenumireSectiune().equals(newItem.getDenumireSectiune());
+                return oldItem.getDenumireSectiune().equalsIgnoreCase(newItem.getDenumireSectiune());
             }
         }
     }

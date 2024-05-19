@@ -13,16 +13,32 @@ import java.util.List;
 
 public class SectiuneNotiteListaJoinRepository {
     private final SectiuneNotiteListaJoinDao sectiuneNotiteListaJoinDao;
-    private final LiveData<List<NotitaLista>> notiteLista;
+    private LiveData<List<NotitaLista>> notiteLista;
+    private final int idSectiune;
 
     public SectiuneNotiteListaJoinRepository(Application application, int idSectiune) {
         NotiteDB db=NotiteDB.getInstance(application);
         sectiuneNotiteListaJoinDao=db.getSectiuneNotiteListaJoinDao();
         notiteLista=sectiuneNotiteListaJoinDao.getNotiteListaPentruSectiuneLive(idSectiune);
+        this.idSectiune=idSectiune;
     }
 
-    public LiveData<List<NotitaLista>>getToateNotiteleListaSectiunii(){
-        return notiteLista;
+    public LiveData<List<NotitaLista>>getToateNotiteleListaSectiunii(int tipOrdonare){
+        switch(tipOrdonare){
+            case 0:{
+                this.notiteLista=this.sectiuneNotiteListaJoinDao.getNotiteListaPentruSectiuneLive_Alfabetic_A_Z(this.idSectiune);
+                break;
+            }
+            case 1:{
+                this.notiteLista=this.sectiuneNotiteListaJoinDao.getNotiteListaPentruSectiuneLive_Alfabetic_Z_A(this.idSectiune);
+                break;
+            }
+            case 2:{
+                this.notiteLista=this.sectiuneNotiteListaJoinDao.getNotiteListaPentruSectiuneLive(this.idSectiune);
+                break;
+            }
+        }
+        return this.notiteLista;
     }
 
     public void insert(int idNotita,int idSectiune){

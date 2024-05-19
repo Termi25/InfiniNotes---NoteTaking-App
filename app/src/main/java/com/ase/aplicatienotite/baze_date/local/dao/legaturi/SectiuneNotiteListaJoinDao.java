@@ -19,8 +19,12 @@ public interface SectiuneNotiteListaJoinDao {
     void insert(SectiuneNotiteListaJoin legatura);
     @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId")
     List<NotitaLista> getNotiteListaPentruSectiune(final int sectiuneId);
-    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId ORDER BY titlu")
+    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId")
     LiveData<List<NotitaLista>> getNotiteListaPentruSectiuneLive(final int sectiuneId);
+    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId ORDER BY LOWER(titlu)")
+    LiveData<List<NotitaLista>> getNotiteListaPentruSectiuneLive_Alfabetic_A_Z(final int sectiuneId);
+    @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId WHERE sectiune_notita_lista_join.sectiuneId=:sectiuneId ORDER BY LOWER(titlu) DESC")
+    LiveData<List<NotitaLista>> getNotiteListaPentruSectiuneLive_Alfabetic_Z_A(final int sectiuneId);
     @Query("SELECT * FROM liste INNER JOIN sectiune_notita_lista_join ON liste.notitaId=sectiune_notita_lista_join.notitaId GROUP BY sectiune_notita_lista_join.sectiuneId")
     LiveData<Map<Sectiune,List<Notita>>> getNotiteListaPentruSectiuni();
     @Query("SELECT * FROM sectiune_notita_lista_join WHERE sectiune_notita_lista_join.notitaId=:idNotita")
