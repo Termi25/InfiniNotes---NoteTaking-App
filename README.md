@@ -2,7 +2,7 @@
 
 # InfiniNotes
 
-**Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank.**
+**Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank as well as a lot of variables names and app UI in Romanian, not English.**
 
 ## Description
 This is an Android Notetaking app with in-built functionality for Android Auto (works only in Debug mode due to current Android Auto regulations).
