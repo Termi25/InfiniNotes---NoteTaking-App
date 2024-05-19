@@ -86,6 +86,12 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toasty.success(getApplicationContext(),R.string.modificari_succes, Toast.LENGTH_LONG).show();
+    }
+
     private void setareButonPartajare(Notita notita) {
         imgBtnShare=findViewById(R.id.imgBtnShareNotita);
         imgBtnShare.setOnClickListener(v->{
@@ -110,7 +116,12 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
         }
 
         imgBtnBack=findViewById(R.id.btnAnulareEditareNotita);
-        imgBtnBack.setOnClickListener(v->setareButonIntoarcere(notita));
+        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setareButonIntoarcere(notita);
+            }
+        });
 
         sectiuneViewModel=new ViewModelProvider(this).get(SectiuniViewModel.class);
 
@@ -185,7 +196,6 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                 Log.e("Error",getString(R.string.error_editeaza_notita_update_notita1));
             }
         });
-        Toasty.success(getApplicationContext(),R.string.modificari_succes, Toast.LENGTH_LONG).show();
         setResult(RESULT_OK);
         finish();
     }
