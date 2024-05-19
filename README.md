@@ -1,4 +1,4 @@
-<img src="InfiniNotes---NoteTaking-App/app/src/main/res/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="200px"/>
+<img src="/app/src/main/res/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="200px"/>
 
 # InfiniNotes
 
