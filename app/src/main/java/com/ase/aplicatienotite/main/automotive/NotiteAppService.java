@@ -11,9 +11,7 @@ import androidx.car.app.Session;
 import androidx.car.app.validation.HostValidator;
 
 public class NotiteAppService extends CarAppService {
-    public NotiteAppService() {
-        // Exported services must have an empty public constructor.
-    }
+    public NotiteAppService() {}
 
     @NonNull
     @Override

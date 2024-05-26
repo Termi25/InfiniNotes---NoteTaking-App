@@ -29,7 +29,6 @@ public class NotiteAppScreen extends Screen {
     protected NotiteAppScreen(@NonNull CarContext carContext) {
         super(carContext);
     }
-
     @NonNull
     @Override
     public Template onGetTemplate() {
@@ -64,7 +63,6 @@ public class NotiteAppScreen extends Screen {
                 .setTitle("InfiniNotes - Upcoming reminders - "+dateFormat.format(calendar.getTime()))
                 .build();
     }
-
     @NonNull
     private Row buildRow(String data) {
         return new Row.Builder()
