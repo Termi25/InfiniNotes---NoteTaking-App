@@ -2,8 +2,8 @@
 
 # InfiniNotes
 
-**Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank as well as a lot of variables names and app UI in Romanian, not English.**
-Also, for the weather component to work, you need to add an assets folder in which there should be a file named "cheie.txt" with an OpenWeather API Key.
+<p color=red>**Warning! This project was made for a Bachelor's Degree Thesis and may prove to still have unresolved jank as well as a lot of variables names and app UI in Romanian, not English.**
+Also, for the weather component to work, you need to add an assets folder in which there should be a file named "cheie.txt" with an OpenWeather API Key.</p>
 
 ## Description
 This is an Android Notetaking app with in-built functionality for Android Auto (works only in Debug mode due to current Android Auto regulations).
