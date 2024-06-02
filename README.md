@@ -1,4 +1,4 @@
-<img src="/app/src/main/res/drawable/design_logo_aplicatie_centratnobg.png" alt="InfiniNotes Logo" width="100px"/>
+<img src="/app/src/main/res/drawable/logo_centrat_app.png" alt="InfiniNotes Logo" width="100px"/>
 
 # InfiniNotes
 $${\color{red}WARNING!}$$
