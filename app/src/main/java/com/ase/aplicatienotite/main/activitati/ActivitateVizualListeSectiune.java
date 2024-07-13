@@ -115,7 +115,7 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
                 assert adapter != null;
                 adapter.submitList(notite);
                 if(!notite.isEmpty()){
-                    TextView tvFaraNotite=findViewById(R.id.tvNuExistaNotite);
+                    TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
                     tvFaraNotite.setText("");
                 }
             }
