@@ -23,13 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterNotita;
-import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuneNotiteJoinViewModel;
 import com.ase.aplicatienotite.clase.notite.Notita;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
-import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
@@ -145,6 +143,10 @@ public class ActivitateVizualNotiteSectiune extends AppCompatActivity {
                 AdapterNotita adapter = (AdapterNotita) rlv.getAdapter();
                 assert adapter != null;
                 adapter.submitList(notite);
+                if(!notite.isEmpty()){
+                    TextView tvFaraNotite=findViewById(R.id.tvNuExistaNotite);
+                    tvFaraNotite.setText("");
+                }
             }
         };
         dateNotite.observe(this, observerListaNotite);

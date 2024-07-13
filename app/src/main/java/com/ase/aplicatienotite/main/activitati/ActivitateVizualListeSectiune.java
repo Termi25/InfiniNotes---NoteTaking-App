@@ -18,9 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterLista;
-import com.ase.aplicatienotite.adaptoare.AdapterNotita;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuneNotiteListaJoinViewModel;
-import com.ase.aplicatienotite.clase.notite.Notita;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -116,6 +114,10 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
                 AdapterLista adapter = (AdapterLista) rlv.getAdapter();
                 assert adapter != null;
                 adapter.submitList(notite);
+                if(!notite.isEmpty()){
+                    TextView tvFaraNotite=findViewById(R.id.tvNuExistaNotite);
+                    tvFaraNotite.setText("");
+                }
             }
         };
         dateListe.observe(this, observerLista);
