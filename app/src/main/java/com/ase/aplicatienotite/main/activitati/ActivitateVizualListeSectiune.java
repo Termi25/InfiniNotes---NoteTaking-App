@@ -108,6 +108,7 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
             dateListe.removeObserver(observerLista);
         }
         dateListe = sectiuneNotiteListaJoinViewModel.getToateNotiteleListaSectiunii(idSectiune,optiuneOrdonare);
+        TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
         observerLista =new Observer<List<NotitaLista>>() {
             @Override
             public void onChanged(List<NotitaLista> notite) {
@@ -115,7 +116,6 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
                 assert adapter != null;
                 adapter.submitList(notite);
                 if(!notite.isEmpty()){
-                    TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
                     tvFaraNotite.setText("");
                 }
             }
@@ -125,15 +125,12 @@ public class ActivitateVizualListeSectiune extends AppCompatActivity {
         try{
             int numar= rlv.getAdapter().getItemCount();
             if(numar==0){
-                TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
                 tvFaraNotite.setText(R.string.nu_exista_liste_adaugate);
             }else{
-                TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
+
                 tvFaraNotite.setText("");
             }
-
         }catch (Exception e){
-            TextView tvFaraNotite=findViewById(R.id.tvNuExistaListe);
             tvFaraNotite.setText(R.string.nu_exista_liste_adaugate);
         }
     }
