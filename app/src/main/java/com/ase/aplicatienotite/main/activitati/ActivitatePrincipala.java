@@ -253,6 +253,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 this.startActivity(intent,null);
             });
         }catch (Exception e){
+            this.notitaRecenta.setText("");
             Log.e("Error","Eroare incarcare notita recenta.");
         }
         try{
@@ -264,6 +265,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                 this.startActivity(intent,null);
             });
         }catch (Exception e){
+            this.listaRecenta.setText("");
             Log.e("Error","Eroare incarcare lista recenta.");
         }
 
