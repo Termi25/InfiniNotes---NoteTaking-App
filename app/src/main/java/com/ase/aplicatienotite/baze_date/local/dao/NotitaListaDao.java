@@ -29,4 +29,7 @@ public interface NotitaListaDao {
 
     @Query("DELETE FROM liste WHERE notitaId=:id")
     void deleteNotitaListaDupaId(int id);
+
+    @Query("SELECT * FROM liste ORDER BY dataAccesare DESC LIMIT 1")
+    NotitaLista getListaRecentaDupaDataAccesare();
 }

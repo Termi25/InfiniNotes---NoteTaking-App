@@ -2,7 +2,6 @@ package com.ase.aplicatienotite.baze_date.local.database;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.room.Database;
@@ -13,10 +12,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.ase.aplicatienotite.baze_date.local.convertori.Convertori;
 import com.ase.aplicatienotite.baze_date.local.dao.ElementListaDao;
-import com.ase.aplicatienotite.baze_date.local.dao.legaturi.ListaNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.NotitaListaDao;
 import com.ase.aplicatienotite.baze_date.local.dao.SectiuneDao;
+import com.ase.aplicatienotite.baze_date.local.dao.legaturi.ListaNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteJoinDao;
 import com.ase.aplicatienotite.baze_date.local.dao.legaturi.SectiuneNotiteListaJoinDao;
 import com.ase.aplicatienotite.clase.legaturi_db.ListaNotiteJoin;
@@ -39,7 +38,7 @@ import java.util.concurrent.Executors;
         entities = {Notita.class, NotitaLista.class,
         Sectiune.class,SectiuneNotiteJoin.class,
         SectiuneNotiteListaJoin.class,ListaNotiteJoin.class,
-        ElementLista.class},version=12,
+        ElementLista.class},version=13,
         exportSchema = false
 )
 @TypeConverters({Convertori.class})

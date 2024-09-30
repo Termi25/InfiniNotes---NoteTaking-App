@@ -5,7 +5,7 @@
     android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2sp"
+    android:layout_marginBottom="5sp"
     android:background="@drawable/border_lv_principal"
     android:padding="5sp"
     android:paddingStart="10sp"
@@ -15,14 +15,15 @@
     <TextView
         android:id="@+id/tvNumeSectiune"
         android:layout_width="0dp"
-        android:layout_height="40sp"
+        android:layout_height="40dp"
         android:fontFamily="@font/alata"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvNotita1"
@@ -76,10 +77,28 @@
         android:textColorHighlight="#00FFFFFF"
         android:textColorHint="#00FFFFFF"
         android:textColorLink="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNotita1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumeSectiune" />
+
+    <Button
+        android:id="@+id/btnVizualListeSectiune"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/btn_vizual_notite"
+        android:shadowColor="#00FFFFFF"
+        android:singleLine="true"
+        android:stateListAnimator="@null"
+        android:textColor="#00FFFFFF"
+        android:textColorHighlight="#00FFFFFF"
+        android:textColorHint="#00FFFFFF"
+        android:textColorLink="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/tvLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvNumeSectiune" />
+        app:layout_constraintTop_toTopOf="@+id/tvLista" />
 
     <Spinner
         android:id="@+id/spCuloareSectiuneEditare"

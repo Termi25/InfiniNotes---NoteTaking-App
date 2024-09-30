@@ -191,6 +191,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                     notita.setDataReminder(calendarDeTransmis.getTime());
                     setareAlarma(notita,sectiuneDeLegat,calendarDeTransmis);
                 }
+                notita.setDataAccesare(new Date());
                 db.getNotitaDao().updateNotita(notita);
             }catch (Exception e){
                 Log.e("Error",getString(R.string.error_editeaza_notita_update_notita1));

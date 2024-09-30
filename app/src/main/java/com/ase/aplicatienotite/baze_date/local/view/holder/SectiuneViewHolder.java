@@ -4,7 +4,6 @@ import static androidx.core.content.ContextCompat.getDrawable;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -23,11 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
-import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteJoin;
 import com.ase.aplicatienotite.clase.legaturi_db.SectiuneNotiteListaJoin;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
+import com.ase.aplicatienotite.main.activitati.ActivitateVizualListeSectiune;
 import com.ase.aplicatienotite.main.activitati.ActivitateVizualNotiteSectiune;
 
 import java.util.List;
@@ -40,6 +39,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
     private final TextView tvNumeNotita1;
     private final TextView tvNumeLista;
     private final Button btnVizualizareNotiteDinSectiune;
+    private final Button btnVizualizareListeDinSectiune;
     private final Spinner spnCuloareSectiuneEditare;
     private final Button btnStergereSectiune;
 
@@ -51,6 +51,7 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         this.tvNumeNotita1=itemView.findViewById(R.id.tvNotita1);
         this.tvNumeLista=itemView.findViewById(R.id.tvLista);
         this.btnVizualizareNotiteDinSectiune=itemView.findViewById(R.id.btnVizualNotiteSectiune);
+        this.btnVizualizareListeDinSectiune=itemView.findViewById(R.id.btnVizualListeSectiune);
         this.spnCuloareSectiuneEditare=itemView.findViewById(R.id.spCuloareSectiuneEditare);
         this.btnStergereSectiune = itemView.findViewById(R.id.btnStergereSectiune);
     }
@@ -70,6 +71,8 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         incarcareUI(sectiune);
 
         setareButonVizualNotite(sectiune);
+
+        setareButonVizualListe(sectiune);
 
         setareButonStergereSectiune(sectiune);
     }
@@ -255,6 +258,12 @@ public class SectiuneViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-
+    private void setareButonVizualListe(Sectiune sectiune){
+        this.btnVizualizareListeDinSectiune.setOnClickListener(v -> {
+            Intent intent=new Intent(context, ActivitateVizualListeSectiune.class);
+            intent.putExtra("codSectiune",sectiune.getSectiuneId());
+            startActivity(context,intent,null);
+        });
+    }
 
 }

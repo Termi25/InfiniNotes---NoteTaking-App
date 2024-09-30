@@ -36,7 +36,7 @@ public class NotiteAppScreen extends Screen {
         Calendar calendar=Calendar.getInstance();
 
         try {
-            for (Notita notita: NotiteDB.getInstance(getCarContext()).getNotitaDao().getToateNotitele()) {
+            for (Notita notita: NotiteDB.getInstance(getCarContext()).getNotitaDao().getToateNotiteleDupaDataReminder()) {
                 if(notita.getDataReminder()!=null){
                     if(notita.getDataReminder().getTime()>calendar.getTimeInMillis()){
                         itemList.addItem(buildRow(notita.getTitlu()+" - "

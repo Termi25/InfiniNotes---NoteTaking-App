@@ -58,26 +58,27 @@ public class ViewWeather extends ConstraintLayout {
     private void incarcareVreme(Context context,AttributeSet attrs){
         setareDataVreme();
         boolean preferences = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("Conexiune la Internet",true);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if(ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
+        LocationListener locationListener = location -> {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        TextView oras = findViewById(R.id.tvOrasTemperatura);
         if(preferences){
             try {
+                TextView tvUnitateMasuraVreme=findViewById(R.id.tvUnitateMasuraTemperatura);
+                tvUnitateMasuraVreme.setText("°C");
                 TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ViewWeather);
                 RequestQueue req = Volley.newRequestQueue(context);
 
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                if(ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-                }
-                LocationListener locationListener = location -> {
-                    longitude = location.getLongitude();
-                    latitude = location.getLatitude();
-                };
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                TextView oras = findViewById(R.id.tvOrasTemperatura);
                 String url = null;
                 if (location != null) {
                     url=obtinereLocatie(location, context,oras);
@@ -98,12 +99,15 @@ public class ViewWeather extends ConstraintLayout {
             }catch(Exception e){
                 Log.e("Error", getContext().getString(R.string.error_view_weather_general_fail));
             }
+        }else{
+            if(location!=null){
+                setareLocatie(location,context,oras);
+            }
         }
     }
 
     private String obtinereLocatie(Location location, Context context, TextView oras) {
-        this.longitude = location.getLongitude();
-        this.latitude = location.getLatitude();
+        setareLocatie(location,context,oras);
         String url = "https://api.openweathermap.org/data/3.0/onecall?lat=" + this.latitude + "&lon=" +
                 this.longitude + "&exclude=hourly,daily,minutely,alerts&units=metric&appid=";
         try {
@@ -113,6 +117,12 @@ public class ViewWeather extends ConstraintLayout {
         } catch (IOException e) {
             Log.e("Error", getContext().getString(R.string.error_view_weather_key_file_no_read));
         }
+        return url;
+    }
+
+    private void setareLocatie(Location location, Context context, TextView oras){
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
         Geocoder geocoder=new Geocoder(context, Locale.ENGLISH);
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
@@ -123,7 +133,6 @@ public class ViewWeather extends ConstraintLayout {
         } catch (IOException e) {
             Log.e("Error","Eroare obtinere localitate pentru coordonatele furnizat in ViewWeather");
         }
-        return url;
     }
 
     private String setarePrognozaBackup(Context context, String url,TextView oras) {

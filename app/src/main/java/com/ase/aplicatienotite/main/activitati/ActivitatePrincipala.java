@@ -1,18 +1,6 @@
 package com.ase.aplicatienotite.main.activitati;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -27,12 +15,27 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ase.aplicatienotite.R;
 import com.ase.aplicatienotite.adaptoare.AdapterSectiune;
 import com.ase.aplicatienotite.baze_date.local.database.NotiteDB;
+import com.ase.aplicatienotite.baze_date.local.view.model.NotiteRecenteViewModel;
 import com.ase.aplicatienotite.baze_date.local.view.model.SectiuniViewModel;
+import com.ase.aplicatienotite.clase.notite.Notita;
+import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.ase.aplicatienotite.clase.sectiune.Sectiune;
 import com.ase.aplicatienotite.clase.sectiune.culori.CuloriSectiune;
 
@@ -44,8 +47,10 @@ import es.dmoral.toasty.Toasty;
 
 public class ActivitatePrincipala extends AppCompatActivity {
     private static ActivityResultLauncher<Intent> launcher;
-    private AdapterSectiune adapter;
-    private RecyclerView rlv;
+    private AdapterSectiune adapterSectiune;
+    private TextView notitaRecenta;
+    private TextView listaRecenta;
+    private RecyclerView rlvSectiuni;
     private Spinner spOrdineSectiuni;
     private Observer<List<Sectiune>> observerListaSectiuni;
     LiveData<List<Sectiune>> dateSectiuni;
@@ -58,21 +63,23 @@ public class ActivitatePrincipala extends AppCompatActivity {
 
         initializareToasty();
 
-        this.rlv=findViewById(R.id.rlv_main);
-        this.adapter = new AdapterSectiune(new AdapterSectiune.SectiuneDiff());
-        this.rlv.setAdapter(this.adapter);
-        this.rlv.setLayoutManager(new LinearLayoutManager(this));
+        this.rlvSectiuni =findViewById(R.id.rlv_main);
+        this.adapterSectiune = new AdapterSectiune(new AdapterSectiune.SectiuneDiff());
+        this.rlvSectiuni.setAdapter(this.adapterSectiune);
+        this.rlvSectiuni.setLayoutManager(new LinearLayoutManager(this));
 
         this.spOrdineSectiuni=findViewById(R.id.spOrdineSectiuni);
         incarcareSpinnerOrdineSectiuni();
-        incarcareRecyclerView();
-        notifyAdapter();
+        incarcareRecyclerViewSectiuni();
+        notifyAdapterSectiuni();
+
+        incarcareNotitaSiListaRecente();
 
         launcher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result->{
             if(result.getResultCode()==RESULT_OK){
                 Toasty.success(getApplicationContext(),getString(R.string.modificari_succes),Toast.LENGTH_LONG).show();
                 try{
-                    notifyAdapter();
+                    notifyAdapterSectiuni();
                 }catch (Exception e){
                     Log.e("Error","Eroare notifyDataSetChanged pentru RecyclerView in Activitate principala");
                 }
@@ -92,7 +99,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
             Intent intent=new Intent(getApplicationContext(),ActivitateAdaugareGenerala.class);
             launcher.launch(intent);
         });
-        notifyAdapter();
+        notifyAdapterSectiuni();
         
         
         setareCautareSectiuni();
@@ -110,7 +117,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty()){
-                    incarcareRecyclerView();
+                    incarcareRecyclerViewSectiuni();
                 }
                 return false;
             }
@@ -120,19 +127,26 @@ public class ActivitatePrincipala extends AppCompatActivity {
     private void filtruCautare(String text) {
         List<Sectiune> filteredList = new ArrayList<Sectiune>();
 
-        for (Sectiune item : this.adapter.getCurrentList()) {
+        for (Sectiune item : this.adapterSectiune.getCurrentList()) {
             if (item.getDenumireSectiune().toLowerCase().contains(text.toLowerCase())) {
                 System.out.println(item);
                 filteredList.add(item);
             }
         }
-        this.adapter.submitList(filteredList);
+        this.adapterSectiune.submitList(filteredList);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        incarcareNotitaSiListaRecente();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        notifyAdapter();
+        incarcareNotitaSiListaRecente();
+        notifyAdapterSectiuni();
     }
 
     void initializareToasty(){
@@ -157,7 +171,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
         this.spOrdineSectiuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                incarcareRecyclerView();
+                incarcareRecyclerViewSectiuni();
                 SharedPreferences.Editor editor=getSharedPreferences("preferences.xml", MODE_PRIVATE).edit();
                 editor.putInt("ordineSectiuni",position);
                 editor.apply();
@@ -171,7 +185,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
         });
     }
 
-    void incarcareRecyclerView(){
+    void incarcareRecyclerViewSectiuni(){
         SectiuniViewModel sectiuneViewModel = new ViewModelProvider(this).get(SectiuniViewModel.class);
         int optiuneOrdonare=0;
         switch (this.spOrdineSectiuni.getSelectedItemPosition()){
@@ -210,7 +224,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
                         db.getSectiuneDao().insertSectiune(misc);
                     });
                 }
-                AdapterSectiune adapter = (AdapterSectiune) rlv.getAdapter();
+                AdapterSectiune adapter = (AdapterSectiune) rlvSectiuni.getAdapter();
                 assert adapter != null;
                 adapter.submitList(sectiuni);
             }
@@ -218,12 +232,41 @@ public class ActivitatePrincipala extends AppCompatActivity {
         dateSectiuni.observe(this, observerListaSectiuni);
     }
 
-    void notifyAdapter(){
+    void notifyAdapterSectiuni(){
         try{
-            rlv.getAdapter().notifyDataSetChanged();
+            rlvSectiuni.getAdapter().notifyDataSetChanged();
         }catch (Exception e){
-            Log.e("Error","Eroare adapter recyclerview ActivitatePrincipala");
+            Log.e("Error","Eroare adapter RecyclerView Sectiuni ActivitatePrincipala");
         }
+    }
+
+    private void incarcareNotitaSiListaRecente() {
+        NotiteRecenteViewModel notiteRecenteViewModel = new ViewModelProvider(this).get(NotiteRecenteViewModel.class);
+        Notita notita=notiteRecenteViewModel.getNotitaAccesataRecent();
+        NotitaLista lista=notiteRecenteViewModel.getListaAccesataRecent();
+        try{
+            this.notitaRecenta=findViewById(R.id.tvNotitaRecenta);
+            this.notitaRecenta.setText(notita.getTitlu());
+            this.notitaRecenta.setOnClickListener(v -> {
+                Intent intent=new Intent(this.getApplicationContext(), ActivitateEditeazaNotita.class);
+                intent.putExtra("Notita",notita);
+                this.startActivity(intent,null);
+            });
+        }catch (Exception e){
+            Log.e("Error","Eroare incarcare notita recenta.");
+        }
+        try{
+            this.listaRecenta=findViewById(R.id.tvNotitaListaRecenta);
+            this.listaRecenta.setText(lista.getTitlu());
+            this.listaRecenta.setOnClickListener(v -> {
+                Intent intent=new Intent(this.getApplicationContext(), ActivitateVizualElementeListaNotite.class);
+                intent.putExtra("notitaLista",lista);
+                this.startActivity(intent,null);
+            });
+        }catch (Exception e){
+            Log.e("Error","Eroare incarcare lista recenta.");
+        }
+
     }
 
     void cererePermisiuniNecesare(){
@@ -252,7 +295,7 @@ public class ActivitatePrincipala extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        AdapterSectiune adapterNou = (AdapterSectiune) this.rlv.getAdapter();
+        AdapterSectiune adapterNou = (AdapterSectiune) this.rlvSectiuni.getAdapter();
         if(adapterNou!=null){
             List<Sectiune> listaSectiuni = new ArrayList<>(adapterNou.getCurrentList());
             NotiteDB.databaseWriteExecutor.execute(()->{

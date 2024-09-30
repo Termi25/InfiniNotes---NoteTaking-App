@@ -28,5 +28,8 @@ public interface NotitaDao {
     List<Notita> getNotiteChecked();
 
     @Query("SELECT * FROM notite ORDER BY dataReminder")
-    List<Notita> getToateNotitele();
+    List<Notita> getToateNotiteleDupaDataReminder();
+
+    @Query("SELECT * FROM notite ORDER BY dataAccesare DESC LIMIT 1")
+    Notita getNotitaRecentaDupaDataAccesare();
 }

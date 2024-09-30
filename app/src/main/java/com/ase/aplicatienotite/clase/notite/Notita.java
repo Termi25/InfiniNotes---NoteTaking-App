@@ -18,14 +18,15 @@ public class Notita implements Serializable {
     protected String corp;
     protected Date dataReminder;
     protected boolean checked;
+    protected Date dataAccesare;
 
     public Notita(String titlu, String corp) {
         this.titlu = titlu;
         this.corp = corp;
+        this.dataAccesare=new Date();
     }
 
     private Notita(){}
-
 
     public int getNotitaId() {
         return notitaId;
@@ -65,6 +66,14 @@ public class Notita implements Serializable {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public Date getDataAccesare() {
+        return dataAccesare;
+    }
+
+    public void setDataAccesare(Date dataAccesare) {
+        this.dataAccesare = dataAccesare;
     }
 
     @Override

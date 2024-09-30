@@ -21,6 +21,8 @@ import com.ase.aplicatienotite.clase.notite.ElementLista;
 import com.ase.aplicatienotite.clase.notite.NotitaLista;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Date;
+
 public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
     private ListaNotiteJoinViewModel listaNotiteListaJoinViewModel;
     private NotitaLista notitaLista;
@@ -41,6 +43,7 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
         Bundle extras=getIntent().getExtras();
         if(extras!=null){
             notitaLista= (NotitaLista) extras.getSerializable("notitaLista");
+            actualizareDataAccesareLista(notitaLista);
 
             RecyclerView rlv=findViewById(R.id.rlvElementeLista);
             final AdapterElementeLista adapter =new AdapterElementeLista(new AdapterElementeLista.ElementListaDiff());
@@ -104,12 +107,23 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
                 elementListaNou.setNotitaId(db.getElementListaDao()
                         .getElementListaDupaTitlu(elementListaNou.getTitlu()).getNotitaId());
 
-                System.out.println(elementListaNou);
                 ListaNotiteJoin legaturaNoua = new ListaNotiteJoin(notitaLista.getNotitaId(),
                         elementListaNou.getNotitaId());
                 db.getListaNotiteJoinDao().insert(legaturaNoua);
             } catch (Exception e) {
                 Log.e("Error",getString(R.string.error_elementelistanotite_save_element_lista_nou));
+            }
+        });
+    }
+
+    private void actualizareDataAccesareLista(NotitaLista extras){
+        NotiteDB.databaseWriteExecutor.execute(()->{
+            NotiteDB db = NotiteDB.getInstance(getApplicationContext());
+            try {
+                extras.setDataAccesare(new Date());
+                db.getNotitaListaDao().updateNotitaLista(extras);
+            } catch (Exception e) {
+                Log.e("Error","Eroare actualizare data accesare lista");
             }
         });
     }
