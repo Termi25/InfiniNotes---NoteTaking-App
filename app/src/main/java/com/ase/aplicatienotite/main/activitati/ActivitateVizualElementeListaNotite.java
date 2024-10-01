@@ -25,6 +25,7 @@ import java.util.Date;
 
 public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
     private ListaNotiteJoinViewModel listaNotiteListaJoinViewModel;
+    private EditText etNumeLista;
     private NotitaLista notitaLista;
 
     @Override
@@ -53,20 +54,24 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
             if(notitaLista!=null){
                 loadRecyclerView(adapter,notitaLista.getNotitaId());
 
-                TextView tvNumeLista=findViewById(R.id.tvNumeLista);
+                etNumeLista=findViewById(R.id.etNumeLista);
                 if(!notitaLista.getTitlu().isEmpty()){
-                    if(notitaLista.getTitlu().toLowerCase().contains("lista")){
-                        tvNumeLista.setText(notitaLista.getTitlu());
-                    }else{
-                        if(notitaLista.getTitlu().toLowerCase().contains("listă")){
-                            tvNumeLista.setText(notitaLista.getTitlu());
-                        }else{
-                            tvNumeLista.setText(String.format("Lista: %s", notitaLista.getTitlu()));
-                        }
-                    }
+                    etNumeLista.setText(notitaLista.getTitlu());
                 }
             }
         }
+    }
+
+    private void salvareModificareDenumireLista(){
+        NotiteDB.databaseWriteExecutor.execute(()-> {
+            NotiteDB db = NotiteDB.getInstance(getApplicationContext());
+            try {
+                notitaLista.setTitlu(String.valueOf(etNumeLista.getText()));
+                db.getNotitaListaDao().updateNotitaLista(notitaLista);
+            } catch (Exception e) {
+                Log.e("Error",getString(R.string.error_elementelistanotite_save_element_lista_nou));
+            }
+        });
     }
 
     private void loadRecyclerView(AdapterElementeLista adapter, int idLista) {
@@ -78,7 +83,7 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
     private void pregatireAdaugareElementLista() {
         EditText etAdaugareElementLista=findViewById(R.id.etAdaugareElementLista);
         ImageButton imgBtnAdaugareElementLista=findViewById(R.id.imgBtnAdaugareElementLista);
-        TextView tvNumeLista=findViewById(R.id.tvNumeLista);
+        TextView tvNumeLista=findViewById(R.id.etNumeLista);
         RecyclerView rlv=findViewById(R.id.rlvElementeLista);
 
         imgBtnAdaugareElementLista.setOnClickListener(v -> {
@@ -131,6 +136,7 @@ public class ActivitateVizualElementeListaNotite extends AppCompatActivity {
     private void setareFloatingActionButtonInchidere() {
         FloatingActionButton fActBtnInchidereVizualListe=findViewById(R.id.fActBtnInchidereVizualElementeLista);
         fActBtnInchidereVizualListe.setOnClickListener(v->{
+            salvareModificareDenumireLista();
             setResult(RESULT_OK);
             finish();
         });

@@ -39,8 +39,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/tvNumeLista"
+    <EditText
+        android:id="@+id/etNumeLista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
@@ -61,10 +61,10 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/underline"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvNumeLista"
+        app:layout_constraintEnd_toEndOf="@+id/etNumeLista"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvNumeLista"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumeLista"
+        app:layout_constraintStart_toStartOf="@+id/etNumeLista"
+        app:layout_constraintTop_toBottomOf="@+id/etNumeLista"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
