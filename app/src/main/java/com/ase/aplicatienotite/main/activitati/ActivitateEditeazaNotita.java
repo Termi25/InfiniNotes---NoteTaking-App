@@ -85,7 +85,6 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
                 setareButonPartajare(notita);
             }
         }
-
     }
 
     @Override
