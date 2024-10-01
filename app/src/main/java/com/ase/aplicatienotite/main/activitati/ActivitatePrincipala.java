@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -244,9 +245,18 @@ public class ActivitatePrincipala extends AppCompatActivity {
         NotiteRecenteViewModel notiteRecenteViewModel = new ViewModelProvider(this).get(NotiteRecenteViewModel.class);
         Notita notita=notiteRecenteViewModel.getNotitaAccesataRecent();
         NotitaLista lista=notiteRecenteViewModel.getListaAccesataRecent();
+
+        TextView tvDataAccesareNotita=findViewById(R.id.tvDataAccesareNotita);
+        TextView tvDataAccesareLista=findViewById(R.id.tvDataAccesareLista);
+
+        DateFormat df= new DateFormat();
+
         try{
             this.notitaRecenta=findViewById(R.id.tvNotitaRecenta);
+
             this.notitaRecenta.setText(notita.getTitlu());
+            tvDataAccesareNotita.setText(String.valueOf(DateFormat.format("dd-MM-yyyy hh:mm", notita.getDataAccesare())));
+
             this.notitaRecenta.setOnClickListener(v -> {
                 Intent intent=new Intent(this.getApplicationContext(), ActivitateEditeazaNotita.class);
                 intent.putExtra("Notita",notita);
@@ -258,7 +268,10 @@ public class ActivitatePrincipala extends AppCompatActivity {
         }
         try{
             this.listaRecenta=findViewById(R.id.tvNotitaListaRecenta);
+
             this.listaRecenta.setText(lista.getTitlu());
+            tvDataAccesareLista.setText(String.valueOf(DateFormat.format("dd-MM-yyyy hh:mm", lista.getDataAccesare())));
+
             this.listaRecenta.setOnClickListener(v -> {
                 Intent intent=new Intent(this.getApplicationContext(), ActivitateVizualElementeListaNotite.class);
                 intent.putExtra("notitaLista",lista);

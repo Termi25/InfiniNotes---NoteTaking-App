@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.LocaleList;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,6 +66,7 @@ public class ActivitateEditeazaNotita extends AppCompatActivity {
 
         etTitluNotita=findViewById(R.id.etNumeAdaugaNotita);
         etCorpNotita =findViewById(R.id.etCorpTextNotita);
+        etCorpNotita.setMovementMethod(LinkMovementMethod.getInstance());
 
         this.btnReminderNotita = findViewById(R.id.btnReminderEditeazaNotita);
         this.btnOraReminderNotita=findViewById(R.id.btnOraReminderEditeazaNotita);
